@@ -13,15 +13,72 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "README.md",
+                "file": "context/design/concepts/Dictionary/Dictionary.md/20251008_174302.21687741.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "README"
+              "title": "20251008_174302.21687741"
+            }
+          },
+          {
+            "id": "4b8743c2070b16ab",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "context/design/concepts/PasswordAuthentication.md/PasswordAuthentication.md/20251008_173834.9527c4c3.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "20251008_173834.9527c4c3"
+            }
+          },
+          {
+            "id": "e40c63596de7c722",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "design/concepts/FileTracker/FileTracker.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "FileTracker"
+            }
+          },
+          {
+            "id": "bbbaab622739d56e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "context/design/concepts/Dictionary/Dictionary.md/20251008_174649.96f09e68.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "20251008_174649.96f09e68"
+            }
+          },
+          {
+            "id": "00e0e5c5261cd96b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "context/design/concepts/Dictionary/Dictionary.md/20251008_174649.96f09e68.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "20251008_174649.96f09e68"
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -169,8 +226,82 @@
       "bases:Create new base": false
     }
   },
-  "active": "60ccb8b74e272dda",
+  "floating": {
+    "id": "176f8fa84c03cc81",
+    "type": "floating",
+    "children": [
+      {
+        "id": "26f71a3cdc49c752",
+        "type": "window",
+        "children": [
+          {
+            "id": "d9d01a8e3e961925",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "fd8634b13f859833",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "context/design/concepts/Library/Library.md/steps/Concept.ee06a27e.md",
+                    "mode": "source",
+                    "source": false
+                  },
+                  "icon": "lucide-file",
+                  "title": "Concept.ee06a27e"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "vertical",
+        "x": 0,
+        "y": 38,
+        "width": 895,
+        "height": 986,
+        "maximize": false,
+        "zoom": 0
+      }
+    ]
+  },
+  "active": "e40c63596de7c722",
   "lastOpenFiles": [
-    "README.md"
+    "context/design/concepts/Library/Library.md/steps/Concept.ee06a27e.md",
+    "design/concepts/FileTracker/FileTracker.md",
+    "context/design/concepts/FileTracker/FileTracker.md/20251008_190952.6a6f69bf.md",
+    "context/design/concepts/FileTracker/FileTracker.md/steps/Concept.b55879cb.md",
+    "context/design/concepts/FileTracker/FileTracker.md/20251008_180335.bff20a99.md",
+    "context/design/concepts/FileTracker/FileTracker.md/steps/Concept.8054ac46.md",
+    "context/design/concepts/FileTracker/FileTracker.md/steps/response.97bfd341.md",
+    "context/design/concepts/FileTracker/FileTracker.md/20251008_180310.f0a2da38.md",
+    "context/design/concepts/FileTracker/FileTracker.md/steps/prompt.b03fc577.md",
+    "context/design/concepts/FileTracker/FileTracker.md/steps/Concept.ee06a27e.md",
+    "context/design/concepts/FileTracker/FileTracker.md/steps/Concept.91831b48.md",
+    "context/design/concepts/FileTracker/FileTracker.md/steps/Concept.1a0a193b.md",
+    "design/concepts/Dictionary/Dictionary.md",
+    "context/design/concepts/Library/Library.md/steps/Concept.79103dc0.md",
+    "context/design/concepts/Library/Library.md/steps/Concept.78ca340a.md",
+    "context/design/concepts/Library/Library.md/steps/Concept State.28ab7cd0.md",
+    "context/design/concepts/FileTracker/FileTracker.md/20251008_175943.7d3cae8b.md",
+    "design/concepts/Library/Library.md",
+    "context/design/concepts/FileTracker/FileTracker.md/20251008_175837.9c44eedc.md",
+    "context/design/concepts/FileTracker/FileTracker.md/steps/response.b53669de.md",
+    "context/design/concepts/FileTracker/FileTracker.md/20251008_175831.412e0605.md",
+    "context/design/concepts/FileTracker/FileTracker.md/steps/prompt.e42ff303.md",
+    "context/design/concepts/FileTracker/FileTracker.md/steps/_.3731a859.md",
+    "context/design/concepts/FileTracker/FileTracker.md/steps/_.3eb68380.md",
+    "context/design/concepts/FileTracker/FileTracker.md/20251008_175709.b5320595.md",
+    "context/design/concepts/FileTracker/FileTracker.md/steps/response.4e979f79.md",
+    "context/design/concepts/FileTracker/FileTracker.md/steps",
+    "context/design/concepts/FileTracker",
+    "design/concepts/FileTracker",
+    "design/concepts/PasswordAuthentication",
+    "context/design/concepts/Library/Library.md/steps",
+    "context/design/concepts/Library",
+    "design/concepts/Library",
+    "context/design/concepts/Dictionary/Dictionary.md/steps",
+    "context/design/concepts/Dictionary",
+    "design/concepts/Dictionary"
   ]
 }
