@@ -8,7 +8,7 @@
 
 [@Library implementation](../../../src/concepts/Library/LibraryConcept.ts)
 
-# context: 
+# context:
 - **Composite objects**. Make sure that all of the arguments and results of your actions are either primitive values (strings, numbers, etc) or object identifiers (actually document identifiers in MongoDB). Composite objects should be used only inside concept implementations and never exposed.
 
 # prompt: can you help me update my implementation to include the image files
