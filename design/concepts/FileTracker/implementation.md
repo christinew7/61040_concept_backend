@@ -2,7 +2,7 @@
 
 [@FileTracker](FileTracker.md)
 
-[@FileTracker-concept](../../../src/concepts/FileTracker/FileTrackerConcept.ts) 
+[@FileTracker-concept](../../../src/concepts/FileTracker/FileTrackerConcept.ts)
 
 %% [@FileTracker-testing](../../../src/concepts/FileTracker/FileTrackerConcept.test.ts)  %%
 
@@ -13,9 +13,9 @@
 [@Library](../Library/Library.md)
 
 [@library implementation](../../../src/concepts/Library/LibraryConcept.ts)
-# context: 
+# context:
 - **Composite objects**. Make sure that all of the arguments and results of your actions are either primitive values (strings, numbers, etc) or object identifiers (actually document identifiers in MongoDB). Composite objects should be used only inside concept implementations and never exposed.
-# prompt: can you change my implementation of filetracker with llm so that the input is a string, so it's the stringified array of the file. how should i format it so i can create a proper tracking prompt for the llm? 
+# prompt: can you change my implementation of filetracker with llm so that the input is a string, so it's the stringified array of the file. how should i format it so i can create a proper tracking prompt for the llm?
 # response:
 
 To address your request, we need to make the following adjustments to the `FileTrackerConcept` implementation:

@@ -185,6 +185,7 @@
   },
   "active": "17315c8da06379c8",
   "lastOpenFiles": [
+    "design/learning/filetracker-impl.md",
     "src/recitation/LeaderboardConcept.ts",
     "src/recitation/09-challenge.test.ts",
     "src/recitation/08-principle.test.ts",
@@ -195,7 +196,6 @@
     "src/recitation/03-submitScore.test.ts",
     "src/recitation/02-createPlayer.test.ts",
     "src/recitation/01-setup.test.ts",
-    "src/recitation",
     "context/src/syncs/auth.sync.ts/20251106_185841.6892e011.md",
     "context/src/syncs/auth.sync.ts/20251106_185528.2a587ee0.md",
     "context/src/syncs/auth.sync.ts/20251106_113401.accdc987.md",
