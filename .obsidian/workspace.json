@@ -50,17 +50,59 @@
             }
           },
           {
+            "id": "d5095ebf51d060fb",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "design/concepts/FileTracker/FileTracker.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "FileTracker"
+            }
+          },
+          {
+            "id": "b2137bdcdc5bbee1",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "design/reflections and changes.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "reflections and changes"
+            }
+          },
+          {
+            "id": "59bde9c4dc12250a",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "design/learning/filetracker-impl.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "filetracker-impl"
+            }
+          },
+          {
             "id": "7aede99855856667",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "design/concepts/Library/Library.md",
+                "file": "design/concepts/FileTracker/implementation.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Library"
+              "title": "implementation"
             }
           }
         ],
@@ -212,43 +254,43 @@
       "bases:Create new base": false
     }
   },
-  "active": "7aede99855856667",
+  "active": "d5095ebf51d060fb",
   "lastOpenFiles": [
-    "design/concepts/Dictionary/implementation.md",
-    "design/learning/library-impl.md",
-    "context/design/learning/library-impl.md/20251012_191639.eb8e6397.md",
-    "context/design/learning/library-impl.md/steps/response.baa44e29.md",
-    "context/design/learning/library-impl.md/20251012_191634.316baa58.md",
-    "context/design/learning/library-impl.md/steps/prompt.b7f14ce3.md",
-    "context/design/learning/library-impl.md/20251012_191518.81b4e3fa.md",
-    "context/design/learning/library-impl.md/steps/response.c11eae82.md",
-    "context/design/learning/library-impl.md/20251012_191507.3429d53a.md",
-    "context/design/learning/library-impl.md/steps/prompt.c1376da3.md",
-    "design/concepts/Library/Library.md",
-    "context/design/learning/library-impl.md/20251012_191151.b07f54c8.md",
-    "context/design/learning/library-impl.md/steps/response.d1f00050.md",
-    "context/design/learning/library-impl.md/20251012_191146.5d1e4d76.md",
-    "context/design/learning/library-impl.md/steps/prompt.27a1ef49.md",
-    "context/design/learning/library-impl.md/steps/response.2544daa8.md",
-    "context/design/learning/library-impl.md/steps/implement.b705ff76.md",
-    "context/design/learning/library-impl.md/steps/_.3731a859.md",
-    "context/design/learning/library-impl.md/steps/_.3eb68380.md",
-    "context/design/learning/library-impl.md/steps/Concept.ee06a27e.md",
-    "context/design/learning/library-impl.md/steps/approach.5df2171f.md",
-    "context/design/learning/library-impl.md/steps/_.db39d951.md",
-    "context/design/learning/library-impl.md/steps/_.b0364a7a.md",
-    "context/design/learning/library-impl.md/steps/_.331f5a1f.md",
-    "context/design/learning/library-impl.md/steps/_.2086d81d.md",
-    "context/design/learning/library-impl.md/steps/_.04e090af.md",
+    "design/learning/filetracker-impl.md",
+    "context/design/learning/filetracker-impl.md/20251012_195054.64ec3351.md",
+    "context/design/learning/filetracker-impl.md/steps/response.683f70ed.md",
+    "context/design/learning/filetracker-impl.md/20251012_195046.306dc594.md",
+    "context/design/learning/filetracker-impl.md/steps/question.7a8e2fbb.md",
+    "context/design/learning/filetracker-impl.md/steps/file.f481bd0c.md",
+    "context/src/concepts/FileTracker/FileTrackerConcept.ts/20251012_195046.f481bd0c.md",
+    "design/reflections and changes.md",
+    "context/design/learning/filetracker-impl.md/20251012_194019.dfbd4e93.md",
+    "context/design/learning/filetracker-impl.md/steps/response.7d4ff700.md",
+    "context/design/learning/filetracker-impl.md/20251012_194002.3cde65f3.md",
+    "context/design/learning/filetracker-impl.md/steps/question.c7e34f01.md",
+    "context/design/learning/filetracker-impl.md/steps/file.8c219a26.md",
+    "context/src/concepts/FileTracker/FileTrackerConcept.ts/20251012_194002.8c219a26.md",
+    "design/concepts/FileTracker/FileTracker.md",
+    "design/concepts/FileTracker/implementation.md",
+    "context/design/concepts/FileTracker/implementation.md/20251012_193532.34fd08c4.md",
+    "context/design/concepts/FileTracker/implementation.md/steps/response.8688898b.md",
+    "context/design/concepts/FileTracker/implementation.md/20251012_193518.3a2fb4b4.md",
+    "context/design/concepts/FileTracker/implementation.md/steps/prompt.c317e38c.md",
+    "context/design/concepts/FileTracker/implementation.md/steps/file.e30dd926.md",
+    "context/design/concepts/FileTracker/implementation.md/steps/Concept.84ef1731.md",
+    "context/design/learning/filetracker-impl.md/20251012_193359.43c48c32.md",
+    "context/design/learning/filetracker-impl.md/steps/response.fd0f2962.md",
+    "context/design/learning/filetracker-impl.md/20251012_193353.fcd8eacf.md",
+    "context/design/learning/filetracker-impl.md/steps/file.e30dd926.md",
+    "context/design/learning/filetracker-impl.md/steps",
+    "context/src/concepts/FileTracker/FileTrackerConcept.ts",
+    "context/src/concepts/FileTracker",
+    "context/design/concepts/FileTracker/implementation.md/steps",
+    "src/concepts/FileTracker/FileTrackerConcept.ts",
     "context/design/learning/library-impl.md/steps",
     "src/concepts/Library/LibraryConcept.ts",
     "context/design/concepts/Dictionary/implementation.md/steps",
     "context/design/learning/dictionary-impl.md/steps",
-    "context/src/concepts/Dictionary/DictionaryConcept.ts",
-    "context/src/concepts/Dictionary",
-    "src/concepts/Dictionary/DictionaryConcept.ts",
-    "src/concepts/Dictionary",
-    "src/concepts/FileTracker",
-    "src/concepts/Library"
+    "context/src/concepts/Dictionary/DictionaryConcept.ts"
   ]
 }

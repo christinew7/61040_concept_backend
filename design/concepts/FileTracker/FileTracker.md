@@ -12,9 +12,9 @@
         *   a `maxIndex` `Number`
         *   a `isVisible` `Flag`
 *   **actions**
-    *   `startTracking (owner: User, file: File)`
-        *   **requires** this `owner` exists, this `file` exists, this `owner` and this `file` isn't already in the set of `TrackedFiles`
-        *   **effects** create a new `TrackedFile` with this owner and this file, `currentIndex` is initialized to 0, `maxIndex` is the length of the file's items, `isVisible` set to true
+    *   `startTracking (owner: User, file: File, maxIndex: number)`
+        *   **requires** this `owner` exists, this `file` exists, this maxIndex is a nonnegative integer, this `owner` and this `file` isn't already in the set of `TrackedFiles`
+        *   **effects** create a new `TrackedFile` with this owner, this file and this maxIndex, `currentIndex` is initialized to 0,, `isVisible` set to true
     *   `deleteTracking (owner: User, file: File)`
         *   **requires** this `owner` and this `file` is in the set of TrackedFiles
         *   **effects** delete the `TrackedFile` with this `owner` and this `file`
