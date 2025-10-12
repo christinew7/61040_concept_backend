@@ -1,4 +1,5 @@
 # Concept: Dictionary
+# Concept: Dictionary
 
 * **concept**: Dictionary
 * **purpose**: provide a translation between two specific languages
@@ -37,6 +38,6 @@
   * `deleteTerm (language1: String, language2: String)`
     * **requires** this `language1` and this `language2` exist in the set of Terms
     * **effects** deletes this `language1` and this `language2` from the set of Terms
-  * `translateTerm (language1: String): (language2: String)`
+  * `translateTermFromL1 (language1: String): (language2: String)`
     * **requires** this `language1` exists in the set of Terms
     * **effects** returns this `language2` associated with this `language1`
