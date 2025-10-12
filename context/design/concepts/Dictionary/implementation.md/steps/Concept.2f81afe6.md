@@ -1,3 +1,9 @@
+---
+timestamp: 'Sun Oct 12 2025 18:47:49 GMT-0400 (Eastern Daylight Time)'
+parent: '[[../20251012_184749.fdcb23de.md]]'
+content_id: 2f81afe640b20bbc9a0b494b9660fda027f889caa551fe706b5fa2c851f38424
+---
+
 # Concept: Dictionary
 
 * **concept**: Dictionary
@@ -14,9 +20,6 @@
   * `deleteTerm (language1: String, language2: String)`
     * **requires** this `language1` and this `language2` exist in the set of Terms
     * **effects** deletes this `language1` and this `language2` from the set of Terms
-  * `translateTermFromL1 (language1: String): (language2: String)`
+  * `translateTerm (language1: String): (language2: String)`
     * **requires** this `language1` exists in the set of Terms
     * **effects** returns this `language2` associated with this `language1`
-  * `translateTermFromL2 (language2: String): (language2: String)`
-    * **requires** this `language2` exists in the set of Terms
-    * **effects** returns this `language1` associated with this `language2`

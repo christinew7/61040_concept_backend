@@ -8,77 +8,63 @@
         "type": "tabs",
         "children": [
           {
-            "id": "60ccb8b74e272dda",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "context/design/concepts/Dictionary/Dictionary.md/20251008_174302.21687741.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "20251008_174302.21687741"
-            }
-          },
-          {
-            "id": "4b8743c2070b16ab",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "context/design/concepts/PasswordAuthentication.md/PasswordAuthentication.md/20251008_173834.9527c4c3.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "20251008_173834.9527c4c3"
-            }
-          },
-          {
             "id": "e40c63596de7c722",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "design/learning/recitation.md",
+                "file": "context/src/concepts/PasswordAuthentication/PasswordAuthenticationConcept.ts/20251009_113218.de7d8500.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "recitation"
+              "title": "20251009_113218.de7d8500"
             }
           },
           {
-            "id": "bbbaab622739d56e",
+            "id": "83320942f8227d9d",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "context/design/concepts/Dictionary/Dictionary.md/20251008_174649.96f09e68.md",
+                "file": "design/concepts/Dictionary/implementation.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "20251008_174649.96f09e68"
+              "title": "implementation"
             }
           },
           {
-            "id": "00e0e5c5261cd96b",
+            "id": "12cd0c12db622eff",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "context/design/concepts/Dictionary/Dictionary.md/20251008_174649.96f09e68.md",
+                "file": "design/learning/library-impl.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "20251008_174649.96f09e68"
+              "title": "library-impl"
+            }
+          },
+          {
+            "id": "7aede99855856667",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "design/concepts/Library/Library.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Library"
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -226,43 +212,43 @@
       "bases:Create new base": false
     }
   },
-  "active": "e40c63596de7c722",
+  "active": "7aede99855856667",
   "lastOpenFiles": [
-    "context/src/concepts/PasswordAuthentication/PasswordAuthenticationConcept.ts/20251009_111936.678eeca9.md",
-    "context/src/concepts/PasswordAuthentication/PasswordAuthenticationConcept.ts",
-    "context/src/concepts/PasswordAuthentication",
-    "src/concepts/PasswordAuthentication/PasswordAuthenticationConcept.ts",
-    "src/concepts/PasswordAuthentication",
-    "context/design/learning/recitation.md/20251009_111152.df9a8ffe.md",
-    "context/design/learning/recitation.md/steps/response.e7933d47.md",
-    "context/design/learning/recitation.md/20251009_111142.d25abbd0.md",
-    "context/design/learning/recitation.md/steps/question.5add63bf.md",
-    "context/design/learning/recitation.md/steps/file.4616ddca.md",
-    "context/src/recitation/LeaderboardConcept.ts/20251009_111142.4616ddca.md",
-    "context/design/learning/recitation.md/20251009_105442.3f55d756.md",
-    "context/design/learning/recitation.md/steps/response.16c597b8.md",
-    "context/design/learning/recitation.md/steps/file.60c9a4a5.md",
-    "context/src/recitation/LeaderboardConcept.ts/20251009_105429.60c9a4a5.md",
-    "context/design/learning/recitation.md/20251009_105359.cb66fbe3.md",
-    "context/design/learning/recitation.md/steps/response.e1729f8c.md",
-    "context/design/learning/recitation.md/20251009_105350.f71853ef.md",
-    "context/design/learning/recitation.md/steps/question.393b9c63.md",
-    "context/design/learning/recitation.md/steps/_.f6449e99.md",
-    "context/design/learning/recitation.md/steps/file.2289faa9.md",
-    "context/design/learning/recitation.md/steps/_.eb4d1820.md",
-    "context/design/learning/recitation.md/steps/approach.3e0d5a8f.md",
-    "context/design/learning/recitation.md/steps/_.ae61325b.md",
-    "context/design/learning/recitation.md/steps/approach.5df2171f.md",
-    "context/design/learning/recitation.md/steps/_.db39d951.md",
-    "context/design/learning/recitation.md/steps/_.b0364a7a.md",
-    "context/design/learning/recitation.md/steps/_.3eb68380.md",
-    "context/design/learning/recitation.md/steps/_.331f5a1f.md",
-    "context/design/learning/recitation.md/steps/Generic Parameters.087161ea.md",
-    "context/design/learning/recitation.md/steps",
-    "context/src/recitation/LeaderboardConcept.ts",
-    "context/src/recitation",
-    "src/recitation/LeaderboardConcept.ts",
-    "src/recitation/09-challenge.test.ts",
-    "src/recitation/08-principle.test.ts"
+    "design/concepts/Dictionary/implementation.md",
+    "design/learning/library-impl.md",
+    "context/design/learning/library-impl.md/20251012_191639.eb8e6397.md",
+    "context/design/learning/library-impl.md/steps/response.baa44e29.md",
+    "context/design/learning/library-impl.md/20251012_191634.316baa58.md",
+    "context/design/learning/library-impl.md/steps/prompt.b7f14ce3.md",
+    "context/design/learning/library-impl.md/20251012_191518.81b4e3fa.md",
+    "context/design/learning/library-impl.md/steps/response.c11eae82.md",
+    "context/design/learning/library-impl.md/20251012_191507.3429d53a.md",
+    "context/design/learning/library-impl.md/steps/prompt.c1376da3.md",
+    "design/concepts/Library/Library.md",
+    "context/design/learning/library-impl.md/20251012_191151.b07f54c8.md",
+    "context/design/learning/library-impl.md/steps/response.d1f00050.md",
+    "context/design/learning/library-impl.md/20251012_191146.5d1e4d76.md",
+    "context/design/learning/library-impl.md/steps/prompt.27a1ef49.md",
+    "context/design/learning/library-impl.md/steps/response.2544daa8.md",
+    "context/design/learning/library-impl.md/steps/implement.b705ff76.md",
+    "context/design/learning/library-impl.md/steps/_.3731a859.md",
+    "context/design/learning/library-impl.md/steps/_.3eb68380.md",
+    "context/design/learning/library-impl.md/steps/Concept.ee06a27e.md",
+    "context/design/learning/library-impl.md/steps/approach.5df2171f.md",
+    "context/design/learning/library-impl.md/steps/_.db39d951.md",
+    "context/design/learning/library-impl.md/steps/_.b0364a7a.md",
+    "context/design/learning/library-impl.md/steps/_.331f5a1f.md",
+    "context/design/learning/library-impl.md/steps/_.2086d81d.md",
+    "context/design/learning/library-impl.md/steps/_.04e090af.md",
+    "context/design/learning/library-impl.md/steps",
+    "src/concepts/Library/LibraryConcept.ts",
+    "context/design/concepts/Dictionary/implementation.md/steps",
+    "context/design/learning/dictionary-impl.md/steps",
+    "context/src/concepts/Dictionary/DictionaryConcept.ts",
+    "context/src/concepts/Dictionary",
+    "src/concepts/Dictionary/DictionaryConcept.ts",
+    "src/concepts/Dictionary",
+    "src/concepts/FileTracker",
+    "src/concepts/Library"
   ]
 }
