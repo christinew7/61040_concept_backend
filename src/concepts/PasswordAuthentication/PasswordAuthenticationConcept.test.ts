@@ -2,7 +2,6 @@ import { assertEquals, assertExists, assertNotEquals } from "jsr:@std/assert";
 import { testDb } from "@utils/database.ts";
 import { ID } from "@utils/types.ts";
 import PasswordAuthenticationConcept from "./PasswordAuthenticationConcept.ts";
-import { register } from "node:module";
 
 const USERNAME_A = "Alice";
 const PASSWORD_A = "password";
@@ -210,139 +209,137 @@ Deno.test("Edge Cases: Empty/Case sensitive inputs", async (t) => {
   const PASSWORD_CASE_SENSITIVE = "MyPassword123";
   const PASSWORD_LOWER_CASE = "mypassword123";
 
-  console.log(`Registering user with empty username.`);
-    const resultEmptyUser = await concept.register({ username: "", password: PASSWORD_NORMAL });
-    assertNotEquals("error" in resultEmptyUser, true, "Registering with an empty username should not implicitly fail by this concept's rules.");
-    const emptyUserId = (resultEmptyUser as { user: ID }).user;
-    assertExists(emptyUserId, "An ID should be returned for empty username registration.");
+  await t.step("1. Register with empty username", async () => {
+    const resultEmptyUser = await concept.register({
+      username: "",
+      password: PASSWORD_NORMAL,
+    });
+    assertEquals(
+      "error" in resultEmptyUser,
+      true,
+      "Registering with an empty username is not allowed",
+    );
+  });
+
+  await t.step("2. Register with empty password", async () => {
+    const resultEmptyPass = await concept.register({
+      username: USERNAME_A,
+      password: "",
+    });
+    assertNotEquals(
+      "error" in resultEmptyPass,
+      true,
+      "Registering with an empty password should not implicitly fail.",
+    );
+    const emptyPassId = (resultEmptyPass as { user: ID }).user;
+    assertExists(
+      emptyPassId,
+      "An ID should be returned for empty password registration.",
+    );
+  });
+
+  await t.step("3. Usernames are case sensitive", async () => {
+    const regResult = await concept.register({
+      username: USERNAME_CASE_SENSITIVE,
+      password: PASSWORD_NORMAL,
+    });
+    assertNotEquals(
+      "error" in regResult,
+      true,
+      "Initial registration with case sensitive username should succeed.",
+    );
+    const registeredUserId = (regResult as { user: ID }).user;
+
+    // LOGGING WITH DIFFERENT CASE USERNAME
+    const authResultDiffCase = await concept.authenticate({
+      username: USERNAME_LOWER_CASE,
+      password: PASSWORD_CASE_SENSITIVE,
+    });
+    assertEquals(
+      "error" in authResultDiffCase,
+      true,
+      "Authentication with different case username should fail.",
+    );
+    assertEquals(
+      (authResultDiffCase as { error: string }).error,
+      `Invalid username: there is no user with username ${USERNAME_LOWER_CASE}`,
+      "Error message should indicate non-existent username.",
+    );
+
+    // REGISTERING WITH DIFFERENT CASE USERNAME
+    const registerDiffCaseResult = await concept.register({
+      username: USERNAME_LOWER_CASE,
+      password: PASSWORD_CASE_SENSITIVE,
+    });
+    assertNotEquals(
+      "error" in registerDiffCaseResult,
+      true,
+      "Registering a different-cased username should succeed as it's distinct.",
+    );
+    const registeredUserIdDiffCase =
+      (registerDiffCaseResult as { user: ID }).user;
+    assertNotEquals(
+      registeredUserId,
+      registeredUserIdDiffCase,
+      "Different-cased usernames should have different IDs.",
+    );
+
+    // AUTHENTICATE WITH LOWERCASE USERNAME - SHOULD WORK
+    const authResultLowerCase = await concept.authenticate({
+      username: USERNAME_LOWER_CASE,
+      password: PASSWORD_CASE_SENSITIVE,
+    });
+    assertNotEquals(
+      "error" in authResultLowerCase,
+      true,
+      "Authentication for the newly registered lower-case user should succeed.",
+    );
+    assertEquals(
+      (authResultLowerCase as { user: ID }).user,
+      registeredUserIdDiffCase,
+      "Authenticated ID should match.",
+    );
+
+    // should not work with lowercase username and case sensitive password
+    const authLowerUserCasePassResult = await concept.authenticate({
+      username: USERNAME_LOWER_CASE,
+      password: PASSWORD_NORMAL,
+    });
+    assertEquals(
+      "error" in authLowerUserCasePassResult,
+      true,
+      "User cannot authenticate with the lowercase username and the case sensitive's password",
+    );
+  });
+
+  await t.step("4. Passwords are case sensitive", async () => {
+    const username = "user";
+    await concept.register({ username, password: PASSWORD_CASE_SENSITIVE });
+
+    const authCorrectPass = await concept.authenticate({
+      username,
+      password: PASSWORD_CASE_SENSITIVE,
+    });
+    assertNotEquals(
+      "error" in authCorrectPass,
+      true,
+      "Authentication with correct case password should succeed.",
+    );
+
+    const authWrongPass = await concept.authenticate({
+      username,
+      password: PASSWORD_LOWER_CASE,
+    });
+    assertEquals(
+      "error" in authWrongPass,
+      true,
+      "Authentication with wrong case password should fail.",
+    );
+    assertEquals(
+      (authWrongPass as { error: string }).error,
+      "Password does not match!",
+      "Error message for wrong password should be correct.",
+    );
+  });
+  await client.close();
 });
-
-// Deno.test("PasswordAuthenticationConcept - Register Action", async (t) => {
-//   const [db, client] = await testDb();
-//   const concept = new PasswordAuthenticationConcept(db);
-
-//   await t.step("1. Confirm 'effects' is satisfied: successful registration", async () => {
-//     const username = "testUser1";
-//     const password = "password123";
-
-//     // Action: register a new user
-//     const result = await concept.register({ username, password });
-
-//     // Assert: success (user ID returned)
-//     assertEquals(typeof result, "object", "Result should be an object");
-//     assertEquals("user" in result, true, "Result should contain a 'user' key");
-//     const userId = (result as { user: string }).user;
-//     assertEquals(typeof userId, "string", "User ID should be a string");
-//     assertEquals(userId.length > 0, true, "User ID should not be empty");
-
-//     // Verify: state change (user exists in DB with correct details)
-//     const { user: storedUser } = await concept._getUserByUsername({ username });
-//     assertEquals(storedUser !== undefined, true, "User should be found in the database");
-//     assertEquals(storedUser!._id, userId, "Stored user ID should match returned ID");
-//     assertEquals(storedUser!.username, username, "Stored username should match input username");
-//     assertEquals(storedUser!.password, password, "Stored password should match input password");
-//   });
-
-//   await t.step("2. Confirm 'requires' is satisfied: username already exists", async () => {
-//     const username = "existingUser";
-//     const password = "initialPassword";
-//     const newPassword = "newPassword456";
-
-//     // Pre-condition: Register a user first
-//     const initialRegisterResult = await concept.register({ username, password });
-//     assertEquals("user" in initialRegisterResult, true, "Initial registration should succeed");
-
-//     // Action: Attempt to register another user with the same username
-//     const result = await concept.register({ username, password: newPassword });
-
-//     // Assert: failure (error returned)
-//     assertEquals(typeof result, "object", "Result should be an object");
-//     assertEquals("error" in result, true, "Result should contain an 'error' key");
-//     assertEquals((result as { error: string }).error, "Username already exists.", "Error message should match expectation");
-
-//     // Verify: state change (no new user created, original user is intact)
-//     const { user: storedUser } = await concept._getUserByUsername({ username });
-//     assertEquals(storedUser !== undefined, true, "User should still be found in the database");
-//     // Ensure the password wasn't accidentally changed by the failed registration attempt
-//     assertEquals(storedUser!.password, password, "Stored password should remain the initial one");
-//   });
-
-//   await t.step("3. Confirm 'effects' is satisfied: multiple distinct users can register", async () => {
-//     const username1 = "userA";
-//     const password1a = "passA";
-//     const username2 = "userB";
-//     const password2b = "passB";
-
-//     const result1 = await concept.register({ username: username1, password: password1a });
-//     assertEquals("user" in result1, true, "First registration should succeed");
-//     const userId1 = (result1 as { user: string }).user;
-
-//     const result2 = await concept.register({ username: username2, password: password2b });
-//     assertEquals("user" in result2, true, "Second registration should succeed");
-//     const userId2 = (result2 as { user: string }).user;
-
-//     // Verify both users exist independently
-//     const { user: storedUser1 } = await concept._getUserByUsername({ username: username1 });
-//     assertEquals(storedUser1!._id, userId1);
-//     assertEquals(storedUser1!.password, password1a);
-
-//     const { user: storedUser2 } = await concept._getUserByUsername({ username: username2 });
-//     assertEquals(storedUser2!._id, userId2);
-//     assertEquals(storedUser2!.password, password2b);
-
-//     // Ensure they have different IDs
-//     assertEquals(userId1 !== userId2, true, "Users should have different IDs");
-//   });
-
-//   await client.close();
-// });
-
-// // # trace: Demonstrates how the principle is fulfilled
-// Deno.test("PasswordAuthenticationConcept - Principle Trace: Register and Authenticate", async (t) => {
-//   const [db, client] = await testDb();
-//   const concept = new PasswordAuthenticationConcept(db);
-
-//   const username = "principleUser";
-//   const password = "principlePassword";
-//   let registeredUserId: string;
-
-//   await t.step("1. Register: A user registers with a username and password", async () => {
-//     const registerResult = await concept.register({ username, password });
-//     assertEquals("user" in registerResult, true, "Registration should succeed");
-//     registeredUserId = (registerResult as { user: string }).user;
-//     assertEquals(typeof registeredUserId, "string", "Registered user ID should be a string");
-//   });
-
-//   await t.step("2. Authenticate (Success): They can authenticate with that same username and password", async () => {
-//     const authResult = await concept.authenticate({ username, password });
-//     assertEquals("user" in authResult, true, "Authentication with correct credentials should succeed");
-//     const authenticatedUserId = (authResult as { user: string }).user;
-//     assertEquals(authenticatedUserId, registeredUserId, "Authenticated user ID should match registered user ID");
-//   });
-
-//   await t.step("3. Authenticate (Failure: wrong password): Cannot authenticate with incorrect password", async () => {
-//     const wrongPassword = "wrongPass";
-//     const authResult = await concept.authenticate({ username, password: wrongPassword });
-//     assertEquals("error" in authResult, true, "Authentication with wrong password should fail");
-//     assertEquals((authResult as { error: string }).error, "Password does not match!", "Error message for wrong password should be correct");
-//   });
-
-//   await t.step("4. Authenticate (Failure: non-existent username): Cannot authenticate with non-existent username", async () => {
-//     const nonExistentUsername = "unknownUser";
-//     const authResult = await concept.authenticate({ username: nonExistentUsername, password });
-//     assertEquals("error" in authResult, true, "Authentication with non-existent username should fail");
-//     assertEquals((authResult as { error: string }).error, `Invalid username: there is no user with username ${nonExistentUsername}`, "Error message for non-existent username should be correct");
-//   });
-
-//   await t.step("5. Verify Identity: They are treated each time as the same user (implicitly by returning same ID)", async () => {
-//     // This step is implicitly covered by step 2, where we assert that
-//     // the authenticated user ID matches the registered user ID.
-//     // If further actions were dependent on the user ID, they would be performed here
-//     // to demonstrate persistence of identity.
-//     const reAuthResult = await concept.authenticate({ username, password });
-//     assertEquals("user" in reAuthResult, true);
-//     assertEquals((reAuthResult as { user: string }).user, registeredUserId, "Re-authentication confirms the same user ID");
-//   });
-
-//   await client.close();
-// });
