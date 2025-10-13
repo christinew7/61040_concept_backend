@@ -1,3 +1,12 @@
+---
+timestamp: 'Sun Oct 12 2025 22:45:47 GMT-0400 (Eastern Daylight Time)'
+parent: '[[../20251012_224547.c8ace2c2.md]]'
+content_id: 0caa1fa5ef44e1026299f347eccdfbde6c6786be447226c433db759d3b067680
+---
+
+# file: src/concepts/PasswordAuthentication/PasswordAuthenticationConcept.test.ts
+
+```typescript
 import { assertEquals, assertExists, assertNotEquals } from "jsr:@std/assert";
 import { testDb } from "@utils/database.ts";
 import { ID } from "@utils/types.ts";
@@ -156,7 +165,6 @@ Deno.test("Action: register", async (t) => {
 Deno.test("Action: authenticate", async (t) => {
   const [db, client] = await testDb();
   const concept = new PasswordAuthenticationConcept(db);
-  concept.register({ username: USERNAME_A, password: PASSWORD_A });
 
   await t.step(
     "1. User cannot authenticate with incorrect password",
@@ -177,44 +185,7 @@ Deno.test("Action: authenticate", async (t) => {
       );
     },
   );
-
-  await t.step(
-    "2. User cannot authenticate with a nonexistent username",
-    async () => {
-      const authResult = await concept.authenticate({
-        username: "alice?",
-        password: PASSWORD_A,
-      });
-      assertEquals(
-        "error" in authResult,
-        true,
-        "Authentication with wrong password should fail.",
-      );
-      assertEquals(
-        (authResult as { error: string }).error,
-        `Invalid username: there is no user with username alice?`,
-        "Error message for non-existent username should be correct.",
-      );
-    },
-  );
   await client.close();
-});
-
-Deno.test("Edge Cases: Empty/Case sensitive inputs", async (t) => {
-  const [db, client] = await testDb();
-  const concept = new PasswordAuthenticationConcept(db);
-
-  const USERNAME_CASE_SENSITIVE = "CaseSensitiveUser";
-  const USERNAME_LOWER_CASE = "casesensitiveuser";
-  const PASSWORD_NORMAL = "secret123";
-  const PASSWORD_CASE_SENSITIVE = "MyPassword123";
-  const PASSWORD_LOWER_CASE = "mypassword123";
-
-  console.log(`Registering user with empty username.`);
-    const resultEmptyUser = await concept.register({ username: "", password: PASSWORD_NORMAL });
-    assertNotEquals("error" in resultEmptyUser, true, "Registering with an empty username should not implicitly fail by this concept's rules.");
-    const emptyUserId = (resultEmptyUser as { user: ID }).user;
-    assertExists(emptyUserId, "An ID should be returned for empty username registration.");
 });
 
 // Deno.test("PasswordAuthenticationConcept - Register Action", async (t) => {
@@ -346,3 +317,5 @@ Deno.test("Edge Cases: Empty/Case sensitive inputs", async (t) => {
 
 //   await client.close();
 // });
+
+```

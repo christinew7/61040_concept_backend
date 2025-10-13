@@ -44,12 +44,16 @@ export default class PasswordAuthenticationConcept {
    * @param password - The desired password for the new user.
    * @returns {Promise<{user: User} | {error: string}>} Returns the ID of the new user on success, or an error message.
    *
-   * @requires a User with the given username doesn't already exist
+   * @requires a User with the given username doesn't already exist, this username is not empty
    * @effects creates a new User with the given username and password and a unique ID
    */
   async register(
     { username, password }: { username: string; password: string },
   ): Promise<{ user: User } | { error: string }> {
+    if (!username) {
+      return { error: "Username cannot be empty."}
+    }
+
     const existingUser = await this.users.findOne({ username });
     if (existingUser) {
       return { error: "Username already exists." };
