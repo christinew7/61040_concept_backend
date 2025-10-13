@@ -9,7 +9,7 @@
 		- a `password` String
 - **actions**
 	- `register (username: String, password: String): (user: User)`
-		- **requires** this `username` doesn't already exist
+		- **requires** this `username` doesn't already exist, this username is not empty
 		- **effects** creates a new User with this `username` and this `password`
 	- `authenticate (username: String, password: String): (user: User)`
 		- **requires** this `username` exists in the Users set, input `password` matches username's preexisting password
