@@ -1,0 +1,39 @@
+---
+timestamp: 'Mon Oct 13 2025 19:38:09 GMT-0400 (Eastern Daylight Time)'
+parent: '[[../20251013_193809.90c77d78.md]]'
+content_id: 51845c004ba7c59a5e186e0c72980b4484a280140b280d63865c68cad2cda4ee
+---
+
+# file: src/concepts/Dictionary/DictionaryConcept.test.ts
+
+```typescript
+import { assertEquals, assertExists, assertNotEquals } from "jsr:@std/assert";
+import { testDb } from "@utils/database.ts";
+import { ID } from "@utils/types.ts";
+import DictionaryConcept from "./DictionaryConcept.ts";
+import { ClientRequest } from "node:http";
+
+// LANGUAGE1 = US
+// LANGUAGE2 = UK
+Deno.test(
+  "Principle: the dictionary maintains a mapping of terms between two languages, a user can request the translation of a term, and the dictionary will provide the appropriate term in the other language",
+  async (t) => {
+    const [db, client] = await testDb();
+    const concept = new DictionaryConcept(db);
+
+    await t.step("1. Add one crochet translation", async () => {
+      const addTermResult = concept.addTerm({
+        language1: "double crochet",
+        language2: "treble crochet",
+      });
+      assertNotEquals(
+        "error" in addTermResult,
+        true,
+        "addTerm should succeed.",
+      );
+    });
+    await client.close();
+  },
+);
+
+```

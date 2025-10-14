@@ -1,3 +1,12 @@
+---
+timestamp: 'Mon Oct 13 2025 20:40:14 GMT-0400 (Eastern Daylight Time)'
+parent: '[[../20251013_204014.5ff7d5d4.md]]'
+content_id: 693fa92a9e9643a27e5727e568f756fea5aec5c9456f8841e8c7982fbe613cf6
+---
+
+# file: src/concepts/Dictionary/DictionaryConcept.ts
+
+```typescript
 /*
  * @concept Dictionary
  * @purpose provide a translation between two specific languages
@@ -132,3 +141,5 @@ export default class DictionaryConcept {
     return { language1: term.language1 };
   }
 }
+
+```
