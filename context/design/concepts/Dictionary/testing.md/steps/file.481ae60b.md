@@ -1,3 +1,12 @@
+---
+timestamp: 'Tue Oct 14 2025 11:38:00 GMT-0400 (Eastern Daylight Time)'
+parent: '[[../20251014_113800.7e46eb47.md]]'
+content_id: 481ae60b2cc9f142381012e3f671b2df66ef10b74185b95dd9791d1dd3be6164
+---
+
+# file: src/concepts/Dictionary/DictionaryConcept.test.ts
+
+```typescript
 import { assertEquals, assertExists, assertNotEquals } from "jsr:@std/assert";
 import { testDb } from "@utils/database.ts";
 import { ID } from "@utils/types.ts";
@@ -292,3 +301,5 @@ Deno.test("Action: case insensitivity for addTerm, deleteTerm, and translateTerm
 
   await client.close();
  */
+
+```

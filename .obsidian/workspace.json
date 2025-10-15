@@ -64,12 +64,26 @@
             }
           },
           {
-            "id": "7117cc41c18031c3",
+            "id": "2453c933247f0eaf",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "design/concepts/Dictionary/testing.md",
+                "file": "design/learning/random.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "random"
+            }
+          },
+          {
+            "id": "e2c65571b4a9c136",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "design/concepts/Library/testing.md",
                 "mode": "source",
                 "source": false
               },
@@ -134,7 +148,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 5
       }
     ],
     "direction": "vertical"
@@ -207,7 +221,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "README.md",
+                "file": "design/concepts/Library/testing.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -217,7 +231,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for README"
+              "title": "Backlinks for testing"
             }
           },
           {
@@ -282,43 +296,43 @@
       "bases:Create new base": false
     }
   },
-  "active": "7117cc41c18031c3",
+  "active": "e2c65571b4a9c136",
   "lastOpenFiles": [
-    "context/design/concepts/Dictionary/testing.md/20251013_204047.b7aa96c1.md",
-    "context/design/concepts/Dictionary/testing.md/steps/response.02e1a7c7.md",
-    "context/design/concepts/Dictionary/testing.md/20251013_204014.5ff7d5d4.md",
-    "context/design/concepts/Dictionary/testing.md/steps/prompt.9c240b69.md",
-    "context/design/concepts/Dictionary/testing.md/steps/file.0782a4da.md",
-    "context/design/concepts/Dictionary/testing.md/steps/file.693fa92a.md",
-    "context/src/concepts/Dictionary/DictionaryConcept.test.ts/20251013_204014.0782a4da.md",
-    "context/src/concepts/Dictionary/DictionaryConcept.ts/20251013_204014.693fa92a.md",
-    "context/design/concepts/Dictionary/testing.md/20251013_203343.fe80b9bb.md",
-    "context/design/concepts/Dictionary/testing.md/steps/response.17ef93d1.md",
-    "context/design/concepts/Dictionary/testing.md/20251013_203334.33892da0.md",
-    "context/design/concepts/Dictionary/testing.md/steps/prompt.7347c5c0.md",
-    "context/design/concepts/Dictionary/testing.md/20251013_203215.7adce549.md",
-    "context/design/concepts/Dictionary/testing.md/steps/response.28de59cf.md",
-    "context/design/concepts/Dictionary/testing.md/20251013_203153.3b932308.md",
-    "context/design/concepts/Dictionary/testing.md/steps/prompt.8d68b50d.md",
-    "context/design/concepts/Dictionary/testing.md/20251013_203148.c6ab3e77.md",
-    "context/design/concepts/Dictionary/testing.md/steps/response.9fd1f9b8.md",
-    "context/design/concepts/Dictionary/testing.md/20251013_203129.26656cae.md",
-    "context/design/concepts/Dictionary/testing.md/steps/prompt.c1022ca4.md",
-    "context/design/concepts/Dictionary/testing.md/steps/file.91cb02a9.md",
-    "context/design/concepts/Dictionary/testing.md/steps/file.330e60e0.md",
-    "context/src/concepts/Dictionary/DictionaryConcept.test.ts/20251013_203129.91cb02a9.md",
-    "context/src/concepts/Dictionary/DictionaryConcept.ts/20251013_203129.330e60e0.md",
+    "context/design/concepts/Library/testing.md/20251015_162118.ac6bf474.md",
+    "context/design/concepts/Library/testing.md/steps/response.39c0db06.md",
+    "context/design/concepts/Library/testing.md/20251015_162040.5779533d.md",
+    "context/design/concepts/Library/testing.md/steps/prompt.d46c445d.md",
+    "context/design/concepts/Library/testing.md/steps/file.f097e751.md",
+    "context/src/concepts/Library/LibraryConcept.test.ts/20251015_162040.f097e751.md",
     "design/learning/random.md",
-    "context/design/learning/random.md/20251013_201530.bcc39e07.md",
+    "context/design/concepts/Library/testing.md/20251015_161404.f49b529e.md",
+    "context/design/concepts/Library/testing.md/steps/response.6fbb38f8.md",
+    "context/design/learning/random.md/20251015_161341.c22a872a.md",
+    "context/design/learning/random.md/steps/response.25ea71e3.md",
+    "context/design/learning/random.md/20251015_161331.ee7bd8e5.md",
+    "context/design/learning/random.md/steps/prompt.d2c64b69.md",
+    "context/design/learning/random.md/steps/file.b893d42f.md",
+    "context/design/concepts/Library/testing.md/20251015_161302.c8c14bae.md",
+    "design/concepts/Library/testing.md",
+    "context/design/concepts/Library/testing.md/20251015_122859.72abc20b.md",
+    "context/design/concepts/Library/testing.md/steps/response.8bdc3b15.md",
+    "context/design/concepts/Library/testing.md/20251015_122723.76c5a2f4.md",
+    "context/design/concepts/Library/testing.md/steps/file.b893d42f.md",
+    "context/src/concepts/Library/LibraryConcept.test.ts/20251015_122723.b893d42f.md",
+    "context/design/concepts/Library/testing.md/20251015_122459.c9aa7d7e.md",
+    "context/design/concepts/Library/testing.md/steps/response.31a598f1.md",
+    "context/design/concepts/Library/testing.md/20251015_122419.a3541ca7.md",
+    "context/design/concepts/Library/testing.md/steps/prompt.124a2d6d.md",
+    "context/design/concepts/Library/testing.md/20251015_122351.b995c8b2.md",
+    "context/design/concepts/Library/testing.md/steps",
+    "context/src/concepts/Library/LibraryConcept.ts",
+    "context/src/concepts/Library/LibraryConcept.test.ts",
+    "context/src/concepts/Library",
+    "src/concepts/Library/LibraryConcept.test.ts",
     "context/design/learning/random.md/steps",
     "context/design/concepts/Dictionary/testing.md/steps",
     "context/src/concepts/Dictionary/DictionaryConcept.test.ts",
     "src/concepts/Dictionary/DictionaryConcept.test.ts",
-    "context/src/concepts/PasswordAuthentication/PasswordAuthenticationConcept.test.ts",
-    "context/design/learning/filetracker-impl.md/steps",
-    "context/src/concepts/FileTracker/FileTrackerConcept.ts",
-    "context/src/concepts/FileTracker",
-    "context/design/concepts/FileTracker/implementation.md/steps",
-    "src/concepts/FileTracker/FileTrackerConcept.ts"
+    "context/src/concepts/PasswordAuthentication/PasswordAuthenticationConcept.test.ts"
   ]
 }

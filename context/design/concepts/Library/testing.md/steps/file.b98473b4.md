@@ -1,3 +1,12 @@
+---
+timestamp: 'Wed Oct 15 2025 12:23:32 GMT-0400 (Eastern Daylight Time)'
+parent: '[[../20251015_122332.f11802b7.md]]'
+content_id: b98473b40f0b99d42b4b722c6b1f17f47ea13a21c3d13539720a862ac7895a47
+---
+
+# file: src/concepts/Library/LibraryConcept.ts
+
+```typescript
 /**
  * @concept Library [User]
  * @purpose manage collection of files for users
@@ -218,3 +227,5 @@ export default class LibraryConcept {
     return { files: allFiles };
   }
 }
+
+```

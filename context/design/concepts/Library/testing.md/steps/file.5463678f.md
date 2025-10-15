@@ -1,0 +1,378 @@
+---
+timestamp: 'Wed Oct 15 2025 12:23:32 GMT-0400 (Eastern Daylight Time)'
+parent: '[[../20251015_122332.f11802b7.md]]'
+content_id: 5463678ff53c2d5b58285dc5a1fff20212005099464ecb4ce3ce51697a3eb7a2
+---
+
+# file: src/concepts/Library/LibraryConcept.test.ts
+
+```typescript
+import {
+  assertArrayIncludes,
+  assertEquals,
+  assertExists,
+  assertNotEquals,
+} from "jsr:@std/assert";
+import { testDb } from "@utils/database.ts";
+import { ID } from "@utils/types.ts";
+import LibraryConcept from "./LibraryConcept.ts";
+
+// using just to index into the files and set it as a FileDocument
+import { FileDoc } from "./LibraryConcept.ts";
+import { privateEncrypt } from "node:crypto";
+
+// Define some generic User and File IDs for testing
+const userAlice = "user:Alice" as ID;
+const userBob = "user:Bob" as ID;
+const nonExistentUser = "user:NonExistent" as ID;
+
+// a user creates a library to store their files
+//  * the user can add, retrieve, modify, or delete files within their library
+//  * and they can delete the library if it's no longer needed
+Deno.test("Principle: a user creates a library to store their files, can add, retrieve, modify, or delete files within their library, can delete the library if it's no longer needed", async (t) => {
+  const [db, client] = await testDb();
+  const concept = new LibraryConcept(db);
+
+  let libraryAlice: ID;
+  let file1: ID;
+
+  await t.step("1. Alice creates a library to store her files", async () => {
+    const result = await concept.create({ owner: userAlice });
+    assertNotEquals(
+      "error" in result,
+      true,
+      `Expected successful library creation for ${userAlice}, got error: ${
+        (result as { error: string }).error
+      }`,
+    );
+    libraryAlice = (result as { library: ID }).library;
+    assertExists(libraryAlice, "Library ID should be returned.");
+
+    const allFiles = await concept._getAllFiles({ owner: userAlice });
+    assertNotEquals(
+      "error" in allFiles,
+      true,
+      `Expected successful query for files, got error: ${
+        (allFiles as { error: string }).error
+      }`,
+    );
+    const { files } = allFiles as { files: FileDoc[] };
+    assertEquals(files.length, 0, "New library should be empty.");
+  });
+
+  await t.step("2. Alice adds one file to her library", async () => {
+    const addFileResult = await concept.addFile({
+      owner: userAlice,
+      items: ["hello", "this is a file"],
+    });
+    assertNotEquals(
+      "error" in addFileResult,
+      true,
+      "Adding a file (nonduplicate) should be successful",
+    );
+    file1 = (addFileResult as { id: ID }).id;
+    assertExists(file1, "File ID should be returned.");
+
+    const allFiles = await concept._getAllFiles({ owner: userAlice });
+    assertNotEquals(
+      "error" in allFiles,
+      true,
+      `Expected successful query for files, got error: ${
+        (allFiles as { error: string }).error
+      }`,
+    );
+    const { files } = allFiles as { files: FileDoc[] };
+    assertEquals(files.length, 1, "New library is now length 1.");
+
+    assertArrayIncludes(
+      files[0].items,
+      ["hello", "this is a file"],
+      "The first file should have two items",
+    );
+  });
+
+  await t.step("3. Alice modifies her file in her library", async () => {
+    const modifyFileResult = await concept.modifyFile({
+      owner: userAlice,
+      file: file1,
+      items: ["hello", "this is still a file"],
+    });
+    assertNotEquals(
+      "error" in modifyFileResult,
+      true,
+      "Modifying a file should be successful",
+    );
+    file1 = (modifyFileResult as { id: ID }).id;
+    assertExists(file1, "File ID should be returned.");
+
+    const allFiles = await concept._getAllFiles({ owner: userAlice });
+    assertNotEquals(
+      "error" in allFiles,
+      true,
+      `Expected successful query for files, got error: ${
+        (allFiles as { error: string }).error
+      }`,
+    );
+    const { files } = allFiles as { files: FileDoc[] };
+    assertEquals(files.length, 1, "Library is still length 1.");
+
+    assertArrayIncludes(
+      files[0].items,
+      ["hello", "this is still a file"],
+      "The first file should still have two items",
+    );
+  });
+
+  await t.step("4. Alice deletes a file; she no longer needs it", async () => {
+    const deleteFileResult = await concept.deleteFile({
+      owner: userAlice,
+      file: file1,
+    });
+    assertNotEquals(
+      "error" in deleteFileResult,
+      true,
+      "File should have been successfully deleted",
+    );
+    const allFiles = await concept._getAllFiles({
+      owner: userAlice,
+    });
+    assertNotEquals(
+      "error" in allFiles,
+      true,
+      "There should be no error receiving the file",
+    );
+    const { files } = allFiles as { files: FileDoc[] };
+    assertEquals(
+      files.length,
+      0,
+      "Library should have no files and be length 0",
+    );
+  });
+
+  await client.close();
+});
+
+Deno.test("Action: duplicates (create and addFile)", async (t) => {
+  const [db, client] = await testDb();
+  const concept = new LibraryConcept(db);
+
+  await t.step("1. Duplicate library is not allowed", async () => {
+    await concept.create({ owner: userBob });
+    const duplicateCreateResult = await concept.create({ owner: userBob });
+    assertEquals(
+      "error" in duplicateCreateResult,
+      true,
+      "There is an error in creating another library because Bob already has an existing library",
+    );
+  });
+
+  await t.step("2. Duplicate file is not allowed", async () => {
+    await concept.addFile({
+      owner: userBob,
+      items: ["this", "is", "not", "true."],
+    });
+    const duplicateAddResult = await concept.addFile({
+      owner: userBob,
+      items: ["this", "is", "not", "true."],
+    });
+    assertEquals(
+      "error" in duplicateAddResult,
+      true,
+      "There should be an error when trying to add the exact same file",
+    );
+  });
+
+  await client.close();
+});
+
+Deno.test("Action: delete and deleteFile", async (t) => {
+  const [db, client] = await testDb();
+  const concept = new LibraryConcept(db);
+
+  await concept.create({ owner: userAlice });
+  await concept.create({ owner: userBob });
+  const testFile = await concept.addFile({
+    owner: userAlice,
+    items: ["doc1.txt"],
+  });
+  const testFileId = (testFile as { id: ID }).id;
+  await concept.addFile({ owner: userAlice, items: ["doc2.pdf"] });
+  await concept.addFile({ owner: userBob, items: ["doc3"] });
+
+  await t.step(
+    "1. Cannot delete a library for a nonexistent owner",
+    async () => {
+      const deleteNonexistentResult = await concept.delete({
+        owner: nonExistentUser,
+      });
+      assertEquals(
+        "error" in deleteNonexistentResult,
+        true,
+        "There cannot be a successful deletion for an owner with no library",
+      );
+    },
+  );
+
+  await t.step(
+    "2. Cannot delete an existing file under a nonexisting owner",
+    async () => {
+      const deleteFileResult = await concept.deleteFile({
+        owner: nonExistentUser,
+        file: testFileId,
+      });
+      assertEquals(
+        "error" in deleteFileResult,
+        true,
+        "File cannot be deleted if the owner does not exist",
+      );
+    },
+  );
+
+  await t.step(
+    "3. Cannot delete an existing file under an existing user, but doesn't belong in their library",
+    async () => {
+      const deleteFileResult = await concept.deleteFile({
+        owner: userBob,
+        file: testFileId,
+      });
+      assertEquals(
+        "error" in deleteFileResult,
+        true,
+        "File cannot be deleted if the owner's library doesn't have the file item'",
+      );
+    },
+  );
+  await client.close();
+});
+
+Deno.test("Action: addFile and modifyFile", async (t) => {
+  const [db, client] = await testDb();
+  const concept = new LibraryConcept(db);
+
+  await concept.create({ owner: userAlice });
+  const testFile = await concept.addFile({
+    owner: userAlice,
+    items: ["doc1.txt"],
+  });
+  const testFileId = (testFile as { id: ID }).id;
+  await concept.addFile({ owner: userAlice, items: ["doc2.pdf"] });
+
+  await t.step("1. Can modify file with no real changes", async () => {
+    const modifyResult = await concept.modifyFile({
+      owner: userAlice,
+      file: testFileId,
+      items: ["doc1.txt"],
+    });
+    assertNotEquals(
+      "error" in modifyResult,
+      true,
+      "Should still be able to modify file even if there is no change",
+    );
+  });
+  await t.step("2. Can add a file with slight changes", async () => {
+    const addResult = await concept.addFile({
+      owner: userAlice,
+      items: ["doc1.txt "],
+    });
+    assertNotEquals(
+      "error" in addResult,
+      true,
+      "Should still be able to modify file even if there is no change",
+    );
+  });
+
+  await client.close();
+});
+
+Deno.test("Scenario: Multiple users manage their independent libraries", async (t) => {
+  const [db, client] = await testDb();
+  const libraryConcept = new LibraryConcept(db);
+
+  try {
+    // Alice's actions
+    await libraryConcept.create({ owner: userAlice });
+    await libraryConcept.addFile({
+      owner: userAlice,
+      items: ["alice_doc.txt"],
+    });
+    const aliceFilesBefore = await libraryConcept._getAllFiles({
+      owner: userAlice,
+    });
+    assertEquals(aliceFilesBefore.files.length, 1, "Alice should have 1 file.");
+
+    // Bob's actions
+    await libraryConcept.create({ owner: userBob });
+    await libraryConcept.addFile({ owner: userBob, items: ["bob_report.pdf"] });
+    await libraryConcept.addFile({ owner: userBob, items: ["bob_image.jpg"] });
+    const bobFilesBefore = await libraryConcept._getAllFiles({
+      owner: userBob,
+    });
+    assertEquals(bobFilesBefore.files.length, 2, "Bob should have 2 files.");
+
+    // Verify Alice's library is unchanged after Bob's actions
+    const aliceFilesAfter = await libraryConcept._getAllFiles({
+      owner: userAlice,
+    });
+    assertEquals(
+      aliceFilesAfter.files.length,
+      1,
+      "Alice's library should remain unchanged.",
+    );
+    assertEquals(aliceFilesAfter.files[0].items[0], "alice_doc.txt");
+
+    // Alice modifies her file
+    const aliceFileId = aliceFilesAfter.files[0]._id;
+    await libraryConcept.modifyFile({
+      owner: userAlice,
+      file: aliceFileId,
+      items: ["alice_updated_doc.txt"],
+    });
+    const aliceFilesUpdated = await libraryConcept._getAllFiles({
+      owner: userAlice,
+    });
+    assertEquals(
+      aliceFilesUpdated.files[0].items[0],
+      "alice_updated_doc.txt",
+      "Alice's file should be updated.",
+    );
+
+    // Bob deletes one of his files
+    const bobFileToDelete = bobFilesBefore.files.find((f) =>
+      f.items[0] === "bob_report.pdf"
+    )!._id;
+    await libraryConcept.deleteFile({ owner: userBob, file: bobFileToDelete });
+    const bobFilesAfterDelete = await libraryConcept._getAllFiles({
+      owner: userBob,
+    });
+    assertEquals(
+      bobFilesAfterDelete.files.length,
+      1,
+      "Bob should have 1 file after deletion.",
+    );
+    assertEquals(bobFilesAfterDelete.files[0].items[0], "bob_image.jpg");
+
+    // Final check that Alice's library is still isolated
+    const aliceFinalFiles = await libraryConcept._getAllFiles({
+      owner: userAlice,
+    });
+    assertEquals(
+      aliceFinalFiles.files.length,
+      1,
+      "Alice's library should still be isolated.",
+    );
+    assertEquals(aliceFinalFiles.files[0].items[0], "alice_updated_doc.txt");
+  } finally {
+    await client.close();
+  }
+});
+
+/**
+  const [db, client] = await testDb();
+  const concept = new LibraryConcept(db);
+
+
+
+  await client.close();
+ */
+
+```
