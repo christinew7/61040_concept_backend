@@ -282,7 +282,7 @@ export default class LibraryConcept {
       { $set: { image: null } }, // Set image to null to clear it
     );
 
-    return {};
+    return { id: file };
   }
 
   /**
