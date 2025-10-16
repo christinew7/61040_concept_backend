@@ -185,17 +185,18 @@
   },
   "active": "17315c8da06379c8",
   "lastOpenFiles": [
+    "src/class-resources/recitation/LeaderboardConcept.ts",
+    "src/class-resources/recitation/09-challenge.test.ts",
+    "src/class-resources/recitation/08-principle.test.ts",
+    "src/class-resources/recitation/07-errorHandling.test.ts",
+    "src/class-resources/recitation/06-getScoresSince.test.ts",
+    "src/class-resources/recitation/05-getTopScores.test.ts",
+    "src/class-resources/recitation/04-getPlayerScores.test.ts",
+    "src/class-resources/recitation/03-submitScore.test.ts",
+    "src/class-resources/recitation/02-createPlayer.test.ts",
+    "src/class-resources/recitation/01-setup.test.ts",
+    "src/class-resources/LikertSurvey/LikertSurveyConcept.ts",
     "design/learning/filetracker-impl.md",
-    "src/recitation/LeaderboardConcept.ts",
-    "src/recitation/09-challenge.test.ts",
-    "src/recitation/08-principle.test.ts",
-    "src/recitation/07-errorHandling.test.ts",
-    "src/recitation/06-getScoresSince.test.ts",
-    "src/recitation/05-getTopScores.test.ts",
-    "src/recitation/04-getPlayerScores.test.ts",
-    "src/recitation/03-submitScore.test.ts",
-    "src/recitation/02-createPlayer.test.ts",
-    "src/recitation/01-setup.test.ts",
     "context/src/syncs/auth.sync.ts/20251106_185841.6892e011.md",
     "context/src/syncs/auth.sync.ts/20251106_185528.2a587ee0.md",
     "context/src/syncs/auth.sync.ts/20251106_113401.accdc987.md",
@@ -219,7 +220,6 @@
     "context/design/learning/syncs.md/steps/response.d3b1d2bb.md",
     "context/design/learning/syncs.md/steps/response.d392b6f2.md",
     "context/design/learning/syncs.md/steps/response.c513d0ca.md",
-    "context/design/learning/syncs.md/steps/response.c24339ea.md",
-    "context/design/learning/syncs.md/steps/response.c166ba44.md"
+    "context/design/learning/syncs.md/steps/response.c24339ea.md"
   ]
 }
