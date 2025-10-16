@@ -3,7 +3,7 @@
 [Full Response](../context/design/concepts/FileTracker/implementation.md/steps/response.b956377b.md)
 ## Relevant Details
 
-Response: 
+Response:
 
 The `startTrackingUsingLLM` action needs the file's content (`items: string[]`) to generate the LLM prompt. Since it cannot receive this content as an argument and cannot import another concept (`LibraryConcept`) to define a type for fetching it, the only way to satisfy the user's request to "find the file id" and its associated content *within* `FileTrackerConcept` is for `FileTrackerConcept` to:
 

@@ -13,6 +13,7 @@
 
 # prompt: can you help me update my implementation to include the image files
 
+# prompt: i fixed the spec of library, can you modify my implementaiton to add these specs and actions?
 # response:
 
 Okay, let's update your `LibraryConcept.ts` implementation to include the `image` field for `File` objects, as specified in your concept design.
@@ -256,6 +257,44 @@ export default class LibraryConcept {
   }
 
   /**
+   * @action removeItemFromFile
+   * @requires this owner has a Library, this file is in this owner's Library, and index is a valid index for file.items (in [0, items.length()))
+   * @effects removes the item at index from file.items
+   */
+  async removeItemFromFile(
+    { owner, file, index }: { owner: User; file: File; index: number },
+  ): Promise<Empty | { error: string }> {
+    const ownerLibrary = await this.libraries.findOne({ owner });
+    if (!ownerLibrary) {
+      return { error: `User ${owner} does not have a library.` };
+    }
+
+    const targetFile = await this.files.findOne({
+      _id: file,
+      library: ownerLibrary._id,
+    });
+    if (!targetFile) {
+      return { error: `File ${file} not found in library for user ${owner}.` };
+    }
+
+    if (index < 0 || index >= targetFile.items.length) {
+      return { error: `Index ${index} is out of bounds for file ${file}.` };
+    }
+
+    const newItems = [
+      ...targetFile.items.slice(0, index),
+      ...targetFile.items.slice(index + 1),
+    ];
+
+    await this.files.updateOne(
+      { _id: file, library: ownerLibrary._id },
+      { $set: { items: newItems } },
+    );
+
+    return { id: newFile._id };
+  }
+
+  /**
    * @action setImageToFile
    * @requires this owner has a Library, and this file is in this owner's Library
    * @effects sets the image field of this file to image
@@ -342,7 +381,7 @@ export default class LibraryConcept {
   /**
    * @query _getAllFiles
    * @requires this owner has a Library
-   * @effects returns all Files in this owner's Library (full FileDoc objects, not just IDs)
+   * @effects returns all Files in this owner's Library (File IDs only)
    */
   async _getAllFiles(
     { owner }: { owner: User },
