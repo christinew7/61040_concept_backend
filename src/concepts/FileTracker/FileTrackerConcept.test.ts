@@ -1,5 +1,4 @@
 import {
-  assertArrayIncludes,
   assertEquals,
   assertExists,
   assertNotEquals,
@@ -9,9 +8,6 @@ import { testDb } from "@utils/database.ts";
 import { ID } from "@utils/types.ts";
 import FileTrackerConcept from "./FileTrackerConcept.ts";
 import { Config, GeminiLLM } from "@utils/gemini-llm.ts";
-import { ListIndexesCursor } from "npm:mongodb";
-import { doesNotMatch } from "node:assert";
-import { start } from "node:repl";
 
 /**
  * Load configuration from config.json
@@ -748,14 +744,13 @@ Deno.test("Action: setVisibility", async (t) => {
   const llm = new GeminiLLM(config);
   const concept = new FileTrackerConcept(db, llm);
 
-  let trackedFileId: ID;
   const result = await concept.startTracking({
     owner: userAlice,
     file: file1,
     maxIndex: file1MaxIndex,
   });
 
-  trackedFileId = (result as { id: ID }).id;
+  const trackedFileId = (result as { id: ID }).id;
 
   const doc = await db.collection("FileTracker.trackedFiles").findOne({
     _id: trackedFileId,

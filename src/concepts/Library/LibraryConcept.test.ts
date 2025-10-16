@@ -278,7 +278,6 @@ Deno.test("Multiple users manage their independent libraries", async (t) => {
   const [db, client] = await testDb();
   const libraryConcept = new LibraryConcept(db);
 
-  let aliceLibraryId: ID;
   let aliceFileId: ID; // To store the ID of Alice's file
   let bobReportPdfFileId: ID; // To store the ID of Bob's 'bob_report.pdf'
   let bobImageJpgFileId: ID; // To store the ID of Bob's 'bob_image.jpg'
