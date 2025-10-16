@@ -29,12 +29,10 @@ Here's the updated `FileTrackerConcept.ts` file:
 
 ```typescript
 /**
- * @concept FileTracker [User, File]
- * @purpose track current position and enable navigation within files
- * @principle a user can create a FileTracker to keep track of their position in various files
- * they can track or untrack files,
- * move through file items sequentially or skip to a specific file item
- * and they can control how their progress is displayed
+ * LLM Integration for FileTracker
+ *
+ * Handles the requestAssignmentsFromLLM functionality using Google's Gemini API.
+ * The LLM prompt is hardwired with user preferences and doesn't take external hints.
  */
 import { Collection, Db } from "npm:mongodb";
 import { Empty, ID } from "@utils/types.ts";
