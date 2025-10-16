@@ -69,12 +69,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "design/concepts/FileTracker/testing.md",
+                "file": "design/testing_outputs.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "testing"
+              "title": "testing_outputs"
             }
           },
           {
@@ -193,7 +193,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "design/concepts/FileTracker/testing.md",
+                "file": "design/testing_outputs.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -203,7 +203,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for testing"
+              "title": "Backlinks for testing_outputs"
             }
           },
           {
@@ -270,6 +270,9 @@
   },
   "active": "e2c65571b4a9c136",
   "lastOpenFiles": [
+    "design/concepts/FileTracker/testing.md",
+    "design/testing_outputs.md",
+    "design/testing_outputs",
     "context/design/concepts/FileTracker/testing.md/20251015_203602.d7d877c1.md",
     "context/design/concepts/FileTracker/testing.md/steps/response.f72d5c73.md",
     "context/design/concepts/FileTracker/testing.md/20251015_203534.a1db9d9f.md",
@@ -294,8 +297,6 @@
     "context/design/learning/random.md/20251015_193257.75a6a2c1.md",
     "context/design/learning/random.md/steps/response.cc0f6dae.md",
     "context/design/learning/random.md/20251015_193248.d35527e7.md",
-    "context/design/learning/random.md/steps/file.1811be55.md",
-    "context/src/concepts/FileTracker/FileTrackerConcept.test.ts/20251015_193248.1811be55.md",
     "config.json",
     "context/design/concepts/FileTracker/testing.md/steps",
     "context/src/concepts/FileTracker/FileTrackerConcept.test.ts",
@@ -304,7 +305,6 @@
     "context/src/utils",
     "src/utils/gemini-llm.ts",
     "src/gemini-llm.ts",
-    "context/design/concepts/Library/testing.md/steps",
-    "context/src/concepts/Library/LibraryConcept.ts"
+    "context/design/concepts/Library/testing.md/steps"
   ]
 }
