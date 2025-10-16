@@ -1,30 +1,20 @@
-[@implementing-concepts](../../background/implementing-concepts.md)
+---
+timestamp: 'Thu Oct 16 2025 15:55:01 GMT-0400 (Eastern Daylight Time)'
+parent: '[[../20251016_155501.8b27e05f.md]]'
+content_id: b956377b14d4f68cd3a28607c547c866d75f300bae874a191d03ae1148b09250
+---
 
-[@FileTracker](FileTracker.md)
-
-[@FileTracker-concept](../../../src/concepts/FileTracker/FileTrackerConcept.ts) 
-
-%% [@FileTracker-testing](../../../src/concepts/FileTracker/FileTrackerConcept.test.ts)  %%
-
-[@concept-design-overview](../../background/concept-design-overview.md)
-
-[@gemini](../../../src/utils/gemini-llm.ts)
-
-[@Library](../Library/Library.md)
-
-[@library implementation](../../../src/concepts/Library/LibraryConcept.ts)
-# context: 
-- **Composite objects**. Make sure that all of the arguments and results of your actions are either primitive values (strings, numbers, etc) or object identifiers (actually document identifiers in MongoDB). Composite objects should be used only inside concept implementations and never exposed.
-# prompt: can you change my implementation of filetracker so it doesnt take in composite objects of the items list , and instead tries to find the file id, keep it modular 
 # response:
 
 To adhere to the concept design rules, specifically:
-1.  **"No import statements can reference another concept in any way, including type declarations."** This means `FileTrackerConcept` cannot import `FileDoc` from `LibraryConcept`.
-2.  **"Every action must take a single argument, and output a single argument: both of these are a dictionary/JSON object with primitive values (no custom objects)."** This means the `items: string[]` (which is an array, a composite JSON type, not a primitive) cannot be directly passed as part of the action's input argument.
+
+1. **"No import statements can reference another concept in any way, including type declarations."** This means `FileTrackerConcept` cannot import `FileDoc` from `LibraryConcept`.
+2. **"Every action must take a single argument, and output a single argument: both of these are a dictionary/JSON object with primitive values (no custom objects)."** This means the `items: string[]` (which is an array, a composite JSON type, not a primitive) cannot be directly passed as part of the action's input argument.
 
 The `startTrackingUsingLLM` action needs the file's content (`items: string[]`) to generate the LLM prompt. Since it cannot receive this content as an argument and cannot import another concept (`LibraryConcept`) to define a type for fetching it, the only way to satisfy the user's request to "find the file id" and its associated content *within* `FileTrackerConcept` is for `FileTrackerConcept` to:
-*   Accept only the `file` ID (a primitive `ID` type).
-*   *Implicitly* know the name and structure of the `Library` concept's `files` collection to retrieve the `items`.
+
+* Accept only the `file` ID (a primitive `ID` type).
+* *Implicitly* know the name and structure of the `Library` concept's `files` collection to retrieve the `items`.
 
 This approach creates an implicit dependency on `Library`'s collection schema and naming within `FileTrackerConcept`, which goes against the *spirit* of "concept independence" as described in the Concept Design document. However, given the explicit constraints and the user's specific request to "find the file id" *and* "keep it modular" (interpreted as avoiding explicit `import` statements), this is the necessary compromise.
 

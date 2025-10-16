@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "design/concepts/Library/testing.md",
+                "file": "design/concepts/FileTracker/FileTracker.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "testing"
+              "title": "FileTracker"
             }
           },
           {
@@ -111,12 +111,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "design/concepts/FileTracker/implementation.md",
+                "file": "design/testing_outputs.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "implementation"
+              "title": "testing_outputs"
+            }
+          },
+          {
+            "id": "1b20b3d7ec9c5bb5",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "context/src/concepts/FileTracker/FileTrackerConcept.ts/20251016_184833.a3017ab3.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "20251016_184833.a3017ab3"
             }
           },
           {
@@ -134,7 +148,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 7
       }
     ],
     "direction": "vertical"
@@ -207,7 +221,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "design/concepts/Library/testing.md",
+                "file": "design/testing_outputs.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -217,7 +231,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for testing"
+              "title": "Backlinks for testing_outputs"
             }
           },
           {
@@ -282,34 +296,36 @@
       "bases:Create new base": false
     }
   },
-  "active": "f75580a2306a3539",
+  "active": "e2a60d3ea8445f4d",
   "lastOpenFiles": [
-    "context/src/concepts/Library/LibraryConcept.test.ts/20251016_153019.7cd15dd2.md",
-    "context/design/concepts/Library/testing.md/20251016_151803.1d697268.md",
-    "context/design/concepts/Library/testing.md/steps/response.f54ecfa9.md",
-    "context/design/concepts/Library/testing.md/20251016_151633.b028240d.md",
-    "context/design/concepts/Library/testing.md/steps/prompt.6dc57ca6.md",
-    "context/design/concepts/Library/testing.md/steps/file.3ecb5bf6.md",
-    "context/design/concepts/Library/testing.md/steps/file.8bbe93fe.md",
-    "context/src/concepts/Library/LibraryConcept.test.ts/20251016_151633.3ecb5bf6.md",
-    "context/src/concepts/Library/LibraryConcept.ts/20251016_151633.8bbe93fe.md",
-    "design/concepts/Library/implementation.md",
-    "context/design/concepts/Library/implementation.md/20251016_151329.eac76dd3.md",
-    "context/design/concepts/Library/implementation.md/steps/response.45d2ecdd.md",
-    "context/design/concepts/Library/implementation.md/20251016_151249.bde3485f.md",
-    "context/design/concepts/Library/implementation.md/20251016_151227.29eae03f.md",
-    "context/design/concepts/Library/implementation.md/steps/file.36520a38.md",
-    "context/design/concepts/Library/implementation.md/steps/Concept.eb2d6cca.md",
-    "context/design/concepts/Library/implementation.md/steps/response.f3612ec1.md",
-    "context/design/concepts/Library/Library.md/20251016_151213.95fa33fd.md",
-    "context/design/concepts/Library/Library.md/steps/Concept.3c82cd75.md",
-    "context/design/concepts/Library/implementation.md/20251016_151158.cde1b761.md",
-    "context/design/concepts/Library/implementation.md/steps/prompt.cacef4da.md",
-    "context/design/concepts/Library/implementation.md/steps/Concept.3c82cd75.md",
-    "design/concepts/Library/Library.md",
-    "context/design/concepts/Library/implementation.md/20251016_144953.ec1c016f.md",
-    "design/reflections and changes.md",
-    "context/design/reflections snapshots.md/steps/_.e46ab544.md",
+    "context/src/concepts/FileTracker/FileTrackerConcept.test.ts/20251016_190657.cd3fb90a.md",
+    "context/src/concepts/FileTracker/FileTrackerConcept.ts/20251016_190654.3bdfd86f.md",
+    "context/design/testing_outputs.md/20251016_190259.ca31d797.md",
+    "context/design/testing_outputs.md/steps/_.609eee06.md",
+    "design/learning/filetracker.md",
+    "context/design/learning/filetracker.md/steps/_.3d1fa8c8.md",
+    "context/design/learning/filetracker.md/steps",
+    "context/design/learning/filetracker.md/20251016_185816.246e65ec.md",
+    "context/design/learning/filetracker.md",
+    "context/design/concepts/FileTracker/FileTracker.md/20251016_185737.579fe2d8.md",
+    "context/design/concepts/FileTracker/FileTracker.md/steps/Concept.eda55b2c.md",
+    "context/design/concepts/FileTracker/FileTracker.md/steps/prompt.86cdc0b6.md",
+    "context/src/concepts/FileTracker/FileTrackerConcept.ts/20251016_184833.a3017ab3.md",
+    "context/src/concepts/FileTracker/FileTrackerConcept.test.ts/20251016_155251.2041f5d9.md",
+    "design/background/implementing-concepts.md",
+    "design/learning/library-impl.md",
+    "design/concepts/FileTracker/testing.md",
+    "context/design/concepts/FileTracker/testing.md/20251016_184948.eb00fee5.md",
+    "context/design/concepts/FileTracker/testing.md/steps/file.cb471504.md",
+    "context/design/concepts/FileTracker/testing.md/steps/file.e6731c1b.md",
+    "context/design/concepts/FileTracker/testing.md/steps/response.4168225c.md",
+    "context/design/concepts/FileTracker/testing.md/20251016_184833.41233b1d.md",
+    "context/design/concepts/FileTracker/testing.md/steps/prompt.f0e0f1c4.md",
+    "context/design/concepts/FileTracker/testing.md/steps/file.2041f5d9.md",
+    "context/design/concepts/FileTracker/testing.md/steps/file.a3017ab3.md",
+    "design/concepts/FileTracker/implementation.md",
+    "design/concepts/FileTracker/FileTracker.md",
+    "context/design/testing_outputs.md/steps",
     "context/design/reflections snapshots.md/steps",
     "context/design/reflections and changes.md/steps",
     "design/testing_outputs",
@@ -317,8 +333,6 @@
     "context/design/concepts/FileTracker/testing.md/steps",
     "context/src/concepts/FileTracker/FileTrackerConcept.test.ts",
     "src/concepts/FileTracker/FileTrackerConcept.test.ts",
-    "context/src/utils/gemini-llm.ts",
-    "context/src/utils",
-    "src/utils/gemini-llm.ts"
+    "context/src/utils/gemini-llm.ts"
   ]
 }
