@@ -285,10 +285,3 @@ Deno.test("Action: case insensitivity for addTerm, deleteTerm, and translateTerm
   });
   await client.close();
 });
-
-/**
-  const [db, client] = await testDb();
-  const concept = new DictionaryConcept(db);
-
-  await client.close();
- */

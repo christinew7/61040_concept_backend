@@ -10,7 +10,6 @@ import LibraryConcept from "./LibraryConcept.ts";
 
 // using just to index into the files and set it as a FileDocument
 import { FileDoc } from "./LibraryConcept.ts";
-import { privateEncrypt } from "node:crypto";
 
 // Define some generic User and File IDs for testing
 const userAlice = "user:Alice" as ID;

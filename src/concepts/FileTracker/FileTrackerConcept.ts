@@ -431,7 +431,7 @@ Return ONLY the JSON object, no additional text. Strictly enforce the integer ra
         issues.push(`Invalid response format: ${indices}`);
       }
 
-      console.log("📝 Applying LLM Tracking...");
+      // console.log("📝 Applying LLM Tracking...");
 
       // checking format
       if (!indices.currentIndex) {

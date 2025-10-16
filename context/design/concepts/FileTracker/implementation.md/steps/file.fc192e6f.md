@@ -1,0 +1,55 @@
+---
+timestamp: 'Wed Oct 15 2025 16:52:34 GMT-0400 (Eastern Daylight Time)'
+parent: '[[../20251015_165234.5f730eec.md]]'
+content_id: fc192e6fada9feeecc4f5e3c1e3a2b160f9ae6a40bc474f12a81c7d6e8c6d8cc
+---
+
+# file: src/utils/gemini-llm.ts
+
+```typescript
+/**
+ * LLM Integration for FileTracker
+ *
+ * Handles the requestAssignmentsFromLLM functionality using Google's Gemini API.
+ * The LLM prompt is hardwired with user preferences and doesn't take external hints.
+ */
+
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
+/**
+ * Configuration for API access
+ */
+export interface Config {
+  apiKey: string;
+}
+
+export class GeminiLLM {
+  private apiKey: string;
+
+  constructor(config: Config) {
+    this.apiKey = config.apiKey;
+  }
+
+  async executeLLM(prompt: string): Promise<string> {
+    try {
+      // Initialize Gemini AI
+      const genAI = new GoogleGenerativeAI(this.apiKey);
+      const model = genAI.getGenerativeModel({
+        model: "gemini-2.5-flash-lite",
+        generationConfig: {
+          maxOutputTokens: 1000,
+        },
+      });
+      // Execute the LLM
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      const text = response.text();
+      return text;
+    } catch (error) {
+      console.error("❌ Error calling Gemini API:", (error as Error).message);
+      throw error;
+    }
+  }
+}
+
+```

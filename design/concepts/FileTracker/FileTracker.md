@@ -1,9 +1,9 @@
-# prompt: 
+# prompt:
 # Concept: FileTracker
 
 *   **concept**: FileTracker \[User, File]
 *   **purpose**: track current position and enable navigation within files
-*   **principle**: a user can create a FileTracker to keep track of their position in various files; they can track or untrack files, move through file items sequentially or skip to a specific file item; and they can control how their progress is displayed.
+*   **principle**: a user can start tracking their file from the first listed item (which might not be the first item); a user can also use an LLM to start tracking their file at a better suited item within the file; they can move through file items sequentially without losing their place or skip to a file item; and control how progress is displayed
 *   **state**
     *   a set of `TrackedFiles` with
 	    * an `owner` User
@@ -15,6 +15,9 @@
     *   `startTracking (owner: User, file: File, maxIndex: number)`
         *   **requires** this `owner` exists, this `file` exists, this maxIndex is a nonnegative integer, this `owner` and this `file` isn't already in the set of `TrackedFiles`
         *   **effects** create a new `TrackedFile` with this owner, this file and this maxIndex, `currentIndex` is initialized to 0,, `isVisible` set to true
+    * `startTrackingUsingLLM(owner: User, file: File, llm: GeminiLLM)`
+	    * **requires** this `owner` exists, this `file` exists, this `owner` and this `file` isn't already in the set of `TrackedFiles`
+	    * **effect** uses this `llm` to determine a more accurate `startIndex` for the file
     *   `deleteTracking (owner: User, file: File)`
         *   **requires** this `owner` and this `file` is in the set of TrackedFiles
         *   **effects** delete the `TrackedFile` with this `owner` and this `file`
@@ -27,7 +30,7 @@
     *   back (owner: User, file: File)File)`
         *   **requires** this owner and this file exists in the TrackedFiles, the currentIndex of this TrackedFile is greater than 0
         *   **effects** decrements the TrackedFile with this owner and this file by 1
-    *   getCurrentItem (owner: User, file: File): (index: Number)  
+    *   getCurrentItem (owner: User, file: File): (index: Number)
 	    * **requires** this owner and this file exists in the TrackedFiles
         *   **effects** in the TrackedFile with this owner and this file, return the currentIndex
     *   `setVisibility (owner: User, file: File, visible: Flag)`

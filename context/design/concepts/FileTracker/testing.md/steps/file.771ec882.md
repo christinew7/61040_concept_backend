@@ -1,0 +1,239 @@
+---
+timestamp: 'Wed Oct 15 2025 17:39:05 GMT-0400 (Eastern Daylight Time)'
+parent: '[[../20251015_173905.db62d4f3.md]]'
+content_id: 771ec882a35e09f3800a064c4b7c9fbc8825beb76507489be0b96fcbea875bb9
+---
+
+# file: src/concepts/FileTracker/FileTrackerConcept.test.ts
+
+```typescript
+import {
+  assertArrayIncludes,
+  assertEquals,
+  assertExists,
+  assertNotEquals,
+  assertObjectMatch,
+} from "jsr:@std/assert";
+import { testDb } from "@utils/database.ts";
+import { ID } from "@utils/types.ts";
+import FileTrackerConcept from "./FileTrackerConcept.ts";
+import { Config, GeminiLLM } from "@utils/gemini-llm.ts";
+
+/**
+ * Load configuration from config.json
+ */
+async function loadConfig(): Promise<Config> {
+  try {
+    const config = JSON.parse(await Deno.readTextFile("config.json"));
+    return config;
+  } catch (error) {
+    console.error(
+      "❌ Error loading config.json. Please ensure it exists with your API key.",
+    );
+    console.error("Error details:", (error as Error).message);
+    throw error;
+  }
+}
+
+// Define some generic User and File IDs for testing
+const userAlice = "user:Alice" as ID;
+const userBob = "user:Bob" as ID;
+
+Deno.test("Principle: a user starts tracking their file from the first listed item, they can move through file items sequentially without losing their place or skip to a file item; and control how progress is displayed", async (t) => {
+  const [db, client] = await testDb();
+  const config = await loadConfig();
+  const llm = new GeminiLLM(config);
+  const concept = new FileTrackerConcept(db, llm);
+
+  const file1 = "file:FileA" as ID;
+  const file1MaxIndex = 9; // 10 items
+
+  await t.step(
+    "1. User starts tracking a file normally (without LLM)",
+    async () => {
+      const result = await concept.startTracking({
+        owner: userAlice,
+        file: file1,
+        maxIndex: file1MaxIndex,
+      });
+      assertNotEquals(
+        "error" in result,
+        true,
+        "There should be no error tracking a new file",
+      );
+      const trackingId = (result as { id: ID }).id;
+      assertExists(trackingId, "Expected to start tracking file successfully");
+
+      // verify initial state (currentIndex = 0, isVisible= true)
+      const currentStatus = await concept._getCurrentItem({
+        owner: userAlice,
+        file: file1,
+      });
+      assertExists(currentStatus, "Expected to retrieve tracking status");
+      assertObjectMatch(
+        currentStatus,
+        { index: 0 },
+        "Current index should be 0 initially after startTracking",
+      );
+
+      // Also verify isVisible default
+      const trackedFileDoc = await db.collection("FileTracker.trackedFiles")
+        .findOne({ _id: trackingId });
+      assertExists(trackedFileDoc, "Tracked file document should exist in DB");
+      assertEquals(
+        trackedFileDoc.isVisible,
+        true,
+        "isVisible should be true by default",
+      );
+    },
+  );
+
+  await t.step(
+    "2. User moves sequentially through file items (next and back)",
+    async () => {
+      const nextResult = await concept.next({ owner: userAlice, file: file1 });
+      assertNotEquals(
+        "error" in nextResult,
+        true,
+        "User should be able to move forward",
+      );
+      let currentStatus = await concept._getCurrentItem({
+        owner: userAlice,
+        file: file1,
+      });
+      assertObjectMatch(
+        currentStatus,
+        { index: 1 },
+        "Current index should be 1 after one 'next'",
+      );
+
+      // Action: back
+      const backResult = await concept.back({ owner: userAlice, file: file1 });
+      assertNotEquals(
+        "error" in backResult,
+        true,
+        "User should be able to move backwards",
+      );
+      currentStatus = await concept._getCurrentItem({
+        owner: userAlice,
+        file: file1,
+      });
+      assertObjectMatch(
+        currentStatus,
+        { index: 0 },
+        "Current index should be 1 after one 'back'",
+      );
+    },
+  );
+
+  await t.step("3. User skips to a specific file item (jumpTo)", async () => {
+    // Action: jumpTo
+    const targetIndex = 7;
+    const jumpResult = await concept.jumpTo({
+      owner: userAlice,
+      file: file1,
+      index: targetIndex,
+    });
+    assertNotEquals(
+      "error" in jumpResult,
+      true,
+      "Should be able to jump to a valid index",
+    );
+
+    // Effect: Verify currentIndex is updated to the target index
+    const currentStatus = await concept._getCurrentItem({
+      owner: userAlice,
+      file: file1,
+    });
+    assertObjectMatch(
+      currentStatus,
+      { index: targetIndex },
+      `Current index should be ${targetIndex} after 'jumpTo'`,
+    );
+  });
+
+  await t.step(
+    "4. User controls how their progress is displayed (setVisibility)",
+    async () => {
+      // Action: setVisibility (false)
+      let setVisibilityResult = await concept.setVisibility({
+        owner: userAlice,
+        file: file1,
+        visible: false,
+      });
+      assertNotEquals(
+        "error" in setVisibilityResult,
+        true,
+        "You're always able to toggle visibility!",
+      );
+
+      // Effect: Verify isVisible status is false
+      let trackedFileDoc = await db.collection("FileTracker.trackedFiles")
+        .findOne({ owner: userAlice, file: file1 });
+      assertExists(trackedFileDoc, "Tracked file document should exist");
+      assertEquals(
+        trackedFileDoc.isVisible,
+        false,
+        "isVisible should be false after setting visibility to false",
+      );
+
+      // Action: setVisibility (true)
+      setVisibilityResult = await concept.setVisibility({
+        owner: userAlice,
+        file: file1,
+        visible: true,
+      });
+      assertNotEquals(
+        "error" in setVisibilityResult,
+        true,
+        "You're always able to toggle visibility!",
+      );
+
+      // Effect: Verify isVisible status is true
+      trackedFileDoc = await db.collection("FileTracker.trackedFiles").findOne({
+        owner: userAlice,
+        file: file1,
+      });
+      assertExists(trackedFileDoc, "Tracked file document should exist");
+      assertEquals(
+        trackedFileDoc.isVisible,
+        true,
+        "isVisible should be true after setting visibility to true",
+      );
+    },
+  );
+  await client.close();
+});
+
+Deno.test("Action: startTracking", async (t) => {
+  const [db, client] = await testDb();
+  const config = await loadConfig();
+  const llm = new GeminiLLM(config);
+  const concept = new FileTrackerConcept(db, llm);
+
+  await t.step(
+    "1. User tries to track an already tracked file",
+    async () => {
+      
+    },
+  );
+
+  await client.close();
+});
+
+// actions, startTracking, deleteTracking, jumpTo, next, back, setVisibility, startTracking w/ llm
+
+// deno, user tests all edge cases on moving through file items (tries to goback when it's the last item, tries to go forward when finished, amek sure it incremements double, etc)
+
+/**
+ const [db, client] = await testDb();
+  const config = await loadConfig();
+  const llm = new GeminiLLM(config);
+  const concept = new FileTrackerConcept(db, llm);
+
+
+
+  await client.close();
+ */
+
+```
