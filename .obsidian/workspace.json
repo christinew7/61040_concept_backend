@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "design/concepts/Library/implementation.md",
+                "file": "design/concepts/Library/testing.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "implementation"
+              "title": "testing"
             }
           },
           {
@@ -207,7 +207,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "design/concepts/Library/implementation.md",
+                "file": "design/concepts/Library/testing.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -217,7 +217,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for implementation"
+              "title": "Backlinks for testing"
             }
           },
           {
@@ -284,6 +284,16 @@
   },
   "active": "f75580a2306a3539",
   "lastOpenFiles": [
+    "context/src/concepts/Library/LibraryConcept.test.ts/20251016_153019.7cd15dd2.md",
+    "context/design/concepts/Library/testing.md/20251016_151803.1d697268.md",
+    "context/design/concepts/Library/testing.md/steps/response.f54ecfa9.md",
+    "context/design/concepts/Library/testing.md/20251016_151633.b028240d.md",
+    "context/design/concepts/Library/testing.md/steps/prompt.6dc57ca6.md",
+    "context/design/concepts/Library/testing.md/steps/file.3ecb5bf6.md",
+    "context/design/concepts/Library/testing.md/steps/file.8bbe93fe.md",
+    "context/src/concepts/Library/LibraryConcept.test.ts/20251016_151633.3ecb5bf6.md",
+    "context/src/concepts/Library/LibraryConcept.ts/20251016_151633.8bbe93fe.md",
+    "design/concepts/Library/implementation.md",
     "context/design/concepts/Library/implementation.md/20251016_151329.eac76dd3.md",
     "context/design/concepts/Library/implementation.md/steps/response.45d2ecdd.md",
     "context/design/concepts/Library/implementation.md/20251016_151249.bde3485f.md",
@@ -297,19 +307,9 @@
     "context/design/concepts/Library/implementation.md/steps/prompt.cacef4da.md",
     "context/design/concepts/Library/implementation.md/steps/Concept.3c82cd75.md",
     "design/concepts/Library/Library.md",
-    "design/concepts/Library/implementation.md",
     "context/design/concepts/Library/implementation.md/20251016_144953.ec1c016f.md",
     "design/reflections and changes.md",
     "context/design/reflections snapshots.md/steps/_.e46ab544.md",
-    "design/reflections snapshots.md",
-    "context/design/reflections snapshots.md/20251016_145313.d0b39b9f.md",
-    "context/design/concepts/Library/implementation.md/steps/response.f7f6a114.md",
-    "context/design/concepts/Library/implementation.md/steps/response.1ae6d38d.md",
-    "context/design/concepts/Library/implementation.md/steps/prompt.1c430186.md",
-    "context/design/concepts/Library/implementation.md/steps/file.69e54d42.md",
-    "context/design/concepts/Library/implementation.md/steps/Concept.00d22843.md",
-    "context/design/concepts/Library/implementation.md/20251016_144912.3d9f556f.md",
-    "context/design/concepts/Library/implementation.md/20251016_144614.9787d2e6.md",
     "context/design/reflections snapshots.md/steps",
     "context/design/reflections and changes.md/steps",
     "design/testing_outputs",
