@@ -120,7 +120,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 5
       }
     ],
     "direction": "vertical"
@@ -193,7 +193,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "design/testing_outputs.md",
+                "file": "design/reflections and changes.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -203,7 +203,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for testing_outputs"
+              "title": "Backlinks for reflections and changes"
             }
           },
           {
@@ -268,10 +268,18 @@
       "bases:Create new base": false
     }
   },
-  "active": "e2c65571b4a9c136",
+  "active": "b2137bdcdc5bbee1",
   "lastOpenFiles": [
-    "design/concepts/FileTracker/testing.md",
+    "context/design/reflections and changes.md/steps/_.bb1bc88a.md",
+    "context/design/reflections and changes.md/steps/_.60144070.md",
+    "context/design/reflections and changes.md/steps",
+    "context/design/reflections and changes.md/20251015_210435.28cef162.md",
+    "context/design/reflections and changes.md",
+    "context/design/concepts/FileTracker/testing.md/steps/response.7f2fb7a1.md",
+    "design/learning/random.md",
+    "design/learning/library-impl.md",
     "design/testing_outputs.md",
+    "design/concepts/FileTracker/testing.md",
     "design/testing_outputs",
     "context/design/concepts/FileTracker/testing.md/20251015_203602.d7d877c1.md",
     "context/design/concepts/FileTracker/testing.md/steps/response.f72d5c73.md",
@@ -290,13 +298,6 @@
     "context/design/concepts/FileTracker/testing.md/steps/file.419d4beb.md",
     "context/src/concepts/FileTracker/FileTrackerConcept.test.ts/20251015_203001.419d4beb.md",
     "context/design/concepts/FileTracker/testing.md/20251015_193317.8e39972f.md",
-    "context/design/concepts/FileTracker/testing.md/steps/response.a54800c2.md",
-    "context/design/concepts/FileTracker/testing.md/20251015_193306.39a2fe8d.md",
-    "context/design/concepts/FileTracker/testing.md/steps/prompt.057ffbbb.md",
-    "context/design/concepts/FileTracker/testing.md/steps/file.1811be55.md",
-    "context/design/learning/random.md/20251015_193257.75a6a2c1.md",
-    "context/design/learning/random.md/steps/response.cc0f6dae.md",
-    "context/design/learning/random.md/20251015_193248.d35527e7.md",
     "config.json",
     "context/design/concepts/FileTracker/testing.md/steps",
     "context/src/concepts/FileTracker/FileTrackerConcept.test.ts",
@@ -304,7 +305,6 @@
     "context/src/utils/gemini-llm.ts",
     "context/src/utils",
     "src/utils/gemini-llm.ts",
-    "src/gemini-llm.ts",
-    "context/design/concepts/Library/testing.md/steps"
+    "src/gemini-llm.ts"
   ]
 }

@@ -1,5 +1,6 @@
 
 # Changes
+- Note: I didn't receive any major areas to fix for assignment 2, so the following are changes as I was creating the test cases for my concepts.
 - I had to change the spec to my FileTracker to pass in the maxIndex (size of the File) in the `startTracking` action because this would keep the concepts modular. Otherwise, I would have to use the File concept to query the file and then calculate the size from there and pass it into my FileTracker concept.
 - I updated the PasswordAuthentication Concept so it would not take empty usernames because that wouldn't make sense in the real world
 - I changed the Dictionary Concept to have the terms be case insensitive because the cases don't matter in this context.
