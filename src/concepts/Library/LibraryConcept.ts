@@ -97,34 +97,22 @@ export default class LibraryConcept {
   }
 
   /**
-   * @action addFile
-   * @requires this owner has a Library, and a File with these items doesn't already exist in this owner's Library
-   * @effects creates a File with these items and the current Date, and adds this File to this owner's Library
+   * @action createFile
+   * @requires this owner has a Library
+   * @effects creates a File with the current DateTime and an empty items, and adds this File to this owner's Library
    */
-  async addFile(
-    { owner, items }: { owner: User; items: string[] },
+  async createFile(
+    { owner }: { owner: User },
   ): Promise<{ id: File } | { error: string }> {
     const ownerLibrary = await this.libraries.findOne({ owner });
     if (!ownerLibrary) {
       return { error: `User ${owner} does not have a library.` };
     }
 
-    const existingFile = await this.files.findOne({
-      library: ownerLibrary._id,
-      items: { $eq: items },
-    });
-
-    if (existingFile) {
-      return {
-        error:
-          `A file with these items already exists in the library for user ${owner}.`,
-      };
-    }
-
     const newFile: FileDoc = {
       _id: freshID(),
       library: ownerLibrary._id,
-      items,
+      items: [], // As per spec, initially empty
       dateAdded: new Date(),
     };
     await this.files.insertOne(newFile);
@@ -133,13 +121,13 @@ export default class LibraryConcept {
   }
 
   /**
-   * @action modifyFile
+   * @action addItemToFile
    * @requires this owner has a Library, and this file is in this owner's Library
-   * @effects changes this file's items to these items
+   * @effects adds item to the items list of this file
    */
-  async modifyFile(
-    { owner, file, items }: { owner: User; file: File; items: string[] },
-  ): Promise<{ id: File } | { error: string }> {
+  async addItemToFile(
+    { owner, file, item }: { owner: User; file: File; item: string },
+  ): Promise<Empty | { error: string }> {
     const ownerLibrary = await this.libraries.findOne({ owner });
     if (!ownerLibrary) {
       return { error: `User ${owner} does not have a library.` };
@@ -153,25 +141,88 @@ export default class LibraryConcept {
       return { error: `File ${file} not found in library for user ${owner}.` };
     }
 
-    // Precondition check: A File with these items must not already exist in the library (excluding the file being modified)
-    const existingFileWithNewItems = await this.files.findOne({
-      _id: { $ne: file }, // Exclude the current file
+    await this.files.updateOne(
+      { _id: file, library: ownerLibrary._id },
+      { $push: { items: item } },
+    );
+
+    return {};
+  }
+
+  /**
+   * @action modifyItemInFile
+   * @requires this owner has a Library, this file is in this owner's Library, index is a valid index for file.items (in [0, items.length()))
+   * @effects replaces the item at index in file.items with newItem
+   */
+  async modifyItemInFile(
+    { owner, file, index, newItem }: {
+      owner: User;
+      file: File;
+      index: number;
+      newItem: string;
+    },
+  ): Promise<Empty | { error: string }> {
+    const ownerLibrary = await this.libraries.findOne({ owner });
+    if (!ownerLibrary) {
+      return { error: `User ${owner} does not have a library.` };
+    }
+
+    const targetFile = await this.files.findOne({
+      _id: file,
       library: ownerLibrary._id,
-      items: { $eq: items }, // Check for exact array match
     });
-    if (existingFileWithNewItems) {
-      return {
-        error:
-          `A different file with these items already exists in the library for user ${owner}.`,
-      };
+    if (!targetFile) {
+      return { error: `File ${file} not found in library for user ${owner}.` };
+    }
+
+    if (index < 0 || index >= targetFile.items.length) {
+      return { error: `Index ${index} is out of bounds for file ${file}.` };
     }
 
     await this.files.updateOne(
       { _id: file, library: ownerLibrary._id },
-      { $set: { items } },
+      { $set: { [`items.${index}`]: newItem } }, // Use dot notation for array element update
     );
 
-    return { id: file };
+    return {};
+  }
+
+  /**
+   * @action removeItemFromFile
+   * @requires this owner has a Library, this file is in this owner's Library, and index is a valid index for file.items (in [0, items.length()))
+   * @effects removes the item at index from file.items
+   */
+  async removeItemFromFile(
+    { owner, file, index }: { owner: User; file: File; index: number },
+  ): Promise<Empty | { error: string }> {
+    const ownerLibrary = await this.libraries.findOne({ owner });
+    if (!ownerLibrary) {
+      return { error: `User ${owner} does not have a library.` };
+    }
+
+    const targetFile = await this.files.findOne({
+      _id: file,
+      library: ownerLibrary._id,
+    });
+    if (!targetFile) {
+      return { error: `File ${file} not found in library for user ${owner}.` };
+    }
+
+    if (index < 0 || index >= targetFile.items.length) {
+      return { error: `Index ${index} is out of bounds for file ${file}.` };
+    }
+
+    const newItems = [
+      ...targetFile.items.slice(0, index),
+      ...targetFile.items.slice(index + 1),
+    ];
+
+    await this.files.updateOne(
+      { _id: file, library: ownerLibrary._id },
+      { $set: { items: newItems } },
+    );
+
+    return {};
   }
 
   /**

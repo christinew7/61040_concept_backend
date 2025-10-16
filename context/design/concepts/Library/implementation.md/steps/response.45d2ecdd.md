@@ -1,17 +1,9 @@
-[@concept-design-overview](../../background/concept-design-overview.md)
+---
+timestamp: 'Thu Oct 16 2025 15:13:29 GMT-0400 (Eastern Daylight Time)'
+parent: '[[../20251016_151329.eac76dd3.md]]'
+content_id: 45d2ecdd26d3cc4a64b015d945c872634bc9de806983314c91983135a2f1a187
+---
 
-[@concept-specifications](../../background/concept-specifications.md)
-
-[@implementing-concepts](../../background/implementing-concepts.md)
-
-[@Library](Library.md)
-
-[@Library implementation](../../../src/concepts/Library/LibraryConcept.ts)
-
-# context: 
-- **Composite objects**. Make sure that all of the arguments and results of your actions are either primitive values (strings, numbers, etc) or object identifiers (actually document identifiers in MongoDB). Composite objects should be used only inside concept implementations and never exposed.
-
-# prompt: i fixed the spec of library, can you modify my implementaiton to add these specs and actions?
 # response:
 
 ```typescript

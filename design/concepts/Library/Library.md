@@ -17,12 +17,18 @@
   * `delete (owner: User)`
     * **requires** this `owner` has a `Library`
     * **effects** deletes this `owner`'s `Library` and all associated `Files`
-  * `addFile (owner: User, items: List<String>)`
-    * **requires** this `owner` has a `Library`, and a `File` with these `items` doesn't already exist in this `owner`'s `Library`
-    * **effects** creates a `File` with these `items` and the current `DateTime`, and adds this `File` to this `owner`'s `Library`
-  * `modifyFile (owner: User, file: File, items: List<String>)`
-    * **requires** this `owner` has a `Library`, and this `file` is in this `owner`'s `Library`
-    * **effects** changes this `file`'s `items` to these `items`
+  * `createFile (owner: User)`
+    * **requires** this `owner` has a `Library`
+    * **effects** creates a `File` with the current `DateTime` and an empty `items`, and adds this `File` to this `owner`'s `Library`
+* `addItemToFile (owner: User, file: File, item: String)`
+	*   **requires** this `owner` has a `Library`, and this `file` is in this `owner`'s `Library`
+	*   **effects** adds `item` to the `items` list of this `file`
+* `modifyItemInFile (owner: User, file: File, index: Number, newItem: String)`
+	*   **requires** this `owner` has a `Library`, this `file` is in this `owner`'s `Library`, `index` is a valid index for `file.items` (in \[ 0, items.length() ) )
+	*   **effects** replaces the item at `index` in `file.items` with `newItem`
+*   `removeItemFromFile (owner: User, file: File, index: Number)`
+	*   **requires** this `owner` has a `Library`, this `file` is in this `owner`'s `Library`, and `index` is a valid index for `file.items` (in \[ 0, items.length() ) )
+	*   **effects** removes the item at `index` from `file.items`
   * `deleteFile (owner: User, file: File)`
     * **requires** this `owner` has a `Library`, and this `file` is in this `owner`'s `Library`
     * **effects** deletes this `file` from this `owner`'s `Library`
