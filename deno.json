@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "imports": {
         "@concepts/": "./src/concepts/",
         "@concepts": "./src/concepts/concepts.ts",
@@ -21,4 +22,13 @@
             ]
         }
     }
+=======
+  "imports": {
+    "@concepts/": "./src/concepts/",
+    "@utils/": "./src/utils/"
+  },
+  "tasks": {
+    "concepts": "deno run --allow-net --allow-read --allow-sys --allow-env src/concept_server.ts --port 8000 --baseUrl /api"
+  }
+>>>>>>> cd07cbe (synced forks)
 }
