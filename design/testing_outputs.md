@@ -162,4 +162,13 @@ Action: setVisibility ...
   2. Set visibility to false when already false (no change, no error) ... ok (94ms)
   . Attempt to set visibility with an invalid (non-boolean) 'visible' parameter ... ok (35ms)
 Action: setVisibility ... ok (915ms)
+
+Action: startTrackingUsingLLM with different styles of patterns ...
+  1. Basic instruction with clear starting instructions ... ok (677ms)
+  2. File has lots of miscellaneous comments and prep instructions before ... ok (803ms)
+  3. Pattern has a lot of different instruction sections ... ok (613ms)
+  4. Pattern that has been scanned with OCR errors and typos ... ok (601ms)
+Action: startTrackingUsingLLM with different styles of patterns ... ok (3s)
+
+ok | 7 passed (26 steps) | 0 failed
 ```
