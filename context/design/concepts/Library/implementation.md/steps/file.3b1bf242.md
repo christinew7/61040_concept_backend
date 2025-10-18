@@ -1,3 +1,12 @@
+---
+timestamp: 'Sat Oct 18 2025 10:56:23 GMT-0400 (Eastern Daylight Time)'
+parent: '[[../20251018_105623.64360d87.md]]'
+content_id: 3b1bf24297d39cc95f30b0b52161bfb5ec12f6c91c3a3a9250fd16eda99cc047
+---
+
+# file: src/concepts/Library/LibraryConcept.ts
+
+```typescript
 /**
  * @concept Library [User]
  * @purpose manage collection of files for users
@@ -269,11 +278,6 @@ export default class LibraryConcept {
     return { files: allFiles };
   }
 
-  /**
-   * @query _getFileString
-   * @requires this owner has a Library, and this file is in this owner's Library
-   * @effects returns the items list of the specified file as a JSON string
-   */
   async _getFileString(
     { owner, file }: { owner: User; file: File },
   ): Promise<{ fileString: string } | { error: string }> {
@@ -282,7 +286,7 @@ export default class LibraryConcept {
       return { error: `User ${owner} does not have a library.` };
     }
 
-    const fileInDoc = await this.files.findOne({
+    const fileInDoc = await this.files.find({
       library: ownerLibrary._id,
       _id: file,
     });
@@ -293,3 +297,5 @@ export default class LibraryConcept {
     return { fileString: JSON.stringify(items) };
   }
 }
+
+```
