@@ -1,3 +1,12 @@
+---
+timestamp: 'Sat Oct 18 2025 10:25:59 GMT-0400 (Eastern Daylight Time)'
+parent: '[[../20251018_102559.4d6eebc7.md]]'
+content_id: df3bf714e6370a71a38d9117c18f8c39b57c131607a8d2adeb40d40f85ee91a0
+---
+
+# file: src/concepts/FileTracker/FileTrackerConcept.ts
+
+```typescript
 /**
  * @concept FileTracker [User, File]
  * @purpose track current position and enable navigation within files
@@ -254,21 +263,20 @@ export default class FileTrackerConcept {
   /**
    * @action startTrackingUsingLLM
    * @param owner - The ID of the user.
-   * @param file- The ID of the file
+   * @param fileId- The ID of the file
    * @param fileInput - a string input for the LLM
    * @param fileMaxIndex - the maximum index for the LLM
    * @returns {Promise<{ id: TrackedFile } | { error: string }>} The ID of the new tracked file on success, or an error object.
    *
    * @requires this `owner` exists, this `file` (referencing `fildId`) exists,
-   *   this `owner` and this `file` isn't already in the set of `TrackedFiles`,
-   *   this `fileInput` is in JSON format.
+   *   this `owner` and this `file` isn't already in the set of `TrackedFiles`.
    * @effect uses an internal `llm` to determine a more accurate `currentIndex` for the file,
    *   then creates a new `TrackedFile` document in the database.
    */
   async startTrackingUsingLLM(
-    { owner, file, fileInput, fileMaxIndex }: {
+    { owner, fileId, fileInput, fileMaxIndex }: {
       owner: User;
-      file: File;
+      fileId: File;
       fileInput: string;
       fileMaxIndex: number;
     },
@@ -276,7 +284,7 @@ export default class FileTrackerConcept {
     // Check if tracking already exists for this owner and file
     const existingTracking = await this.trackedFiles.findOne({
       owner,
-      file: file,
+      file: fileId,
     });
     if (existingTracking) {
       return {
@@ -285,47 +293,10 @@ export default class FileTrackerConcept {
       };
     }
 
-    // Attempt to parse fileContentString early to validate input and catch errors
-    let fileLines: string[];
-    try {
-      fileLines = JSON.parse(fileInput);
-      if (
-        !Array.isArray(fileLines) ||
-        !fileLines.every((item) => typeof item === "string")
-      ) {
-        return {
-          error:
-            "fileContentString must be a JSON stringified array of strings.",
-        };
-      }
-      // Consistency check between maxIndex and parsed content length
-      if (fileLines.length === 0 && fileMaxIndex !== -1) {
-        return {
-          error:
-            `maxIndex ${fileMaxIndex} is inconsistent with empty file content.`,
-        };
-      }
-      if (fileLines.length > 0 && fileMaxIndex !== fileLines.length - 1) {
-        return {
-          error:
-            `maxIndex ${fileMaxIndex} is inconsistent with file content length ${fileLines.length} (expected ${
-              fileLines.length - 1
-            }).`,
-        };
-      }
-    } catch (e) {
-      return {
-        error:
-          `Invalid fileContentString: Must be a valid JSON stringified array. Error: ${
-            (e as Error).message
-          }`,
-      };
-    }
-
     try {
       // console.log("🤖 Tracking file from Gemini API...");
 
-      const prompt = this.createTrackingPrompt(fileLines, fileMaxIndex);
+      const prompt = this.createTrackingPrompt(fileInput);
       const text = await this.llm.executeLLM(prompt);
 
       // console.log("✅ Received response from Gemini AI!");
@@ -338,7 +309,7 @@ export default class FileTrackerConcept {
       const parseResult = await this.parseAndStartTracking(
         text,
         owner,
-        file,
+        fileId,
         fileMaxIndex,
       );
       // this.parseAndStartTracking(text);
@@ -357,11 +328,10 @@ export default class FileTrackerConcept {
    * Create the prompt for Gemini with hardwired preferences
    */
   private createTrackingPrompt(
-    fileContent: string[],
-    fileMaxIndex: number,
+    fileContent: string,
   ): string {
-    const analysisLines = fileContent.slice(0, 50);
-    const fullFileLength = fileMaxIndex + 1;
+    const analysisLines = fileContent.items.slice(0, 50);
+    const fullFileLength = fileContent.items.length;
     const maxValidIndex = fullFileLength > 0 ? fullFileLength - 1 : 0;
 
     const criticalRequirements = [
@@ -401,7 +371,7 @@ This may contain OCR errors from scanning. Be flexible in recognizing instructio
 POTENTIAL OCR ERRORS
 ${commonOCRErrors.join("\n")}
 
-The full file has ${fileMaxIndex + 1} total lines.
+The full file has ${fileContent.items.length} total lines.
 
 The file will be passed as a list of line entries, where the first couple of sections are NOT instructions.
 There will be a MATERIALS section and optionally, other potential sections listed below. The sections are case-INsensitive.
@@ -422,7 +392,10 @@ ${criticalRequirements.join("\n")}
 Return your response as a JSON object with this exact structure. Use integers and obey the ranges shown.
 
 {
-    "currentIndex": {YOUR DETERMINED INDEX}, // Must be 0 - ${fileMaxIndex}
+    "currentIndex": {YOUR DETERMINED INDEX}, // Must be 0 - ${
+      fileContent.items.length - 1
+    },
+    "maxIndex": ${fileContent.items.length - 1},
 }
 
 Return ONLY the JSON object, no additional text. Strictly enforce the integer ranges above — if you cannot satisfy them, return an empty assignments array.
@@ -435,8 +408,8 @@ Return ONLY the JSON object, no additional text. Strictly enforce the integer ra
   private async parseAndStartTracking(
     responseText: string,
     owner: User,
-    file: File,
-    fileMaxIndex: number,
+    fileID: File,
+    actualMaxIndex: number,
   ): Promise<{ id: TrackedFile } | { error: string }> {
     try {
       // Extract JSON from response (in case there's extra text)
@@ -459,23 +432,32 @@ Return ONLY the JSON object, no additional text. Strictly enforce the integer ra
       if (!indices.currentIndex) {
         issues.push(`Invalid response, there is no currentIndex passed in.`);
       }
+      if (!indices.maxIndex) {
+        issues.push(`Invalid response, there is no maxIndex passed in.`);
+      }
 
       // checking bounds
-      if (indices.currentIndex < 0 || indices.currentIndex > fileMaxIndex) {
+      if (indices.currentIndex < 0 || indices.currentIndex > indices.maxIndex) {
         issues.push(`currentIndex ${indices.currentIndex} is out of bounds`);
+      }
+      if (indices.maxIndex !== actualMaxIndex) {
+        issues.push(`maxIndex ${indices.maxIndex} is not correct`);
       }
 
       // checking type
       if (typeof indices.currentIndex !== "number") {
         issues.push(`currentIndex ${indices.currentIndex} is not a number`);
       }
+      if (typeof indices.maxIndex !== "number") {
+        issues.push(`maxIndex ${indices.maxIndex} is not a number`);
+      }
 
       const trackedFile: TrackedFileDoc = {
         _id: freshID(),
         owner: owner,
-        file: file,
+        file: fileID,
         currentIndex: indices.currentIndex,
-        maxIndex: fileMaxIndex,
+        maxIndex: actualMaxIndex,
         isVisible: true,
       };
 
@@ -511,3 +493,7 @@ Return ONLY the JSON object, no additional text. Strictly enforce the integer ra
     return { index: trackedFile.currentIndex };
   }
 }
+
+```
+
+%% [@FileTracker-testing](../../../src/concepts/FileTracker/FileTrackerConcept.test.ts)  %%

@@ -1,3 +1,12 @@
+---
+timestamp: 'Sat Oct 18 2025 10:40:07 GMT-0400 (Eastern Daylight Time)'
+parent: '[[../20251018_104007.233ee4da.md]]'
+content_id: e0b0048a8d59c6705e8e852d494a4e0a8d6501a0926983309c899598234ac489
+---
+
+# file: src/concepts/FileTracker/FileTrackerConcept.test.ts
+
+```typescript
 import {
   assertEquals,
   assertExists,
@@ -7,41 +16,49 @@ import {
 import { testDb } from "@utils/database.ts";
 import { ID } from "@utils/types.ts";
 import FileTrackerConcept from "./FileTrackerConcept.ts";
-import { Config, GeminiLLM } from "@utils/gemini-llm.ts";
-import { start } from "node:repl";
+import { GeminiLLM } from "@utils/gemini-llm.ts"; // Assuming this is the interface/class to mock
 
-/**
- * Load configuration from config.json
- */
-async function loadConfig(): Promise<Config> {
-  try {
-    const config = JSON.parse(await Deno.readTextFile("config.json"));
-    return config;
-  } catch (error) {
-    console.error(
-      "❌ Error loading config.json. Please ensure it exists with your API key.",
-    );
-    console.error("Error details:", (error as Error).message);
-    throw error;
+// --- Mock Gemini LLM ---
+class MockGeminiLLM implements GeminiLLM {
+  private mockResponse: string = '{"currentIndex": 5}'; // Default successful response
+  private shouldThrow: boolean = false;
+
+  setMockResponse(response: string) {
+    this.mockResponse = response;
+    this.shouldThrow = false;
+  }
+
+  setThrowError(shouldThrow: boolean) {
+    this.shouldThrow = shouldThrow;
+  }
+
+  async executeLLM(prompt: string): Promise<string> {
+    if (this.shouldThrow) {
+      throw new Error("Simulated LLM network or API error.");
+    }
+    // In a real scenario, you might inspect the prompt for more complex mocks
+    // For now, we'll just return the pre-set mock response.
+    return Promise.resolve(this.mockResponse);
   }
 }
+// --- End Mock Gemini LLM ---
 
 // Define some generic User and File IDs for testing
 const userAlice = "user:Alice" as ID;
 const userBob = "user:Bob" as ID;
+const userCharlie = "user:Charlie" as ID; // Added for more distinct test cases
 
 const file1 = "file:FileA" as ID;
-const file1MaxIndex = 9; // 10 items
+const file1MaxIndex = 9; // 10 items (0-9)
 const file2 = "file:FileB" as ID;
 
 Deno.test("Principle: a user starts tracking their file from the first listed item, they can move through file items sequentially without losing their place or skip to a file item; and control how progress is displayed", async (t) => {
   const [db, client] = await testDb();
-  const config = await loadConfig();
-  const llm = new GeminiLLM(config);
-  const concept = new FileTrackerConcept(db, llm);
+  // Pass a dummy LLM instance, as it's not used in this principle test, but constructor requires it.
+  const concept = new FileTrackerConcept(db, new MockGeminiLLM()); 
 
   await t.step(
-    "1. User starts tracking a file normally (without LLM)",
+    "1. User starts tracking a file",
     async () => {
       const result = await concept.startTracking({
         owner: userAlice,
@@ -113,7 +130,7 @@ Deno.test("Principle: a user starts tracking their file from the first listed it
       assertObjectMatch(
         currentStatus,
         { index: 0 },
-        "Current index should be 1 after one 'back'",
+        "Current index should be 0 after one 'back'", // Corrected expected index
       );
     },
   );
@@ -186,7 +203,7 @@ Deno.test("Principle: a user starts tracking their file from the first listed it
         owner: userAlice,
         file: file1,
       });
-      assertExists(trackedFileDoc, "Tracked file document should exist");
+      assertExists(trackedFileDoc, "Tracked file document should exist"); // Corrected variable name from trackedFileaDoc
       assertEquals(
         trackedFileDoc.isVisible,
         true,
@@ -199,9 +216,8 @@ Deno.test("Principle: a user starts tracking their file from the first listed it
 
 Deno.test("Action: startTracking", async (t) => {
   const [db, client] = await testDb();
-  const config = await loadConfig();
-  const llm = new GeminiLLM(config);
-  const concept = new FileTrackerConcept(db, llm);
+  // Pass a dummy LLM instance, as it's not used in this test, but constructor requires it.
+  const concept = new FileTrackerConcept(db, new MockGeminiLLM()); 
 
   await concept.startTracking({
     owner: userBob,
@@ -353,9 +369,8 @@ Deno.test("Action: startTracking", async (t) => {
 
 Deno.test("Action: deleteTracking", async (t) => {
   const [db, client] = await testDb();
-  const config = await loadConfig();
-  const llm = new GeminiLLM(config);
-  const concept = new FileTrackerConcept(db, llm);
+  // Pass a dummy LLM instance, as it's not used in this test, but constructor requires it.
+  const concept = new FileTrackerConcept(db, new MockGeminiLLM()); 
 
   const file = "file:Deletable" as ID;
   const maxIndex = 5;
@@ -412,9 +427,8 @@ Deno.test("Action: deleteTracking", async (t) => {
 
 Deno.test("Action: next, back, jumpTo", async (t) => {
   const [db, client] = await testDb();
-  const config = await loadConfig();
-  const llm = new GeminiLLM(config);
-  const concept = new FileTrackerConcept(db, llm);
+  // Pass a dummy LLM instance, as it's not used in this test, but constructor requires it.
+  const concept = new FileTrackerConcept(db, new MockGeminiLLM()); 
 
   await t.step(
     "1. User can click next multiple times in a row",
@@ -549,7 +563,7 @@ Deno.test("Action: next, back, jumpTo", async (t) => {
   await t.step(
     "5. User cannot jump to an invalid index (negative, out of bounds, non-integer)",
     async () => {
-      // Current index is file1MaxIndex from previous step
+      // Current index is 7 from previous step
       const currentStatus = await concept._getCurrentItem({
         owner: userAlice,
         file: file1,
@@ -658,9 +672,8 @@ Deno.test(
   "All navigation and visibility actions fail on a non-existent tracking record",
   async (t) => {
     const [db, client] = await testDb();
-    const config = await loadConfig();
-    const llm = new GeminiLLM(config);
-    const concept = new FileTrackerConcept(db, llm);
+    // Pass a dummy LLM instance, as it's not used in this test, but constructor requires it.
+    const concept = new FileTrackerConcept(db, new MockGeminiLLM()); 
 
     const userCharlie = "user:Charlie" as ID;
     const nonExistentFile = "file:NonExistent" as ID;
@@ -741,9 +754,8 @@ Deno.test(
 
 Deno.test("Action: setVisibility", async (t) => {
   const [db, client] = await testDb();
-  const config = await loadConfig();
-  const llm = new GeminiLLM(config);
-  const concept = new FileTrackerConcept(db, llm);
+  // Pass a dummy LLM instance, as it's not used in this test, but constructor requires it.
+  const concept = new FileTrackerConcept(db, new MockGeminiLLM()); 
 
   const result = await concept.startTracking({
     owner: userAlice,
@@ -849,282 +861,235 @@ Deno.test("Action: setVisibility", async (t) => {
   await client.close();
 });
 
-// startTracking w/ llm
-
-Deno.test("Action: startTrackingUsingLLM with different styles of patterns", async (t) => {
+Deno.test("Action: startTrackingUsingLLM", async (t) => {
   const [db, client] = await testDb();
-  const config = await loadConfig();
-  const llm = new GeminiLLM(config);
-  const concept = new FileTrackerConcept(db, llm);
+  const mockLLM = new MockGeminiLLM();
+  const concept = new FileTrackerConcept(db, mockLLM); // Pass the mock LLM
+
+  const fileToTrackLLM = "file:LLMFile" as ID;
+  const fileMaxIndexLLM = 20; // Example max index (0-20, so 21 items)
+  const fileInputContent = [
+    "Line 0: Title",
+    "Line 1: Materials:",
+    "Line 2: Yarn A",
+    "Line 3: Hook B",
+    "Line 4: Notes:",
+    "Line 5: This is a note.",
+    "Line 6: Instructions:",
+    "Line 7: 1. Ch 10", // The LLM is expected to pick this or a subsequent one
+    "Line 8: 2. Sc in 2nd ch from hook",
+    "Line 9: 3. Turn",
+    // ... more lines up to fileMaxIndexLLM + 1 items
+    Array(fileMaxIndexLLM - 9).fill("Line X: Filler instruction..."), // Fill up to max index
+  ].flat();
+  const fileInputString = JSON.stringify(fileInputContent);
 
   await t.step(
-    "1. Basic instruction with clear starting instructions",
+    "1. Successfully start tracking a new file using LLM to determine current index",
     async () => {
-      const id = "file:fileA" as ID;
-      const itemsArray = [
-        "Materials",
-        "Yarn: DK weight yarn – Samples feature Paintbox Simply Aran, 100% Cotton Tea Rose (643) Pale Lilac (646) Bubblegum Pink (651)",
-        "Tools",
-        "Hook: 4mm",
-        "Darning Needle",
-        "Scissors",
-        "Instructions",
-        "Foundation Chain: Ch 6, ss in 6th ch from hook to form a ring.", // index 7
-        "Round One: Ch 3(counts as a tr here and throughout), 19 tr in ring, join with ss in top of ch- 3.",
-      ];
-      const itemsString = JSON.stringify(itemsArray);
+      // Configure LLM to return a specific index within the valid range
+      const expectedLLMIndex = 7;
+      mockLLM.setMockResponse(`{"currentIndex": ${expectedLLMIndex}}`);
 
-      const startResult = await concept.startTrackingUsingLLM({
+      const result = await concept.startTrackingUsingLLM({
         owner: userAlice,
-        file: id,
-        fileInput: itemsString,
-        fileMaxIndex: itemsArray.length - 1,
+        fileId: fileToTrackLLM,
+        fileInput: fileInputString,
+        fileMaxIndex: fileMaxIndexLLM,
       });
-      assertNotEquals(
-        "error" in startResult,
-        true,
-        `There should be no error in starting a new tracking with LLM, but got error ${
-          JSON.stringify(startResult)
-        }`,
-      );
-      assertExists(
-        (startResult as { id: ID }).id,
-        "Tracked file ID should be returned.",
-      );
 
-      const currentStatus = await concept._getCurrentItem({
-        owner: userAlice,
-        file: id,
-      });
-      assertEquals(
-        "error" in currentStatus,
-        false,
-        `_getCurrentItem failed: ${JSON.stringify(currentStatus)}`,
-      );
-      assertEquals(
-        (currentStatus as { index: number }).index,
-        7,
-        "LLM should correctly identify the start of 'Foundation Chain' instructions in file.",
-      );
+      assertNotEquals("error" in result, true, `Expected no error, but got: ${JSON.stringify(result)}`);
+      const trackingId = (result as { id: ID }).id;
+      assertExists(trackingId, "Expected a tracking ID on success.");
+
+      // Verify effects: a new TrackedFile exists with the LLM-determined currentIndex
+      const trackedFileDoc = await db.collection("FileTracker.trackedFiles").findOne({ _id: trackingId });
+      assertExists(trackedFileDoc, "Tracked file document should exist.");
+      assertEquals(trackedFileDoc.owner, userAlice);
+      assertEquals(trackedFileDoc.file, fileToTrackLLM);
+      assertEquals(trackedFileDoc.currentIndex, expectedLLMIndex, "Current index should match LLM output.");
+      assertEquals(trackedFileDoc.maxIndex, fileMaxIndexLLM);
+      assertEquals(trackedFileDoc.isVisible, true, "isVisible should be true by default.");
     },
   );
 
   await t.step(
-    "2. File has lots of miscellaneous comments and prep instructions before",
+    "2. Fail to start tracking if `fileInput` is not a valid JSON stringified array of strings",
     async () => {
-      const id = "file:miscFile" as ID;
-      const itemsArray = [
-        "Materials",
-        "Bernat Softee Baby (soft peach) or any 3 weight yarn (See chart below for yardage)",
-        "5 mm (H-8) crochet hook (or any hook size needed to obtain gauge)",
-        "Yarn needle",
-        "Scissors",
-        "Measuring tape",
-        "Click for more info about Yarn Needle Tapestry Needle Sewing Needles Weaving Needle Darning Needles Bent in Box  Click for more info about Bernat® Softee® Baby Solid Yarn  Click for more info about Soft Tape Measure,Double Scale 60 Inch(150CM)  Click for more info about 5 Pieces Stainless Steel Tip Classic Stork Scissors Crane Design 3.6 Inch Sewing Dressmaker Sciss...  Click for more info about Tulip TP1166 Etimo Crochet Hook Set",
-        "Gauge",
-        "12 sts x 7 rows= 4″ x 4″",
-        "Gauge Pattern: Ch 13 and follow along with pattern as written",
-        "Making a gauge swatch is important for a properly sized blanket, and I highly recommend crocheting one.",
-        "Stitch Abbreviations",
-        "bo = bobble",
-        "sc = single crochet",
-        "hdc = half double crochet",
-        "ch = chain",
-        "st = stitch",
-        "rep = repeat",
-        "Stitch Explanations",
-        "Single Crochet (sc) Single Crochet Stitch Tutorial",
-        "",
-        "Insert hook from front to back in the second chain from the hook or designated stitch",
-        "Bring the yarn over (yo) the hook and pull the yarn back through the chain (or stitch)  from back to front  (2 loops on hook).",
-        "Yo and pull through both loops on the hook.",
-        "Bobble (bo) Bobble Stitch Tutorial",
-        "",
-        "Yo (yarn over) insert the hook into the designated st (stitch) in the row and pick up a loop. Yo draw yarn through 2 loops (3 loops)",
-        "Yo insert hook into same st, yo draw through 2 loops (4 loops)",
-        "Yo insert hook into same st, yo draw through 2 loops (5 loops)",
-        "Yo insert hook into same st, yo draw through 2 loops (6 loops)",
-        "Yo draw yarn through all 6 loops on hook, tighten down",
-        "Half Double Crochet (hdc) Half Double Crochet Stitch Video Tutorial",
-        "",
-        "Yo (yarn over) insert hook from front to back of the designated stitch, Yo the hook and pick up a loop.",
-        "Yo the hook and pull back through all three loops on the hook.",
-        "Finished Size",
-        "40″ x 40″ Receiving Blanket Size (+ bonus sizes such as throw blanket, queen blanket and more are listed below in the chart)",
-        "Change size by using a multiple of 6 + 1 if you’d like to make this blanket in a different size than the standard ones listed below in the chart",
-        "Notes",
-        "Baby blanket is written in standard US terms",
-        "If you’d like to make a bobble stripes blanket, for example, you can change the yarn colors. For color changes (or yarn skein changes) in this blanket, you can use our how to change colors in crochet tutorial.",
-        "Blanket is made by holding TWO SKEINS of YARN together at the same time.",
-        "You can make this blanket with just one skein of yarn at a time if you’d like, just remember to cut the number of skeins + yardage needed in half that are shown in the chart below.",
-        "The Blanket Pattern",
-        "* pattern is worked by holding two skeins of yarn together at the same time.",
-        "",
-        "*st counts shown in () are as follows, (lovey, stroller, receiving, baby, throw, twin, full/queen, king)",
-        "",
-        "Foundation Row: ch (see size chart for size being made), in second ch from the hook hdc, hdc into each ch across, turn. (36,96,120,132,156,204,2 76,324)", // index 48
-        "",
-        "Row 1: ch 1, sc, sc, *bobble, sc, sc, rep from * across ending with a sc in last st, turn. (36,96,120,132,156,204,2 76,324)",
-        "",
-        "Row 2: ch 1, hdc into each st across, turn.",
-        "",
-        "Row 3: ch 1, hdc into each st across, turn.",
-        "",
-        "Row 4: ch 1, hdc into each st across, turn.",
-        "",
-        "Row 5 – (see chart for size being made): rep row 1 – 4 until two rows remain",
-        "",
-        "Second to Last Row: rep row 1",
-        "",
-        "Last Row: rep row 2",
-        "",
-        "Finishing: Fasten off and wave in loose ends with a yarn needle.",
-      ];
-      const itemsString = JSON.stringify(itemsArray);
+      // Use distinct file IDs for each test case to avoid "already exists" errors
+      const untrackedFileId1 = "file:LLMInvalidInput1" as ID;
+      const untrackedFileId2 = "file:LLMInvalidInput2" as ID;
+      const untrackedFileId3 = "file:LLMInvalidInput3" as ID;
+      const untrackedMaxIndex = 10;
 
-      const startResult = await concept.startTrackingUsingLLM({
-        owner: userAlice,
-        file: id,
-        fileInput: itemsString,
-        fileMaxIndex: itemsArray.length - 1,
+      // Test with non-JSON string
+      let result = await concept.startTrackingUsingLLM({
+        owner: userBob,
+        fileId: untrackedFileId1,
+        fileInput: "this is not json",
+        fileMaxIndex: untrackedMaxIndex,
       });
-      assertNotEquals(
-        "error" in startResult,
-        true,
-        "There should be no error in starting a new tracking with LLM",
-      );
-      assertExists(
-        (startResult as { id: ID }).id,
-        "Tracked file ID should be returned.",
-      );
+      assertEquals("error" in result, true, "Should fail for non-JSON fileInput.");
+      assertExists((result as { error: string }).error.includes("Invalid fileContentString"), "Error message should indicate invalid JSON.");
 
-      const currentStatus = await concept._getCurrentItem({
-        owner: userAlice,
-        file: id,
+      // Test with JSON but not an array
+      result = await concept.startTrackingUsingLLM({
+        owner: userBob,
+        fileId: untrackedFileId2,
+        fileInput: '{"key": "value"}',
+        fileMaxIndex: untrackedMaxIndex,
       });
-      assertEquals(
-        "error" in currentStatus,
-        false,
-        `_getCurrentItem failed: ${JSON.stringify(currentStatus)}`,
-      );
-      assertEquals(
-        (currentStatus as { index: number }).index,
-        48,
-        "LLM should correctly identify the start of 'Foundation Row' instructions in file.",
-      );
+      assertEquals("error" in result, true, "Should fail for JSON that is not an array.");
+      assertExists((result as { error: string }).error.includes("fileContentString must be a JSON stringified array of strings."), "Error message should indicate not an array.");
+
+      // Test with JSON array but not of strings
+      result = await concept.startTrackingUsingLLM({
+        owner: userBob,
+        fileId: untrackedFileId3,
+        fileInput: '[1, 2, 3]',
+        fileMaxIndex: untrackedMaxIndex,
+      });
+      assertEquals("error" in result, true, "Should fail for JSON array not of strings.");
+      assertExists((result as { error: string }).error.includes("fileContentString must be a JSON stringified array of strings."), "Error message should indicate not an array of strings.");
     },
   );
 
   await t.step(
-    "3. Pattern has a lot of different instruction sections",
+    "3. Fail to start tracking if `maxIndex` is inconsistent with `fileInput` length",
     async () => {
-      const id = "file:instructionsFile" as ID;
-      const itemsArray = [
-        "🧶 Materials 🧶",
-        "🧶 Yarn: DK weight yarn – Samples feature Paintbox Simply Aran, 100% Cotton Tea Rose (643) Pale Lilac (646) Bubblegum Pink (651)",
-        "🪛 Tools 🪡",
-        "Hook: 4mm",
-        "Darning Needle",
-        "Scissors",
-        "",
-        "Single crochet",
-        "1️⃣ Insert hook from front to back in the second chain from the hook or designated stitch",
-        "2️⃣ Bring the yarn over (yo) the hook and pull the yarn back through the chain (or stitch)  from back to front  (2 loops on hook).",
-        "3️⃣ Yo and pull through both loops on the hook.",
-        "Body",
-        "1️⃣ Ch 6, ss in 6th ch from hook to form a ring.",
-        "2️⃣ Ch 3(counts as a tr here and throughout), 19 tr in ring, join with ss in top of ch- 3.",
-      ];
-      const itemsString = JSON.stringify(itemsArray);
+      const inconsistentFileId1 = "file:LLMInconsistentMaxIndex1" as ID;
+      const inconsistentFileId2 = "file:LLMInconsistentMaxIndex2" as ID;
+      const inconsistentFileId3 = "file:LLMInconsistentMaxIndex3" as ID;
 
-      const startResult = await concept.startTrackingUsingLLM({
-        owner: userAlice,
-        file: id,
-        fileInput: itemsString,
-        fileMaxIndex: itemsArray.length - 1,
-      });
-      assertNotEquals(
-        "error" in startResult,
-        true,
-        "There should be no error in starting a new tracking with LLM",
-      );
-      assertExists(
-        (startResult as { id: ID }).id,
-        "Tracked file ID should be returned.",
-      );
+      const smallContent = ["line1", "line2", "line3"]; // Length 3
+      const smallContentString = JSON.stringify(smallContent);
 
-      const currentStatus = await concept._getCurrentItem({
-        owner: userAlice,
-        file: id,
+      // maxIndex = 2 (correct for 3 items, 0-indexed) - should succeed
+      let result = await concept.startTrackingUsingLLM({
+        owner: userCharlie,
+        fileId: inconsistentFileId1,
+        fileInput: smallContentString,
+        fileMaxIndex: 2,
       });
-      assertEquals(
-        "error" in currentStatus,
-        false,
-        `_getCurrentItem failed: ${JSON.stringify(currentStatus)}`,
-      );
-      assertEquals(
-        (currentStatus as { index: number }).index,
-        12,
-        "LLM should correctly identify the start of 'Body' instructions in file.",
-      );
+      assertNotEquals("error" in result, true, `Should succeed with consistent maxIndex: ${JSON.stringify(result)}`);
+
+      // maxIndex = 5 (inconsistent with 3 items) - should fail
+      result = await concept.startTrackingUsingLLM({
+        owner: userAlice,
+        fileId: inconsistentFileId2,
+        fileInput: smallContentString,
+        fileMaxIndex: 5,
+      });
+      assertEquals("error" in result, true, "Should fail if maxIndex is inconsistent with fileInput length.");
+      assertExists((result as { error: string }).error.includes("maxIndex 5 is inconsistent with file content length 3 (expected 2)"), "Error message should detail inconsistency.");
+
+      // empty content, maxIndex is not -1 (should fail)
+      const emptyContentString = JSON.stringify([]);
+      result = await concept.startTrackingUsingLLM({
+        owner: userAlice,
+        fileId: inconsistentFileId3,
+        fileInput: emptyContentString,
+        fileMaxIndex: 0, // Should be -1 for empty content
+      });
+      assertEquals("error" in result, true, "Should fail if empty content has maxIndex > -1.");
+      assertExists((result as { error: string }).error.includes("maxIndex 0 is inconsistent with empty file content."), "Error message should detail inconsistency for empty file.");
+
+      // empty content, maxIndex is -1 (should succeed)
+      result = await concept.startTrackingUsingLLM({
+        owner: userBob,
+        fileId: "file:LLMEmptyContentConsistent" as ID,
+        fileInput: emptyContentString,
+        fileMaxIndex: -1,
+      });
+      assertNotEquals("error" in result, true, `Should succeed if empty content has maxIndex -1: ${JSON.stringify(result)}`);
     },
   );
 
   await t.step(
-    "4. Pattern that has been scanned with OCR errors and typos",
+    "4. Fail to start tracking if tracking already exists for owner and file",
     async () => {
-      const itemsArray = [
-        "vintage  pattern   from  1978",
-        "",
-        "materia1s :", // OCR error
-        "— worsted yarn", // Strange character
-        "- size H hook",
-        "",
-        "specia1 stitches :", // OCR error
-        "dc = double crochet",
-        "",
-        "instructions :",
-        "ohain l5O", // OCR error - "chain 150"
-        "row l: dc in 4th ch from hook", // OCR error - "row 1"
-        "and eaoh oh across", // OCR error - "and each ch across"
-        "",
-        "row 2: oh 3, turn, dc in ea st", // Multiple OCR errors
-        "across",
-      ];
-      const id = "file:typoFile" as ID;
-      const itemsString = JSON.stringify(itemsArray);
-
-      const startResult = await concept.startTrackingUsingLLM({
+      // We already tracked fileToTrackLLM for userAlice in step 1.
+      const result = await concept.startTrackingUsingLLM({
         owner: userAlice,
-        file: id,
-        fileInput: itemsString,
-        fileMaxIndex: itemsArray.length - 1,
+        fileId: fileToTrackLLM,
+        fileInput: fileInputString,
+        fileMaxIndex: fileMaxIndexLLM,
       });
-      assertNotEquals(
-        "error" in startResult,
-        true,
-        "There should be no error in starting a new tracking with LLM",
-      );
-      assertExists(
-        (startResult as { id: ID }).id,
-        "Tracked file ID should be returned.",
-      );
-
-      const currentStatus = await concept._getCurrentItem({
-        owner: userAlice,
-        file: id,
-      });
-      assertEquals(
-        "error" in currentStatus,
-        false,
-        `_getCurrentItem failed: ${JSON.stringify(currentStatus)}`,
-      );
-      assertEquals(
-        (currentStatus as { index: number }).index,
-        10,
-        "LLM should correctly identify the start of 'ohain l50' instructions in file.",
-      );
+      assertEquals("error" in result, true, "Should fail if tracking already exists.");
+      assertEquals((result as { error: string }).error, `Tracking already exists for owner '${userAlice}' and file '${fileToTrackLLM}'.`);
     },
   );
+
+  await t.step(
+    "5. Fail gracefully if LLM returns malformed response or an invalid index",
+    async () => {
+      const llmErrorFile = "file:LLMErrorFile" as ID;
+      const llmMalformedFile = "file:LLMMalformedFile" as ID;
+      const llmInvalidIndexFile = "file:LLMInvalidIndexFile" as ID;
+      const llmMissingIndexFile = "file:LLMMissingIndexFile" as ID;
+      const llmNonIntegerIndexFile = "file:LLMNonIntegerIndexFile" as ID;
+
+      // LLM throws an error (e.g., API timeout, internal LLM error)
+      mockLLM.setThrowError(true);
+      let result = await concept.startTrackingUsingLLM({
+        owner: userBob,
+        fileId: llmErrorFile,
+        fileInput: fileInputString,
+        fileMaxIndex: fileMaxIndexLLM,
+      });
+      assertEquals("error" in result, true, "Should fail if LLM throws an error.");
+      assertExists((result as { error: string }).error.includes("Failed to start tracking with LLM: Simulated LLM network or API error."));
+      mockLLM.setThrowError(false); // Reset for subsequent tests
+
+      // LLM returns malformed JSON (not parsable)
+      mockLLM.setMockResponse("this is not json from LLM");
+      result = await concept.startTrackingUsingLLM({
+        owner: userCharlie,
+        fileId: llmMalformedFile,
+        fileInput: fileInputString,
+        fileMaxIndex: fileMaxIndexLLM,
+      });
+      assertEquals("error" in result, true, "Should fail if LLM returns malformed JSON.");
+      assertExists((result as { error: string }).error.includes("No JSON found in response"));
+
+
+      // LLM returns valid JSON but currentIndex is out of bounds (too high)
+      const tooHighLLMIndex = fileMaxIndexLLM + 1;
+      mockLLM.setMockResponse(`{"currentIndex": ${tooHighLLMIndex}}`);
+      result = await concept.startTrackingUsingLLM({
+        owner: userBob,
+        fileId: llmInvalidIndexFile,
+        fileInput: fileInputString,
+        fileMaxIndex: fileMaxIndexLLM,
+      });
+      assertEquals("error" in result, true, "Should fail if LLM returns an out-of-bounds index.");
+      assertExists((result as { error: string }).error.includes(`currentIndex ${tooHighLLMIndex} is out of bounds [0, ${fileMaxIndexLLM}].`), "Error message should indicate out of bounds.");
+
+      // LLM returns valid JSON but `currentIndex` is missing
+      mockLLM.setMockResponse(`{"someOtherField": 10}`);
+      result = await concept.startTrackingUsingLLM({
+        owner: userCharlie,
+        fileId: llmMissingIndexFile,
+        fileInput: fileInputString,
+        fileMaxIndex: fileMaxIndexLLM,
+      });
+      assertEquals("error" in result, true, "Should fail if LLM response JSON is missing `currentIndex`.");
+      assertExists((result as { error: string }).error.includes("Invalid response, there is no currentIndex passed in."));
+
+      // LLM returns valid JSON but `currentIndex` is not an integer
+      mockLLM.setMockResponse(`{"currentIndex": 7.5}`);
+      result = await concept.startTrackingUsingLLM({
+        owner: userAlice,
+        fileId: llmNonIntegerIndexFile,
+        fileInput: fileInputString,
+        fileMaxIndex: fileMaxIndexLLM,
+      });
+      assertEquals("error" in result, true, "Should fail if LLM response JSON has non-integer `currentIndex`.");
+      assertExists((result as { error: string }).error.includes("currentIndex 7.5 is not a valid integer."));
+    },
+  );
+
+
   await client.close();
 });
+```

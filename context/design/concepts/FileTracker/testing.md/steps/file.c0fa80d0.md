@@ -1,3 +1,12 @@
+---
+timestamp: 'Sat Oct 18 2025 10:48:20 GMT-0400 (Eastern Daylight Time)'
+parent: '[[../20251018_104820.0f9f4f0e.md]]'
+content_id: c0fa80d0d23700605321e0e1092d3aab41ac3d4045cc5ea6d0747d1422f7b700
+---
+
+# file: src/concepts/FileTracker/FileTrackerConcept.test.ts
+
+```typescript
 import {
   assertEquals,
   assertExists,
@@ -878,14 +887,12 @@ Deno.test("Action: startTrackingUsingLLM with different styles of patterns", asy
         owner: userAlice,
         file: id,
         fileInput: itemsString,
-        fileMaxIndex: itemsArray.length - 1,
+        fileMaxIndex: itemsArray.length,
       });
       assertNotEquals(
         "error" in startResult,
         true,
-        `There should be no error in starting a new tracking with LLM, but got error ${
-          JSON.stringify(startResult)
-        }`,
+        `There should be no error in starting a new tracking with LLM, but got error ${startResult}`,
       );
       assertExists(
         (startResult as { id: ID }).id,
@@ -986,7 +993,7 @@ Deno.test("Action: startTrackingUsingLLM with different styles of patterns", asy
         owner: userAlice,
         file: id,
         fileInput: itemsString,
-        fileMaxIndex: itemsArray.length - 1,
+        fileMaxIndex: itemsArray.length,
       });
       assertNotEquals(
         "error" in startResult,
@@ -1041,7 +1048,7 @@ Deno.test("Action: startTrackingUsingLLM with different styles of patterns", asy
         owner: userAlice,
         file: id,
         fileInput: itemsString,
-        fileMaxIndex: itemsArray.length - 1,
+        fileMaxIndex: itemsArray.length,
       });
       assertNotEquals(
         "error" in startResult,
@@ -1098,7 +1105,7 @@ Deno.test("Action: startTrackingUsingLLM with different styles of patterns", asy
         owner: userAlice,
         file: id,
         fileInput: itemsString,
-        fileMaxIndex: itemsArray.length - 1,
+        fileMaxIndex: itemsArray.length,
       });
       assertNotEquals(
         "error" in startResult,
@@ -1128,3 +1135,5 @@ Deno.test("Action: startTrackingUsingLLM with different styles of patterns", asy
   );
   await client.close();
 });
+
+```

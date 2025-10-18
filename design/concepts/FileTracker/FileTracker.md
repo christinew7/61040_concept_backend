@@ -15,8 +15,8 @@
     *   `startTracking (owner: User, file: File, maxIndex: number)`
         *   **requires** this `owner` exists, this `file` exists, this maxIndex is a nonnegative integer, this `owner` and this `file` isn't already in the set of `TrackedFiles`
         *   **effects** create a new `TrackedFile` with this owner, this file and this maxIndex, `currentIndex` is initialized to 0,, `isVisible` set to true
-    * `startTrackingUsingLLM(owner: User, file: File, llm: GeminiLLM)`
-	    * **requires** this `owner` exists, this `file` exists, this `owner` and this `file` isn't already in the set of `TrackedFiles`
+    * `startTrackingUsingLLM(owner: User, file: File, fileInput: string, fileMaxIndex: number)`
+	    * **requires** this `owner` exists, this `file` exists, this `owner` and this `file` isn't already in the set of `TrackedFiles`, this fileInput is in JSON format
 	    * **effect** uses this `llm` to determine a more accurate `startIndex` for the file
     *   `deleteTracking (owner: User, file: File)`
         *   **requires** this `owner` and this `file` is in the set of TrackedFiles

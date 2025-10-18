@@ -1,3 +1,12 @@
+---
+timestamp: 'Sat Oct 18 2025 10:37:45 GMT-0400 (Eastern Daylight Time)'
+parent: '[[../20251018_103745.da2ff953.md]]'
+content_id: 0788e468fe56d524b3a8d32d9a1738b743e5775cb39e6301060d5c1204ffd6e7
+---
+
+# file: src/concepts/FileTracker/FileTrackerConcept.ts
+
+```typescript
 /**
  * @concept FileTracker [User, File]
  * @purpose track current position and enable navigation within files
@@ -254,7 +263,7 @@ export default class FileTrackerConcept {
   /**
    * @action startTrackingUsingLLM
    * @param owner - The ID of the user.
-   * @param file- The ID of the file
+   * @param fileId- The ID of the file
    * @param fileInput - a string input for the LLM
    * @param fileMaxIndex - the maximum index for the LLM
    * @returns {Promise<{ id: TrackedFile } | { error: string }>} The ID of the new tracked file on success, or an error object.
@@ -266,9 +275,9 @@ export default class FileTrackerConcept {
    *   then creates a new `TrackedFile` document in the database.
    */
   async startTrackingUsingLLM(
-    { owner, file, fileInput, fileMaxIndex }: {
+    { owner, fileId, fileInput, fileMaxIndex }: {
       owner: User;
-      file: File;
+      fileId: File;
       fileInput: string;
       fileMaxIndex: number;
     },
@@ -276,12 +285,12 @@ export default class FileTrackerConcept {
     // Check if tracking already exists for this owner and file
     const existingTracking = await this.trackedFiles.findOne({
       owner,
-      file: file,
+      file: fileId,
     });
     if (existingTracking) {
       return {
         error:
-          `Tracking already exists for owner '${owner}' and file '${file}'.`,
+          `Tracking already exists for owner '${owner}' and file '${fileId}'.`,
       };
     }
 
@@ -338,7 +347,7 @@ export default class FileTrackerConcept {
       const parseResult = await this.parseAndStartTracking(
         text,
         owner,
-        file,
+        fileId,
         fileMaxIndex,
       );
       // this.parseAndStartTracking(text);
@@ -435,8 +444,8 @@ Return ONLY the JSON object, no additional text. Strictly enforce the integer ra
   private async parseAndStartTracking(
     responseText: string,
     owner: User,
-    file: File,
-    fileMaxIndex: number,
+    fileID: File,
+    fileMaxIndex: number, // Add fileMaxIndex as a parameter here
   ): Promise<{ id: TrackedFile } | { error: string }> {
     try {
       // Extract JSON from response (in case there's extra text)
@@ -460,9 +469,14 @@ Return ONLY the JSON object, no additional text. Strictly enforce the integer ra
         issues.push(`Invalid response, there is no currentIndex passed in.`);
       }
 
-      // checking bounds
-      if (indices.currentIndex < 0 || indices.currentIndex > fileMaxIndex) {
-        issues.push(`currentIndex ${indices.currentIndex} is out of bounds`);
+      // checking bounds - FIX: use fileMaxIndex from parameter, not indices.maxIndex
+      if (
+        typeof indices.currentIndex === "number" &&
+        (indices.currentIndex < 0 || indices.currentIndex > fileMaxIndex)
+      ) {
+        issues.push(
+          `currentIndex ${indices.currentIndex} is out of bounds [0, ${fileMaxIndex}]`,
+        );
       }
 
       // checking type
@@ -470,10 +484,14 @@ Return ONLY the JSON object, no additional text. Strictly enforce the integer ra
         issues.push(`currentIndex ${indices.currentIndex} is not a number`);
       }
 
+      if (issues.length > 0) {
+        return { error: `LLM response parsing failed: ${issues.join("; ")}` };
+      }
+
       const trackedFile: TrackedFileDoc = {
         _id: freshID(),
         owner: owner,
-        file: file,
+        file: fileID,
         currentIndex: indices.currentIndex,
         maxIndex: fileMaxIndex,
         isVisible: true,
@@ -511,3 +529,5 @@ Return ONLY the JSON object, no additional text. Strictly enforce the integer ra
     return { index: trackedFile.currentIndex };
   }
 }
+
+```

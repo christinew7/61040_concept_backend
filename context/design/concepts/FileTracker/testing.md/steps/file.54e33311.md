@@ -1,3 +1,12 @@
+---
+timestamp: 'Sat Oct 18 2025 10:48:20 GMT-0400 (Eastern Daylight Time)'
+parent: '[[../20251018_104820.0f9f4f0e.md]]'
+content_id: 54e333118d95fd1c5cacf5e97f4ee9855171c4fabd60ef133b4813696ae373eb
+---
+
+# file: src/concepts/FileTracker/FileTrackerConcept.ts
+
+```typescript
 /**
  * @concept FileTracker [User, File]
  * @purpose track current position and enable navigation within files
@@ -511,3 +520,5 @@ Return ONLY the JSON object, no additional text. Strictly enforce the integer ra
     return { index: trackedFile.currentIndex };
   }
 }
+
+```
