@@ -51,7 +51,7 @@ export default class PasswordAuthenticationConcept {
     { username, password }: { username: string; password: string },
   ): Promise<{ user: User } | { error: string }> {
     if (!username) {
-      return { error: "Username cannot be empty."}
+      return { error: "Username cannot be empty." };
     }
 
     const existingUser = await this.users.findOne({ username });
@@ -84,7 +84,9 @@ export default class PasswordAuthenticationConcept {
     const user = await this.users.findOne({ username });
 
     if (!user) {
-      return { error: `Invalid username: there is no user with username ${username}`}
+      return {
+        error: `Invalid username: there is no user with username ${username}`,
+      };
     }
     if (user.password !== password) {
       return { error: "Password does not match!" };
@@ -105,5 +107,17 @@ export default class PasswordAuthenticationConcept {
   ): Promise<{ user?: UserDoc }> {
     const user = await this.users.findOne({ username });
     return user ? { user } : {};
+  }
+
+  /**
+   * @query _getUsername
+   * @param userId - the userId of the user
+   * @returns {Promise<{ username?: string }>} username of the user with userId if found, otherwise an empty object
+   */
+  async _getUsername(
+    { userId }: { userId: User },
+  ): Promise<{ username?: string }> {
+    const user = await this.users.findOne({ _id: userId });
+    return user ? { username: user.username } : {};
   }
 }

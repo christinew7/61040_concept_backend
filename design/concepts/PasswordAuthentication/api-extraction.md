@@ -129,3 +129,39 @@ Now, analyze the following Concept Implementation and generate the API documenta
 ```
 
 ---
+
+### POST /api/PasswordAuthentication/_getUsername
+
+**Description:** Retrieves a user's document by their username.
+
+**Requirements:**
+- None explicit.
+
+**Effects:**
+- returns a document of username if user is found by userId
+
+**Request Body:**
+```json
+{
+  "userId": "ID"
+}
+```
+
+**Success Response Body (Query):**
+```json
+[
+  {
+    "username": "string"
+  }
+]
+```
+*(Returns an empty array `[]` if no user is found.)*
+
+**Error Response Body:**
+```json
+{
+  "error": "string"
+}
+```
+
+---
