@@ -569,3 +569,38 @@ Now, analyze the following Concept Implementation and generate the API documenta
 }
 ```
 ---
+
+### POST /api/FileTracker/_getVisibility
+
+**Description:** Retrieves the visibility of a tracked file for a specific owner and file.
+
+**Requirements:**
+- this owner and this file exists in the TrackedFiles
+
+**Effects:**
+- in the TrackedFile with this owner and this file, return the currentIndex
+
+**Request Body:**
+```json
+{
+  "owner": "string",
+  "file": "string"
+}
+```
+
+**Success Response Body (Query):**
+```json
+[
+  {
+    "isVisible": "boolean"
+  }
+]
+```
+
+**Error Response Body:**
+```json
+{
+  "error": "string"
+}
+```
+---

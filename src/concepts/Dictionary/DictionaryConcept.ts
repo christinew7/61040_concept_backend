@@ -88,6 +88,7 @@ export default class DictionaryConcept {
 
   /**
    * @action deleteTerm
+   * @param type - the type of translation the term is
    * @param language1 - a word in one language
    * @param language2 - the same word in another language
    * @returns {Empty | { error: string }} - An empty object on success, or an error message.
@@ -96,13 +97,25 @@ export default class DictionaryConcept {
    * @effects deletes this language1 and this language2 from the set of terms
    */
   async deleteTerm(
-    { language1, language2 }: { language1: string; language2: string },
+    { type, language1, language2 }: {
+      type: string;
+      language1: string;
+      language2: string;
+    },
   ): Promise<Empty | { error: string }> {
+    const normalizedType = type.toLowerCase();
     language1 = language1.toLowerCase();
     language2 = language2.toLowerCase();
-    const existingTerm = await this.terms.findOne({ language1, language2 });
+    const existingTerm = await this.terms.findOne({
+      type: normalizedType as "language" | "abbreviation",
+      language1,
+      language2,
+    });
     if (!existingTerm) {
-      return { error: `Term pair "${language1}" -> "${language2}" not found.` };
+      return {
+        error:
+          `Term pair with type "${type}", "${language1}" -> "${language2}" not found.`,
+      };
     }
 
     await this.terms.deleteOne({ _id: existingTerm._id });
@@ -111,6 +124,7 @@ export default class DictionaryConcept {
 
   /**
    * @action translateTermFromL1
+   * @param type - the type of translation to look up
    * @param language1 - a word in language1 to translate
    * @returns {{ language2: string } | { error: string }} - The translated word in language2 on success, or an error message.
    *
@@ -118,12 +132,19 @@ export default class DictionaryConcept {
    * @effects returns this language2 associated with this language1
    */
   async translateTermFromL1(
-    { language1 }: { language1: string },
+    { type, language1 }: { type: string; language1: string },
   ): Promise<{ language2: string } | { error: string }> {
+    const normalizedType = type.toLowerCase();
     language1 = language1.toLowerCase();
-    const term = await this.terms.findOne({ language1 });
+    const term = await this.terms.findOne({
+      type: normalizedType as "language" | "abbreviation",
+      language1,
+    });
     if (!term) {
-      return { error: `Translation for "${language1}" not found.` };
+      return {
+        error:
+          `Translation for type "${type}", "${language1}" not found.`,
+      };
     }
 
     return { language2: term.language2 };
@@ -131,6 +152,7 @@ export default class DictionaryConcept {
 
   /**
    * @action translateTermFromL2
+   * @param type - the type of translation to look up
    * @param language2 - a word in language2 to translate
    * @returns {{ language1: string } | { error: string }} - The translated word in language1 on success, or an error message.
    *
@@ -138,12 +160,19 @@ export default class DictionaryConcept {
    * @effects returns this language1 associated with this language2
    */
   async translateTermFromL2(
-    { language2 }: { language2: string },
+    { type, language2 }: { type: string; language2: string },
   ): Promise<{ language1: string } | { error: string }> {
+    const normalizedType = type.toLowerCase();
     language2 = language2.toLowerCase();
-    const term = await this.terms.findOne({ language2 });
+    const term = await this.terms.findOne({
+      type: normalizedType as "language" | "abbreviation",
+      language2,
+    });
     if (!term) {
-      return { error: `Translation for "${language2}" not found.` };
+      return {
+        error:
+          `Translation for type "${type}", "${language2}" not found.`,
+      };
     }
     return { language1: term.language1 };
   }

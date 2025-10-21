@@ -28,6 +28,7 @@ Deno.test(
       "2. User requests translation from US to UK term for this term",
       async () => {
         const translateTermResult = await concept.translateTermFromL1({
+          type: "language",
           language1: "double crochet",
         });
         assertNotEquals(
@@ -76,7 +77,7 @@ Deno.test("Action: addTerm", async (t) => {
 
   await t.step("2. Can still access the original term", async () => {
     const translateTermResult = await concept.translateTermFromL1(
-      { language1: "single crochet" },
+      { type: "language", language1: "single crochet" },
     );
     const { language2 } = translateTermResult as { language2: string };
     assertEquals(
@@ -104,6 +105,7 @@ Deno.test("Action: type validation and abbreviation support", async (t) => {
       "addTerm with abbreviation type should succeed",
     );
     const translateResult = await concept.translateTermFromL1({
+      type: "abbreviation",
       language1: "sc",
     });
     assertEquals(
@@ -142,7 +144,7 @@ Deno.test("Action: deleteTerm", async (t) => {
     });
     // Double check the translation went through
     let translateTermResult = await concept.translateTermFromL1(
-      { language1: "single crochet" },
+      { type: "language", language1: "single crochet" },
     );
     const { language2 } = translateTermResult as { language2: string };
     assertEquals(
@@ -152,6 +154,7 @@ Deno.test("Action: deleteTerm", async (t) => {
     );
 
     const deleteTermResult = await concept.deleteTerm({
+      type: "language",
       language1: "single crochet",
       language2: "double crochet",
     });
@@ -162,7 +165,7 @@ Deno.test("Action: deleteTerm", async (t) => {
     );
 
     translateTermResult = await concept.translateTermFromL1(
-      { language1: "single crochet" },
+      { type: "language", language1: "single crochet" },
     );
     assertEquals(
       "error" in translateTermResult,
@@ -173,6 +176,7 @@ Deno.test("Action: deleteTerm", async (t) => {
 
   await t.step("2. Cannot delete an already deleted term", async () => {
     const deleteTermResult = await concept.deleteTerm({
+      type: "language",
       language1: "single crochet",
       language2: "double crochet",
     });
@@ -211,6 +215,7 @@ Deno.test("Action: translateTerm - both ways", async (t) => {
 
   await t.step("1. Can translate from language1", async () => {
     const translateTermResult = await concept.translateTermFromL1({
+      type: "language",
       language1: "single crochet",
     });
     assertEquals(
@@ -224,6 +229,7 @@ Deno.test("Action: translateTerm - both ways", async (t) => {
 
   await t.step("2. Can translate from language2", async () => {
     const translateTermResult = await concept.translateTermFromL2({
+      type: "language",
       language2: "double crochet",
     });
     assertEquals(
@@ -239,6 +245,7 @@ Deno.test("Action: translateTerm - both ways", async (t) => {
     "3. Cannot translate from language1 using language2",
     async () => {
       const translateTermResult = await concept.translateTermFromL1({
+        type: "language",
         language1: "double crochet",
       });
       assertEquals(
@@ -253,6 +260,7 @@ Deno.test("Action: translateTerm - both ways", async (t) => {
     "4. Cannot translate from language2 using language1",
     async () => {
       const translateTermResult = await concept.translateTermFromL2({
+        type: "language",
         language2: "single crochet",
       });
       assertEquals(
@@ -291,6 +299,7 @@ Deno.test("Action: case insensitivity for addTerm, deleteTerm, and translateTerm
     "2. Can translate from language 1 with different case",
     async () => {
       const diffCaseTranslateResult = await concept.translateTermFromL1({
+        type: "language",
         language1: "sIngle croChet",
       });
       assertEquals(
@@ -307,6 +316,7 @@ Deno.test("Action: case insensitivity for addTerm, deleteTerm, and translateTerm
     "3. Can translate from language 2 with different case",
     async () => {
       const diffCaseTranslateResult = await concept.translateTermFromL2({
+        type: "language",
         language2: "Double Crochet",
       });
       assertEquals(
@@ -321,6 +331,7 @@ Deno.test("Action: case insensitivity for addTerm, deleteTerm, and translateTerm
 
   await t.step("4. Can delete term with different case", async () => {
     const deleteTermResult = await concept.deleteTerm({
+      type: "language",
       language1: "SINGLE CROCHET",
       language2: "Double crochet",
     });

@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "design/concepts/Library/api-extraction.md",
+                "file": "design/concepts/FileTracker/api-extraction.md",
                 "mode": "source",
                 "source": false
               },
@@ -227,6 +227,9 @@
   },
   "active": "1a37cc4f0ef88fa9",
   "lastOpenFiles": [
+    "design/concepts/Dictionary/api-extraction.md",
+    "design/concepts/Dictionary/Dictionary.md",
+    "design/concepts/Library/api-extraction.md",
     "context/src/concepts/Dictionary/DictionaryConcept.test.ts/20251021_153806.ae8db7ea.md",
     "context/src/concepts/Dictionary/DictionaryConcept.ts/20251021_153804.c363b438.md",
     "design/concepts/Library/Library.md",
@@ -242,7 +245,6 @@
     "design/concepts/FileTracker/api-extraction.md",
     "design/concepts/Library/testing.md",
     "design/concepts/Library/Untitled.md",
-    "design/concepts/Library/api-extraction.md",
     "context/design/concepts/Library/api-extraction.md/20251018_114607.e8b8210b.md",
     "context/design/concepts/Library/api-extraction.md/steps/API Specification.0a07d47f.md",
     "context/design/concepts/Library/api-extraction.md/steps/response.6d76b65d.md",
@@ -252,8 +254,6 @@
     "context/design/concepts/Library/api-extraction.md/steps/file.6fdcadd0.md",
     "context/design/concepts/Library/api-extraction.md/steps/approach.5df2171f.md",
     "context/design/concepts/Library/api-extraction.md/steps/_.fa3ad648.md",
-    "context/design/concepts/Library/api-extraction.md/steps/_.ee4d1e5e.md",
-    "context/design/concepts/Library/api-extraction.md/steps/_.db39d951.md",
     "context/design/concepts/Library/api-extraction.md/steps",
     "context/design/concepts/FileTracker/api-extraction.md/steps",
     "context/design/concepts/Dictionary/api-extraction.md/steps",

@@ -33,6 +33,7 @@ Now, analyze the following Concept Implementation and generate the API documenta
 **Request Body:**
 ```json
 {
+  "type": "string",
   "language1": "string",
   "language2": "string"
 }

@@ -510,4 +510,22 @@ Return ONLY the JSON object, no additional text. Strictly enforce the integer ra
     }
     return { index: trackedFile.currentIndex };
   }
+
+  /**
+   * @query _getVisibility
+   * @param owner - the ID of the user
+   * @param file - the ID of the file
+   * @returns Promise<{ isVisible: boolean } | { error: string }> the visibility flag of the file on success
+   */
+  async _getVisibility(
+    { owner, file }: { owner: User; file: File },
+  ): Promise<{ isVisible: boolean } | { error: string }> {
+    const trackedFile = await this.trackedFiles.findOne({ owner, file });
+    if (!trackedFile) {
+      return {
+        error: `No tracking found for owner '${owner}' and file '${file}'.`,
+      };
+    }
+    return { isVisible: trackedFile.isVisible };
+  }
 }
