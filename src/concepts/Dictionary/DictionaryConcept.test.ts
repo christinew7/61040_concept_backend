@@ -13,6 +13,7 @@ Deno.test(
 
     await t.step("1. Add one crochet translation term", async () => {
       const addTermResult = await concept.addTerm({
+        type: "language",
         language1: "double crochet",
         language2: "treble crochet",
       });
@@ -57,10 +58,12 @@ Deno.test("Action: addTerm", async (t) => {
 
   await t.step("1. Cannot add duplicate terms", async () => {
     await concept.addTerm({
+      type: "language",
       language1: "single crochet",
       language2: "double crochet",
     });
     const addDuplicateTermResult = await concept.addTerm({
+      type: "language",
       language1: "single crochet",
       language2: "double crochet",
     });
@@ -85,12 +88,55 @@ Deno.test("Action: addTerm", async (t) => {
   await client.close();
 });
 
+Deno.test("Action: type validation and abbreviation support", async (t) => {
+  const [db, client] = await testDb();
+  const concept = new DictionaryConcept(db);
+
+  await t.step("1. Can add term with 'abbreviation' type", async () => {
+    const addTermResult = await concept.addTerm({
+      type: "abbreviation",
+      language1: "sc",
+      language2: "single crochet",
+    });
+    assertEquals(
+      "error" in addTermResult,
+      false,
+      "addTerm with abbreviation type should succeed",
+    );
+    const translateResult = await concept.translateTermFromL1({
+      language1: "sc",
+    });
+    assertEquals(
+      "error" in translateResult,
+      false,
+      "translate should succeed for abbreviation term",
+    );
+  });
+
+  await t.step("2. Invalid type is rejected", async () => {
+    const addTermResult = await concept.addTerm({
+      // @ts-ignore: intentionally passing invalid value to test runtime validation
+      type: "invalid-type",
+      language1: "a",
+      language2: "b",
+    });
+    assertEquals(
+      "error" in addTermResult,
+      true,
+      "Invalid type should return an error",
+    );
+  });
+
+  await client.close();
+});
+
 Deno.test("Action: deleteTerm", async (t) => {
   const [db, client] = await testDb();
   const concept = new DictionaryConcept(db);
 
   await t.step("1. Successfully delete existing term", async () => {
     await concept.addTerm({
+      type: "language",
       language1: "single crochet",
       language2: "double crochet",
     });
@@ -139,6 +185,7 @@ Deno.test("Action: deleteTerm", async (t) => {
 
   await t.step("3. Add back a deleted term", async () => {
     const addTermResult = await concept.addTerm({
+      type: "language",
       language1: "single crochet",
       language2: "double crochet",
     });
@@ -157,6 +204,7 @@ Deno.test("Action: translateTerm - both ways", async (t) => {
   const concept = new DictionaryConcept(db);
 
   await concept.addTerm({
+    type: "language",
     language1: "single crochet",
     language2: "double crochet",
   });
@@ -222,11 +270,13 @@ Deno.test("Action: case insensitivity for addTerm, deleteTerm, and translateTerm
   const concept = new DictionaryConcept(db);
 
   await concept.addTerm({
+    type: "language",
     language1: "single crochet",
     language2: "double crochet",
   });
   await t.step("1. Cannot add term with different case", async () => {
     const diffCaseAddResult = await concept.addTerm({
+      type: "language",
       language1: "Single Crochet",
       language2: "double crochet",
     });

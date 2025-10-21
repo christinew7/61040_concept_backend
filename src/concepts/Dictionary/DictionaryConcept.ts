@@ -22,6 +22,7 @@ type Term = ID;
 
 interface TermDoc {
   _id: Term;
+  type: "language" | "abbreviation";
   language1: string;
   language2: string;
 }
@@ -39,6 +40,7 @@ export default class DictionaryConcept {
 
   /**
    * @action addTerm
+   * @param type - the type of translation the term will be
    * @param language1 - a word in one language
    * @param language2 - the same word in another language
    * @returns {{ id: Term } | { error: string }} - The ID of the newly added term on success, or an error message.
@@ -47,11 +49,24 @@ export default class DictionaryConcept {
    * @effects creates a new Term with this language1 and this language2
    */
   async addTerm(
-    { language1, language2 }: { language1: string; language2: string },
+    { type, language1, language2 }: {
+      type: string;
+      language1: string;
+      language2: string;
+    },
   ): Promise<{ id: Term } | { error: string }> {
+    const normalizedType = type.toLowerCase();
+    // validate allowed types
+    if (normalizedType !== "language" && normalizedType !== "abbreviation") {
+      return {
+        error:
+          `Invalid term type "${type}". Allowed: "language" | "abbreviation".`,
+      };
+    }
     language1 = language1.toLowerCase();
     language2 = language2.toLowerCase();
     const existingTerm = await this.terms.findOne({
+      type: normalizedType,
       language1: language1,
       language2: language2,
     });
@@ -63,6 +78,7 @@ export default class DictionaryConcept {
 
     const newTerm: TermDoc = {
       _id: freshID(),
+      type: normalizedType as "language" | "abbreviation",
       language1,
       language2,
     };
