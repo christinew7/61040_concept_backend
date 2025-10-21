@@ -3,6 +3,7 @@ import { getDb } from "@utils/database.ts";
 import { walk } from "jsr:@std/fs";
 import { parseArgs } from "jsr:@std/cli/parse-args";
 import { toFileUrl } from "jsr:@std/path/to-file-url";
+import { GeminiLLM } from "@utils/gemini-llm.ts";
 
 // Parse command-line arguments for port and base URL
 const flags = parseArgs(Deno.args, {
@@ -22,6 +23,9 @@ const CONCEPTS_DIR = "src/concepts";
  */
 async function main() {
   const [db] = await getDb();
+  const llm = new GeminiLLM({
+    apiKey: Deno.env.get("GEMINI_API_KEY") ?? "",
+  });
   const app = new Hono();
 
   app.get("/", (c) => c.text("Concept Server is running."));
@@ -56,7 +60,13 @@ async function main() {
         continue;
       }
 
-      const instance = new ConceptClass(db);
+      let instance;
+      // const instance = new ConceptClass(db);
+      if (ConceptClass.name.startsWith("FileTracker")) {
+        instance = new ConceptClass(db, llm);
+      } else {
+        instance = new ConceptClass(db);
+      }
       const conceptApiName = conceptName;
       console.log(
         `- Registering concept: ${conceptName} at ${BASE_URL}/${conceptApiName}`,

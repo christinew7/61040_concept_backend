@@ -90,7 +90,7 @@ export default class FileTrackerConcept {
       _id: freshID(),
       owner,
       file,
-      currentIndex: 0,
+      currentIndex: 1,
       maxIndex,
       isVisible: true,
     };
@@ -205,10 +205,10 @@ export default class FileTrackerConcept {
       };
     }
 
-    if (trackedFile.currentIndex <= 0) {
+    if (trackedFile.currentIndex <= 1) {
       return {
         error:
-          `Current index ${trackedFile.currentIndex} is already at or below 0. Cannot move back.`,
+          `Current index ${trackedFile.currentIndex} is already at or below 1. Cannot move back.`,
       };
     }
 

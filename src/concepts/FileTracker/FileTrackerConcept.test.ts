@@ -56,7 +56,7 @@ Deno.test("Principle: a user starts tracking their file from the first listed it
       const trackingId = (result as { id: ID }).id;
       assertExists(trackingId, "Expected to start tracking file successfully");
 
-      // verify initial state (currentIndex = 0, isVisible= true)
+      // verify initial state (currentIndex = 1, isVisible= true)
       const currentStatus = await concept._getCurrentItem({
         owner: userAlice,
         file: file1,
@@ -64,8 +64,8 @@ Deno.test("Principle: a user starts tracking their file from the first listed it
       assertExists(currentStatus, "Expected to retrieve tracking status");
       assertObjectMatch(
         currentStatus,
-        { index: 0 },
-        "Current index should be 0 initially after startTracking",
+        { index: 1 },
+        "Current index should be 1 initially after startTracking",
       );
 
       // Also verify isVisible default
@@ -95,8 +95,8 @@ Deno.test("Principle: a user starts tracking their file from the first listed it
       });
       assertObjectMatch(
         currentStatus,
-        { index: 1 },
-        "Current index should be 1 after one 'next'",
+        { index: 2 },
+        "Current index should be 2 after one 'next'",
       );
 
       // Action: back
@@ -112,7 +112,7 @@ Deno.test("Principle: a user starts tracking their file from the first listed it
       });
       assertObjectMatch(
         currentStatus,
-        { index: 0 },
+        { index: 1 },
         "Current index should be 1 after one 'back'",
       );
     },
@@ -288,11 +288,11 @@ Deno.test("Action: startTracking", async (t) => {
       });
       assertObjectMatch(
         aliceStatus,
-        { index: 0 },
-        "Alice's index should be 0.",
+        { index: 1 },
+        "Alice's index should be 1.",
       );
       let bobStatus = await concept._getCurrentItem({ owner: userBob, file });
-      assertObjectMatch(bobStatus, { index: 0 }, "Bob's index should be 0.");
+      assertObjectMatch(bobStatus, { index: 1 }, "Bob's index should be 1.");
 
       // Alice iterates through to make sure it's not tracking the same index
       await concept.next({ owner: userAlice, file });
@@ -302,11 +302,11 @@ Deno.test("Action: startTracking", async (t) => {
       });
       assertObjectMatch(
         aliceStatus,
-        { index: 1 },
-        "Alice's index should be 1.",
+        { index: 2 },
+        "Alice's index should be 2.",
       );
       bobStatus = await concept._getCurrentItem({ owner: userBob, file });
-      assertObjectMatch(bobStatus, { index: 0 }, "Bob's index should be 0.");
+      assertObjectMatch(bobStatus, { index: 1 }, "Bob's index should be 1.");
     },
   );
 
@@ -337,13 +337,13 @@ Deno.test("Action: startTracking", async (t) => {
       });
       assertObjectMatch(
         file3Status,
-        { index: 0 },
-        "Alice's index for file3 should be 0.",
+        { index: 1 },
+        "Alice's index for file3 should be 1.",
       );
       assertObjectMatch(
         file2Status,
-        { index: 1 },
-        "Alice's index for file2 should be 1.",
+        { index: 2 },
+        "Alice's index for file2 should be 2.",
       );
     },
   );
@@ -430,7 +430,7 @@ Deno.test("Action: next, back, jumpTo", async (t) => {
         owner: userAlice,
         file: file1,
       });
-      assertObjectMatch(status, { index: 1 });
+      assertObjectMatch(status, { index: 2 });
 
       // hit next again
       await concept.next({ owner: userAlice, file: file1 });
@@ -438,14 +438,14 @@ Deno.test("Action: next, back, jumpTo", async (t) => {
         owner: userAlice,
         file: file1,
       });
-      assertObjectMatch(status, { index: 2 });
+      assertObjectMatch(status, { index: 3 });
 
       await concept.next({ owner: userAlice, file: file1 });
       status = await concept._getCurrentItem({
         owner: userAlice,
         file: file1,
       });
-      assertObjectMatch(status, { index: 3 });
+      assertObjectMatch(status, { index: 4 });
     },
   );
 
@@ -457,6 +457,14 @@ Deno.test("Action: next, back, jumpTo", async (t) => {
         owner: userAlice,
         file: file1,
       });
+      assertObjectMatch(status, { index: 3 });
+
+      // hit back again
+      await concept.back({ owner: userAlice, file: file1 });
+      status = await concept._getCurrentItem({
+        owner: userAlice,
+        file: file1,
+      });
       assertObjectMatch(status, { index: 2 });
 
       // hit back again
@@ -466,14 +474,6 @@ Deno.test("Action: next, back, jumpTo", async (t) => {
         file: file1,
       });
       assertObjectMatch(status, { index: 1 });
-
-      // hit back again
-      await concept.back({ owner: userAlice, file: file1 });
-      status = await concept._getCurrentItem({
-        owner: userAlice,
-        file: file1,
-      });
-      assertObjectMatch(status, { index: 0 });
     },
   );
 
@@ -490,7 +490,7 @@ Deno.test("Action: next, back, jumpTo", async (t) => {
         owner: userAlice,
         file: file1,
       });
-      assertObjectMatch(status, { index: 0 });
+      assertObjectMatch(status, { index: 1 });
     },
   );
 
