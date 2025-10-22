@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "design/concepts/FileTracker/api-extraction.md",
+                "file": "design/concepts/Library/Library.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "api-extraction"
+              "title": "Library"
             }
           },
           {
@@ -227,8 +227,10 @@
   },
   "active": "1a37cc4f0ef88fa9",
   "lastOpenFiles": [
-    "design/concepts/Dictionary/api-extraction.md",
+    "design/concepts/FileTracker/FileTracker.md",
     "design/concepts/Dictionary/Dictionary.md",
+    "design/concepts/FileTracker/api-extraction.md",
+    "design/concepts/Dictionary/api-extraction.md",
     "design/concepts/Library/api-extraction.md",
     "context/src/concepts/Dictionary/DictionaryConcept.test.ts/20251021_153806.ae8db7ea.md",
     "context/src/concepts/Dictionary/DictionaryConcept.ts/20251021_153804.c363b438.md",
@@ -242,7 +244,6 @@
     "context/design/learning/api extractions.md/steps",
     "context/design/learning/api extractions.md/20251018_120213.da5c7d6e.md",
     "context/design/learning/api extractions.md",
-    "design/concepts/FileTracker/api-extraction.md",
     "design/concepts/Library/testing.md",
     "design/concepts/Library/Untitled.md",
     "context/design/concepts/Library/api-extraction.md/20251018_114607.e8b8210b.md",
@@ -253,7 +254,6 @@
     "context/design/concepts/Library/api-extraction.md/steps/file.88bd3e70.md",
     "context/design/concepts/Library/api-extraction.md/steps/file.6fdcadd0.md",
     "context/design/concepts/Library/api-extraction.md/steps/approach.5df2171f.md",
-    "context/design/concepts/Library/api-extraction.md/steps/_.fa3ad648.md",
     "context/design/concepts/Library/api-extraction.md/steps",
     "context/design/concepts/FileTracker/api-extraction.md/steps",
     "context/design/concepts/Dictionary/api-extraction.md/steps",
