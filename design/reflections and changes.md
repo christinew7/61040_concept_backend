@@ -1,3 +1,10 @@
+# Assignment 4b: Frontend UI Coding
+
+## Changes
+- I added a query to get the user's username to display on Library page
+- Functionally for my frontend, the first item in the file is the title, so there is no purpose is going back, from the first line of the pattern to highlight the title, so I changed my concept to take 1 as the minimum index.
+- I have two features that both use the Dictionary concept (translating from one language to another and translating from a phrase to its abbreviated term). Since these are basically the same thing, I kept it as one concept, but I realize I need to modify my concept to have a 'type' parameter to help me determine what I'm mapping to.
+- I added an optional Image String to the File state, so that there is a visual correspondance to files/patterns on the frontend. Otherwise, it would have been strictly random photos that popped up on the user's library. 
 
 # Assignment 4a: Backend Concept Coding Reflections
 ## Changes
@@ -17,10 +24,3 @@
 - Originally, I had my AI feature in the FileTracker concept that took in a File's items (an array of strings), which is not allowed. I wasn't sure how to fix this, so I prompted the LLM to help me tweak the function so it doesn't have composite objects or dependencies on other concepts, but the LLM kept spitting out "[implicit dependencies](../context/design/reflections%20snapshots.md/steps/_.bac2b93f.md)," where it referenced the database state of the Library concept. This was a little frustrating because I kept prompting/providing the LLM context that the concepts cannot have composite objects (pass in array) and have implicit dependencies.
 	- Note: Ultimately, I decided to not implement this feature yet, and check in office hours on 10/17 to keep the concepts modular.
 - When I tried to add in my AI feature from assignment 3, I thought I could copy and paste my test cases from the previous assignment for my action using the LLM, but it turns out that Deno can't properly read my config.json file without "JSON.parse" and using Deno's own readFile method. I wasn't sure what exactly the error was, whether it was an error in finding the relevant files and API key or an error in actually processing the information/code, but Gemini knew what to do when I prompted it to fix the code! [snapshot](../context/design/reflections%20snapshots.md/steps/_.3a3c5945.md)
-
-# Assignment 4b: Frontend
-
-## Changes
-- added get username for display on Library page
-- functionally for my frontend, the first item in the file is the title, so there is no purpose is going back, from the first line of the pattern to highlight the title, so I changed my concept to take 1 as the minimum index
-- I have two features that both use the Dictionary concept (translating from one language to another and translating from a phrase to its abbreviated term). Since these are basically the same thing, I kept it as one concept, but I realize I need to modify my concept to have a 'type' parameter to help me determine what I'm mapping to. 
