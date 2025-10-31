@@ -83,12 +83,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "design/concepts/Library/testing.md",
+                "file": "design/concepts/Library/api-extraction.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "testing"
+              "title": "api-extraction"
             }
           }
         ],
@@ -242,6 +242,11 @@
   },
   "active": "72812d744852a457",
   "lastOpenFiles": [
+    "context/design/concepts/Library/api-extraction.md/20251030_201234.50b9b542.md",
+    "context/design/concepts/Library/api-extraction.md/steps/API Specification.9eec5349.md",
+    "context/design/concepts/Library/api-extraction.md/steps/file.2007ea03.md",
+    "design/concepts/FileTracker/api-extraction.md",
+    "design/concepts/Library/testing.md",
     "context/design/concepts/Library/testing.md/20251030_200025.70dd79cd.md",
     "context/design/concepts/Library/testing.md/steps/response.0bb1ce8c.md",
     "context/design/concepts/Library/testing.md/20251030_195929.8146d928.md",
@@ -261,13 +266,8 @@
     "design/concepts/Library/Library.md",
     "context/design/concepts/Library/implementation.md/20251030_195715.ec312069.md",
     "context/design/concepts/Library/implementation.md/steps/response.cf8d2b2c.md",
-    "design/concepts/Library/testing.md",
     "context/design/concepts/Library/implementation.md/20251030_195655.e9df8ae8.md",
     "context/design/concepts/Library/implementation.md/steps/prompt.04d12e6c.md",
-    "context/design/concepts/Library/implementation.md/steps/file.6fdcadd0.md",
-    "context/design/concepts/Library/implementation.md/steps/Concept.09f6ddc8.md",
-    "context/design/concepts/Library/implementation.md/steps/_.1bf7fdfc.md",
-    "context/design/concepts/Library/implementation.md/steps/file.88bd3e70.md",
     "context/design/learning/api extractions.md/steps",
     "context/design/concepts/Library/api-extraction.md/steps",
     "context/design/concepts/FileTracker/api-extraction.md/steps",
