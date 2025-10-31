@@ -1,28 +1,10 @@
-[@concept-design-overview](../../background/concept-design-overview.md)
+---
+timestamp: 'Thu Oct 30 2025 19:45:32 GMT-0400 (Eastern Daylight Time)'
+parent: '[[../20251030_194532.2d746e19.md]]'
+content_id: 0544f5a4e629c66ad0cd6e424083f807125431bee6c5ada77f135621892086a9
+---
 
-[@concept-specifications](../../background/concept-specifications.md)
-
-[@implementing-concepts](../../background/implementing-concepts.md)
-
-[@Library](Library.md)
-
-[@Library implementation](../../../src/concepts/Library/LibraryConcept.ts)
-
-# context: 
-- **Composite objects**. Make sure that all of the arguments and results of your actions are either primitive values (strings, numbers, etc) or object identifiers (actually document identifiers in MongoDB). Composite objects should be used only inside concept implementations and never exposed.
-
-# prompt: can you help me update my implementation to include the image files
-
-# response:
-
-Okay, let's update your `LibraryConcept.ts` implementation to include the `image` field for `File` objects, as specified in your concept design.
-
-Here are the changes:
-
-1.  **Updated `FileDoc` interface**: Added `image?: string | null;` to represent the optional image.
-2.  **Updated `createFile` action**: Initialized the `image` field to `null` (or omitted, which implicitly makes it `undefined` in TS, but `null` is often preferred for explicit "no value" in databases) in newly created files. I'll use `null` for explicitness.
-3.  **Implemented `setImageToFile` action**: Adds the logic to set the `image` for a given file.
-4.  **Implemented `clearImageFromFile` action**: Adds the logic to clear (set to `null`) the `image` for a given file.
+# file: src/concepts/Library/LibraryConcept.ts
 
 ```typescript
 /**
@@ -43,6 +25,10 @@ const PREFIX = "Library" + ".";
 type User = ID;
 type Library = ID;
 type File = ID;
+
+// Define what Image means in this context, adhering to primitive values.
+// Here, we assume an Image is represented as a string (e.g., base64 encoded, or a URL).
+type Image = string;
 
 /**
  * @state
@@ -66,7 +52,7 @@ export interface FileDoc {
   _id: File;
   library: Library;
   items: string[];
-  image?: string | null; // Added image field, optional and can be null
+  image?: Image; // Optional image field
   dateAdded: Date;
 }
 
@@ -128,7 +114,7 @@ export default class LibraryConcept {
   /**
    * @action createFile
    * @requires this owner has a Library
-   * @effects creates a File with the current DateTime and an empty items, and no image, and adds this File to this owner's Library
+   * @effects creates a File with the current DateTime, an empty items, and no image, and adds this File to this owner's Library
    */
   async createFile(
     { owner }: { owner: User },
@@ -142,7 +128,7 @@ export default class LibraryConcept {
       _id: freshID(),
       library: ownerLibrary._id,
       items: [], // As per spec, initially empty
-      image: null, // No image initially, as per spec
+      image: undefined, // Explicitly no image initially
       dateAdded: new Date(),
     };
     await this.files.insertOne(newFile);
@@ -261,7 +247,7 @@ export default class LibraryConcept {
    * @effects sets the image field of this file to image
    */
   async setImageToFile(
-    { owner, file, image }: { owner: User; file: File; image: string },
+    { owner, file, image }: { owner: User; file: File; image: Image },
   ): Promise<Empty | { error: string }> {
     const ownerLibrary = await this.libraries.findOne({ owner });
     if (!ownerLibrary) {
@@ -287,7 +273,7 @@ export default class LibraryConcept {
   /**
    * @action clearImageFromFile
    * @requires this owner has a Library, and this file is in this owner's Library
-   * @effects clears the image field of this file (sets to null)
+   * @effects sets the image field of this file to null
    */
   async clearImageFromFile(
     { owner, file }: { owner: User; file: File },
@@ -307,7 +293,7 @@ export default class LibraryConcept {
 
     await this.files.updateOne(
       { _id: file, library: ownerLibrary._id },
-      { $set: { image: null } }, // Set image to null to clear it
+      { $unset: { image: "" } }, // Use $unset to remove the field from the document
     );
 
     return {};
@@ -370,15 +356,42 @@ export default class LibraryConcept {
       return { error: `User ${owner} does not have a library.` };
     }
 
-    const fileInDoc = await this.files.findOne({
-      library: ownerLibrary._id,
+    const fileDoc = await this.files.findOne({
       _id: file,
+      library: ownerLibrary._id,
     });
-    if (!fileInDoc) {
+    if (!fileDoc) {
       return { error: `File ${file} not found in the user ${owner}'s library` };
     }
-    const items = fileInDoc.items;
+    const items = fileDoc.items;
     return { fileString: JSON.stringify(items) };
+  }
+
+  /**
+   * @query _getFileImage
+   * @requires this owner has a Library, this file is in this owner's Library, and this file has an image
+   * @effects returns the image of the specified file
+   */
+  async _getFileImage(
+    { owner, file }: { owner: User; file: File },
+  ): Promise<{ image: Image } | { error: string }> {
+    const ownerLibrary = await this.libraries.findOne({ owner });
+    if (!ownerLibrary) {
+      return { error: `User ${owner} does not have a library.` };
+    }
+
+    const fileDoc = await this.files.findOne({
+      _id: file,
+      library: ownerLibrary._id,
+    });
+    if (!fileDoc) {
+      return { error: `File ${file} not found in the user ${owner}'s library` };
+    }
+    if (!fileDoc.image) { // Check if image property exists on the document
+      return { error: `File ${file} does not have an image.` };
+    }
+
+    return { image: fileDoc.image };
   }
 }
 ```

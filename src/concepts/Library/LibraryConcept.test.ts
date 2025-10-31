@@ -864,3 +864,145 @@ Deno.test("Multiple users manage their independent libraries", async (t) => {
   });
   await client.close();
 });
+
+Deno.test("Updated Image Actions: setImageToFile, clearImageFromFile", async (t) => {
+  const [db, client] = await testDb();
+  const concept = new LibraryConcept(db);
+
+  let aliceFile1: ID;
+  const testImageURL = "https://example.com/test_image.jpg";
+
+  await concept.create({ owner: userAlice });
+  const createFile1Result = await concept.createFile({ owner: userAlice });
+  assertNotEquals("error" in createFile1Result, true);
+  aliceFile1 = (createFile1Result as { id: ID }).id;
+  await concept.addItemToFile({
+    owner: userAlice,
+    file: aliceFile1,
+    item: "item_a",
+  });
+  await concept.addItemToFile({
+    owner: userAlice,
+    file: aliceFile1,
+    item: "item_b",
+  });
+
+  await t.step("1. setImageToFile: sets an image for a file", async () => {
+    const setImageResult = await concept.setImageToFile({
+      owner: userAlice,
+      file: aliceFile1,
+      image: testImageURL,
+    });
+    assertNotEquals(
+      "error" in setImageResult,
+      true,
+      `Setting image should be successful, got error: ${
+        (setImageResult as { error: string }).error
+      }`,
+    );
+
+    const files = (await concept._getAllFiles({ owner: userAlice })) as {
+      files: FileDoc[];
+    };
+    const file = files.files.find((f) => f._id === aliceFile1);
+    assertExists(file);
+    assertEquals(file.image, testImageURL, "File image should be set.");
+    console.log(`  -> Verified file ${aliceFile1} has image: "${file.image}".`);
+  });
+
+  await t.step(
+    "2. setImageToFile: requires existing library/file",
+    async () => {
+      const resultNoLibrary = await concept.setImageToFile({
+        owner: nonExistentUser,
+        file: aliceFile1,
+        image: testImageURL,
+      });
+      assertEquals(
+        "error" in resultNoLibrary,
+        true,
+        "Should fail if owner has no library.",
+      );
+      assertEquals(
+        (resultNoLibrary as { error: string }).error,
+        `User ${nonExistentUser} does not have a library.`,
+      );
+      const resultNoFile = await concept.setImageToFile({
+        owner: userAlice,
+        file: "file:fake" as ID,
+        image: testImageURL,
+      });
+      assertEquals(
+        "error" in resultNoFile,
+        true,
+        "Should fail if file does not exist in library.",
+      );
+      assertEquals(
+        (resultNoFile as { error: string }).error,
+        `File file:fake not found in library for user ${userAlice}.`,
+      );
+    },
+  );
+
+  await t.step(
+    "3. clearImageFromFile: clears the image for a file",
+    async () => {
+      const clearImageResult = await concept.clearImageFromFile({
+        owner: userAlice,
+        file: aliceFile1,
+      });
+      assertNotEquals(
+        "error" in clearImageResult,
+        true,
+        `Clearing image should be successful, got error: ${
+          (clearImageResult as { error: string }).error
+        }`,
+      );
+
+      const files = (await concept._getAllFiles({ owner: userAlice })) as {
+        files: FileDoc[];
+      };
+      const file = files.files.find((f) => f._id === aliceFile1);
+      assertExists(file);
+      assertEquals(
+        file.image,
+        null,
+        "File image should be null after clearing.",
+      );
+    },
+  );
+
+  await t.step(
+    "4. clearImageFromFile: requires existing library/file",
+    async () => {
+      const resultNoLibrary = await concept.clearImageFromFile({
+        owner: nonExistentUser,
+        file: aliceFile1,
+      });
+      assertEquals(
+        "error" in resultNoLibrary,
+        true,
+        "Should fail if owner has no library.",
+      );
+      assertEquals(
+        (resultNoLibrary as { error: string }).error,
+        `User ${nonExistentUser} does not have a library.`,
+      );
+      const resultNoFile = await concept.clearImageFromFile({
+        owner: userAlice,
+        file: "file:fake" as ID,
+      });
+      assertEquals(
+        "error" in resultNoFile,
+        true,
+        "Should fail if file does not exist in library.",
+      );
+      assertEquals(
+        (resultNoFile as { error: string }).error,
+        `File file:fake not found in library for user ${userAlice}.`,
+      );
+    },
+  );
+
+  await client.close();
+});

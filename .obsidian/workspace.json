@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "design/concepts/Library/Library.md",
+                "file": "design/learning/library-impl.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Library"
+              "title": "library-impl"
             }
           },
           {
@@ -76,8 +76,23 @@
               "icon": "lucide-file",
               "title": "response.28de59cf"
             }
+          },
+          {
+            "id": "72812d744852a457",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "design/concepts/Library/testing.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "testing"
+            }
           }
-        ]
+        ],
+        "currentTab": 5
       }
     ],
     "direction": "vertical"
@@ -225,35 +240,35 @@
       "bases:Create new base": false
     }
   },
-  "active": "1a37cc4f0ef88fa9",
+  "active": "72812d744852a457",
   "lastOpenFiles": [
-    "design/concepts/FileTracker/FileTracker.md",
-    "design/concepts/Dictionary/Dictionary.md",
-    "design/concepts/FileTracker/api-extraction.md",
-    "design/concepts/Dictionary/api-extraction.md",
-    "design/concepts/Library/api-extraction.md",
-    "context/src/concepts/Dictionary/DictionaryConcept.test.ts/20251021_153806.ae8db7ea.md",
-    "context/src/concepts/Dictionary/DictionaryConcept.ts/20251021_153804.c363b438.md",
+    "context/design/concepts/Library/testing.md/20251030_200025.70dd79cd.md",
+    "context/design/concepts/Library/testing.md/steps/response.0bb1ce8c.md",
+    "context/design/concepts/Library/testing.md/20251030_195929.8146d928.md",
+    "context/design/concepts/Library/testing.md/steps/prompt.982e3d0c.md",
+    "context/design/concepts/Library/testing.md/steps/_.1bf7fdfc.md",
+    "context/design/concepts/Library/testing.md/steps/file.88bd3e70.md",
+    "context/design/concepts/Library/testing.md/steps/_.5da05fda.md",
+    "context/design/concepts/Library/testing.md/steps/_.ee4d1e5e.md",
+    "context/design/concepts/Library/testing.md/steps/_.534e93ad.md",
+    "context/design/concepts/Library/testing.md/steps/_.3a59af90.md",
+    "context/design/concepts/Library/testing.md/steps/_.fa3ad648.md",
+    "context/design/concepts/Library/testing.md/steps/file.7cd15dd2.md",
+    "context/design/concepts/Library/testing.md/steps/file.2007ea03.md",
+    "context/design/concepts/Library/testing.md/steps/_.62ed2634.md",
+    "context/src/concepts/Library/LibraryConcept.ts/20251030_195929.2007ea03.md",
+    "design/concepts/Library/implementation.md",
     "design/concepts/Library/Library.md",
-    "design/concepts/PasswordAuthentication/api-extraction.md",
-    "design/concepts/PasswordAuthentication/PasswordAuthentication.md",
-    "design/learning/api extractions.md",
-    "context/design/learning/api extractions.md/20251018_120229.307ccfca.md",
-    "context/design/learning/api extractions.md/steps/response.8d775e65.md",
-    "context/design/learning/api extractions.md/steps/prompt.1cef3f46.md",
-    "context/design/learning/api extractions.md/steps",
-    "context/design/learning/api extractions.md/20251018_120213.da5c7d6e.md",
-    "context/design/learning/api extractions.md",
+    "context/design/concepts/Library/implementation.md/20251030_195715.ec312069.md",
+    "context/design/concepts/Library/implementation.md/steps/response.cf8d2b2c.md",
     "design/concepts/Library/testing.md",
-    "design/concepts/Library/Untitled.md",
-    "context/design/concepts/Library/api-extraction.md/20251018_114607.e8b8210b.md",
-    "context/design/concepts/Library/api-extraction.md/steps/API Specification.0a07d47f.md",
-    "context/design/concepts/Library/api-extraction.md/steps/response.6d76b65d.md",
-    "context/design/concepts/Library/api-extraction.md/steps/prompt.efe0c8e1.md",
-    "context/design/concepts/Library/api-extraction.md/steps/prompt.2e341510.md",
-    "context/design/concepts/Library/api-extraction.md/steps/file.88bd3e70.md",
-    "context/design/concepts/Library/api-extraction.md/steps/file.6fdcadd0.md",
-    "context/design/concepts/Library/api-extraction.md/steps/approach.5df2171f.md",
+    "context/design/concepts/Library/implementation.md/20251030_195655.e9df8ae8.md",
+    "context/design/concepts/Library/implementation.md/steps/prompt.04d12e6c.md",
+    "context/design/concepts/Library/implementation.md/steps/file.6fdcadd0.md",
+    "context/design/concepts/Library/implementation.md/steps/Concept.09f6ddc8.md",
+    "context/design/concepts/Library/implementation.md/steps/_.1bf7fdfc.md",
+    "context/design/concepts/Library/implementation.md/steps/file.88bd3e70.md",
+    "context/design/learning/api extractions.md/steps",
     "context/design/concepts/Library/api-extraction.md/steps",
     "context/design/concepts/FileTracker/api-extraction.md/steps",
     "context/design/concepts/Dictionary/api-extraction.md/steps",

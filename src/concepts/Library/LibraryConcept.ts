@@ -38,6 +38,7 @@ export interface FileDoc {
   _id: File;
   library: Library;
   items: string[];
+  image?: string | null;
   dateAdded: Date;
 }
 
@@ -46,6 +47,7 @@ export interface FileDoc {
  * @purpose manage collection of files for users
  * @principle a user creates a library to store their files;
  * the user can add, retrieve, modify, or delete files within their library;
+ * for each file, they can optionally add an image associated with it;
  * and they can delete the library if it's no longer needed
  */
 export default class LibraryConcept {
@@ -220,6 +222,64 @@ export default class LibraryConcept {
     await this.files.updateOne(
       { _id: file, library: ownerLibrary._id },
       { $set: { items: newItems } },
+    );
+
+    return {};
+  }
+
+  /**
+   * @action setImageToFile
+   * @requires this owner has a Library, and this file is in this owner's Library
+   * @effects sets the image field of this file to image
+   */
+  async setImageToFile(
+    { owner, file, image }: { owner: User; file: File; image: string },
+  ): Promise<Empty | { error: string }> {
+    const ownerLibrary = await this.libraries.findOne({ owner });
+    if (!ownerLibrary) {
+      return { error: `User ${owner} does not have a library.` };
+    }
+
+    const targetFile = await this.files.findOne({
+      _id: file,
+      library: ownerLibrary._id,
+    });
+    if (!targetFile) {
+      return { error: `File ${file} not found in library for user ${owner}.` };
+    }
+
+    await this.files.updateOne(
+      { _id: file, library: ownerLibrary._id },
+      { $set: { image: image } },
+    );
+
+    return {};
+  }
+
+  /**
+   * @action clearImageFromFile
+   * @requires this owner has a Library, and this file is in this owner's Library
+   * @effects clears the image field of this file (sets to null)
+   */
+  async clearImageFromFile(
+    { owner, file }: { owner: User; file: File },
+  ): Promise<Empty | { error: string }> {
+    const ownerLibrary = await this.libraries.findOne({ owner });
+    if (!ownerLibrary) {
+      return { error: `User ${owner} does not have a library.` };
+    }
+
+    const targetFile = await this.files.findOne({
+      _id: file,
+      library: ownerLibrary._id,
+    });
+    if (!targetFile) {
+      return { error: `File ${file} not found in library for user ${owner}.` };
+    }
+
+    await this.files.updateOne(
+      { _id: file, library: ownerLibrary._id },
+      { $set: { image: null } }, // Set image to null to clear it
     );
 
     return {};
