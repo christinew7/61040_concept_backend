@@ -907,7 +907,6 @@ Deno.test("Updated Image Actions: setImageToFile, clearImageFromFile", async (t)
     const file = files.files.find((f) => f._id === aliceFile1);
     assertExists(file);
     assertEquals(file.image, testImageURL, "File image should be set.");
-    console.log(`  -> Verified file ${aliceFile1} has image: "${file.image}".`);
   });
 
   await t.step(
