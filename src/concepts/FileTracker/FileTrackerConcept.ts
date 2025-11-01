@@ -365,7 +365,7 @@ export default class FileTrackerConcept {
     const maxValidIndex = fullFileLength > 0 ? fullFileLength - 1 : 0;
 
     const criticalRequirements = [
-      `1. The currentIndex MUST be between 0 and maxIndex (INCLUSIVE). Current max index is ${maxValidIndex}`,
+      `1. The currentIndex MUST be between 1 and maxIndex (INCLUSIVE). Current max index is ${maxValidIndex}`,
       "2. You are only analyzing the first 50 lines, but your current index should reference the ORIGINAL full file",
       `3. The actual file has ${fullFileLength} total lines, but you only see the first 50 for analysis`,
     ];
@@ -422,7 +422,7 @@ ${criticalRequirements.join("\n")}
 Return your response as a JSON object with this exact structure. Use integers and obey the ranges shown.
 
 {
-    "currentIndex": {YOUR DETERMINED INDEX}, // Must be 0 - ${fileMaxIndex}
+    "currentIndex": {YOUR DETERMINED INDEX}, // Must be 1 - ${fileMaxIndex}
 }
 
 Return ONLY the JSON object, no additional text. Strictly enforce the integer ranges above — if you cannot satisfy them, return an empty assignments array.
