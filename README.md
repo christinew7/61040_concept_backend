@@ -4,6 +4,7 @@
 [See the full reflections and changes by assignment here](/design/reflections%20and%20changes.md)
 
 ## Assignment 4b Changes:
+### Changes
 - I added a query to get the user's username to display on Library page
 - Functionally for my frontend, the first item in the file is the title, so there is no purpose is going back, from the first line of the pattern to highlight the title, so I changed my concept to take 1 as the minimum index.
 - I have two features that both use the Dictionary concept (translating from one language to another and translating from a phrase to its abbreviated term). Since these are basically the same thing, I kept it as one concept, but I realize I need to modify my concept to have a 'type' parameter to help me determine what I'm mapping to.
