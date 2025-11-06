@@ -27,7 +27,7 @@ The following prefix format for header 1 blocks denote the relevant steps:
 
 * `# concept: {name}`
 	* A specification of the concept we're looking to implement
-* `# file: src/{name}/{name}Concept.ts`
+* `# file: src/concepts/{name}/{name}Concept.ts`
 	* The implementation of the concept class as a TypeScript code block
 * `# problem:`
 	* Description of any issues that arise with running/operating the implementation
@@ -174,10 +174,9 @@ Queries always return an array of dictionaries so if the specification has this 
 
 ```
 \_query (a: A, b: B): (c: C)
-\_query (a: A, b: B): (error: string)
 ```
 
-the implementation should return an array of dictionaries each with a field called `c` or, in the error case, a dictionary with a field `error` of type string. Note also that a query, unlike an action, can return a nested dictionary. For example, given this state
+the implementation should return an array of dictionaries each with a field called `c`. For example, given this state
 
 ```
 	a set of Groups with
