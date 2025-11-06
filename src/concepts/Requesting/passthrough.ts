@@ -25,12 +25,8 @@
  */
 
 export const inclusions: Record<string, string> = {
-  // Feel free to delete these example inclusions
-  "/api/LikertSurvey/_getSurveyQuestions": "this is a public query",
-  "/api/LikertSurvey/_getSurveyResponses": "responses are public",
-  "/api/LikertSurvey/_getRespondentAnswers": "answers are visible",
-  "/api/LikertSurvey/submitResponse": "allow anyone to submit response",
-  "/api/LikertSurvey/updateResponse": "allow anyone to update their response",
+  "/api/Dictionary/translateTermFromL1": "public dictionary lookup",
+  "/api/Dictionary/translateTermFromL2": "public dictionary lookup",
 };
 
 /**
@@ -44,7 +40,32 @@ export const inclusions: Record<string, string> = {
  */
 
 export const exclusions: Array<string> = [
-  // Feel free to delete these example exclusions
-  "/api/LikertSurvey/createSurvey",
-  "/api/LikertSurvey/addQuestion",
+  "/api/Dictionary/addTerm",
+  "/api/Dictionary/deleteTerm",
+  "/api/FileTracker/startTracking",
+  "/api/FileTracker/deleteTracking",
+  "/api/FileTracker/jumpTo",
+  "/api/FileTracker/next",
+  "/api/FileTracker/back",
+  "/api/FileTracker/setVisibility",
+  "/api/FileTracker/startTrackingUsingLLM",
+  "/api/FileTracker/createTrackingPrompt",
+  "/api/FileTracker/parseAndStartTracking",
+  "/api/FileTracker/_getCurrentItem",
+  "/api/FileTracker/_getVisibility",
+  "/api/Library/create",
+  "/api/Library/delete",
+  "/api/Library/createFile",
+  "/api/Library/addItemToFile",
+  "/api/Library/modifyItemInFile",
+  "/api/Library/removeItemFromFile",
+  "/api/Library/setImageToFile",
+  "/api/Library/clearImageFromFile",
+  "/api/Library/deleteFile",
+  "/api/Library/_getAllFiles",
+  "/api/Library/_getFileString",
+  "/api/PasswordAuthentication/register",
+  "/api/PasswordAuthentication/authenticate",
+  "/api/PasswordAuthentication/_getUserByUsername",
+  "/api/PasswordAuthentication/_getUsername",
 ];
