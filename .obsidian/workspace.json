@@ -8,34 +8,63 @@
         "type": "tabs",
         "children": [
           {
-            "id": "17315c8da06379c8",
+            "id": "e40c63596de7c722",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "src/concepts/Requesting/README.md",
+                "file": "context/src/concepts/PasswordAuthentication/PasswordAuthenticationConcept.ts/20251009_113218.de7d8500.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "README"
+              "title": "20251009_113218.de7d8500"
             }
           },
           {
-            "id": "bb41ed0166b35559",
+            "id": "83320942f8227d9d",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "design/background/implementing-synchronizations.md",
+                "file": "design/concepts/Dictionary/implementation.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "implementing-synchronizations"
+              "title": "implementation"
+            }
+          },
+          {
+            "id": "12cd0c12db622eff",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "design/learning/library-impl.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "library-impl"
+            }
+          },
+          {
+            "id": "7aede99855856667",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "design/concepts/Library/Library.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Library"
             }
           }
-        ]
+        ],
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -108,7 +137,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "design/reflections and changes.md",
+                "file": "README.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -118,7 +147,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for reflections and changes"
+              "title": "Backlinks for README"
             }
           },
           {
@@ -183,43 +212,43 @@
       "bases:Create new base": false
     }
   },
-  "active": "17315c8da06379c8",
+  "active": "7aede99855856667",
   "lastOpenFiles": [
-    "src/class-resources/recitation/LeaderboardConcept.ts",
-    "src/class-resources/recitation/09-challenge.test.ts",
-    "src/class-resources/recitation/08-principle.test.ts",
-    "src/class-resources/recitation/07-errorHandling.test.ts",
-    "src/class-resources/recitation/06-getScoresSince.test.ts",
-    "src/class-resources/recitation/05-getTopScores.test.ts",
-    "src/class-resources/recitation/04-getPlayerScores.test.ts",
-    "src/class-resources/recitation/03-submitScore.test.ts",
-    "src/class-resources/recitation/02-createPlayer.test.ts",
-    "src/class-resources/recitation/01-setup.test.ts",
-    "src/class-resources/LikertSurvey/LikertSurveyConcept.ts",
-    "design/learning/filetracker-impl.md",
-    "context/src/syncs/auth.sync.ts/20251106_185841.6892e011.md",
-    "context/src/syncs/auth.sync.ts/20251106_185528.2a587ee0.md",
-    "context/src/syncs/auth.sync.ts/20251106_113401.accdc987.md",
-    "context/src/concepts/Sessioning/SessioningConcept.ts/20251106_005924.4c0cb49c.md",
-    "context/src/concepts/PasswordAuthentication/PasswordAuthenticationConcept.ts/20251106_185841.271ce9d3.md",
-    "context/src/concepts/PasswordAuthentication/PasswordAuthenticationConcept.ts/20251106_005715.45ea9e39.md",
-    "context/src/concepts/Library/LibraryConcept.ts/20251106_194927.80d19cf7.md",
-    "context/src/concepts/FileTracker/FileTrackerConcept.ts/20251106_153915.779e4239.md",
-    "context/src/concepts/Dictionary/DictionaryConcept.ts/20251106_122411.b83ad516.md",
-    "context/design/learning/syncs.md/steps/solution.7fdaa9e0.md",
-    "context/design/learning/syncs.md/steps/solution.6425a1a0.md",
-    "context/design/learning/syncs.md/steps/solution.5006148a.md",
-    "context/design/learning/syncs.md/steps/solution.40176ff1.md",
-    "context/design/learning/syncs.md/steps/response.f37eab53.md",
-    "context/design/learning/syncs.md/steps/response.f42df7cd.md",
-    "context/design/learning/syncs.md/steps/response.e7decb2f.md",
-    "context/design/learning/syncs.md/steps/response.e73ae8f7.md",
-    "context/design/learning/syncs.md/steps/response.e32d7ef8.md",
-    "context/design/learning/syncs.md/steps/response.e672bf98.md",
-    "context/design/learning/syncs.md/steps/response.db55a79b.md",
-    "context/design/learning/syncs.md/steps/response.d3b1d2bb.md",
-    "context/design/learning/syncs.md/steps/response.d392b6f2.md",
-    "context/design/learning/syncs.md/steps/response.c513d0ca.md",
-    "context/design/learning/syncs.md/steps/response.c24339ea.md"
+    "design/concepts/Dictionary/implementation.md",
+    "design/learning/library-impl.md",
+    "context/design/learning/library-impl.md/20251012_191639.eb8e6397.md",
+    "context/design/learning/library-impl.md/steps/response.baa44e29.md",
+    "context/design/learning/library-impl.md/20251012_191634.316baa58.md",
+    "context/design/learning/library-impl.md/steps/prompt.b7f14ce3.md",
+    "context/design/learning/library-impl.md/20251012_191518.81b4e3fa.md",
+    "context/design/learning/library-impl.md/steps/response.c11eae82.md",
+    "context/design/learning/library-impl.md/20251012_191507.3429d53a.md",
+    "context/design/learning/library-impl.md/steps/prompt.c1376da3.md",
+    "design/concepts/Library/Library.md",
+    "context/design/learning/library-impl.md/20251012_191151.b07f54c8.md",
+    "context/design/learning/library-impl.md/steps/response.d1f00050.md",
+    "context/design/learning/library-impl.md/20251012_191146.5d1e4d76.md",
+    "context/design/learning/library-impl.md/steps/prompt.27a1ef49.md",
+    "context/design/learning/library-impl.md/steps/response.2544daa8.md",
+    "context/design/learning/library-impl.md/steps/implement.b705ff76.md",
+    "context/design/learning/library-impl.md/steps/_.3731a859.md",
+    "context/design/learning/library-impl.md/steps/_.3eb68380.md",
+    "context/design/learning/library-impl.md/steps/Concept.ee06a27e.md",
+    "context/design/learning/library-impl.md/steps/approach.5df2171f.md",
+    "context/design/learning/library-impl.md/steps/_.db39d951.md",
+    "context/design/learning/library-impl.md/steps/_.b0364a7a.md",
+    "context/design/learning/library-impl.md/steps/_.331f5a1f.md",
+    "context/design/learning/library-impl.md/steps/_.2086d81d.md",
+    "context/design/learning/library-impl.md/steps/_.04e090af.md",
+    "context/design/learning/library-impl.md/steps",
+    "src/concepts/Library/LibraryConcept.ts",
+    "context/design/concepts/Dictionary/implementation.md/steps",
+    "context/design/learning/dictionary-impl.md/steps",
+    "context/src/concepts/Dictionary/DictionaryConcept.ts",
+    "context/src/concepts/Dictionary",
+    "src/concepts/Dictionary/DictionaryConcept.ts",
+    "src/concepts/Dictionary",
+    "src/concepts/FileTracker",
+    "src/concepts/Library"
   ]
 }
