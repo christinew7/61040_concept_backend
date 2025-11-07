@@ -25,14 +25,12 @@
             "id": "83320942f8227d9d",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "image",
               "state": {
-                "file": "design/concepts/Dictionary/implementation.md",
-                "mode": "source",
-                "source": false
+                "file": "media/updated upload pattern.png"
               },
-              "icon": "lucide-file",
-              "title": "implementation"
+              "icon": "lucide-image",
+              "title": "updated upload pattern"
             }
           },
           {
@@ -50,17 +48,31 @@
             }
           },
           {
+            "id": "573b6c69e6378659",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "design/concepts/Library/Library.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Library"
+            }
+          },
+          {
             "id": "7aede99855856667",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "design/testing_outputs.md",
+                "file": "design/Design Document.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "testing_outputs"
+              "title": "Design Document"
             }
           },
           {
@@ -78,7 +90,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -228,6 +240,26 @@
   },
   "active": "7aede99855856667",
   "lastOpenFiles": [
+    "media/updated upload pattern.png",
+    "design/Design Document.md",
+    "media/updated upload pattern.md",
+    "design/concepts/Dictionary/implementation.md",
+    "design/learning/library-impl.md",
+    "design/concepts/Sessioning/Sessioning.md",
+    "design/concepts/Library/Library.md",
+    "design/concepts/PasswordAuthentication/PasswordAuthentication.md",
+    "design/concepts/PasswordAuthentication/implementation.md",
+    "design/concepts/FileTracker/FileTracker.md",
+    "design/concepts/Library/implementation.md",
+    "design/concepts/FileTracker/implementation.md",
+    "design/concepts/Dictionary/Dictionary.md",
+    "context/design/reflections snapshots.md/steps/_.e46ab544.md",
+    "Pasted image 20251107120248.png",
+    "Pasted image 20251107120246.png",
+    "design/reflections and changes.md",
+    "context/design/testing_outputs.md/20251107_113354.6c904d25.md",
+    "context/design/testing_outputs.md/steps/_.acd3c356.md",
+    "design/testing_outputs.md",
     "design/concepts/Sessioning/testing.md",
     "context/design/concepts/Sessioning/testing.md/20251107_111920.6c7eb8c9.md",
     "context/design/concepts/Sessioning/testing.md/steps/file.d31ad6ca.md",
@@ -237,25 +269,7 @@
     "context/design/concepts/Sessioning/testing.md/steps/response.6d76b65d.md",
     "context/design/concepts/Sessioning/testing.md/steps/file.4c0cb49c.md",
     "context/design/concepts/Sessioning/testing.md/steps/approach.3e0d5a8f.md",
-    "context/design/concepts/Sessioning/testing.md/steps/_.eb4d1820.md",
-    "context/design/concepts/Sessioning/testing.md/steps/_.ae61325b.md",
-    "context/design/concepts/Sessioning/testing.md/steps/_.a02ecd6a.md",
-    "context/design/concepts/Sessioning/testing.md/steps/_.62ed2634.md",
     "context/design/concepts/Sessioning/testing.md/steps",
-    "context/design/concepts/Sessioning/testing.md/20251107_111821.b1a1f179.md",
-    "context/design/concepts/Sessioning/testing.md",
-    "design/concepts/FileTracker/FileTracker.md",
-    "design/concepts/Library/Library.md",
-    "design/concepts/PasswordAuthentication/PasswordAuthentication.md",
-    "design/concepts/Sessioning/Sessioning.md",
-    "design/concepts/Library/testing.md",
-    "design/concepts/Library/implementation.md",
-    "design/concepts/Dictionary/implementation.md",
-    "design/learning/library-impl.md",
-    "context/design/learning/library-impl.md/20251012_191639.eb8e6397.md",
-    "context/design/learning/library-impl.md/steps/response.baa44e29.md",
-    "context/design/learning/library-impl.md/20251012_191634.316baa58.md",
-    "context/design/learning/library-impl.md/steps/prompt.b7f14ce3.md",
     "context/design/learning/library-impl.md/steps",
     "src/concepts/Library/LibraryConcept.ts",
     "context/design/concepts/Dictionary/implementation.md/steps",
