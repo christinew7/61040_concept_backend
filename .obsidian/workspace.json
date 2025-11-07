@@ -67,12 +67,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "design/Design Document.md",
+                "file": "design/Reflection.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Design Document"
+              "title": "Reflection"
+            }
+          },
+          {
+            "id": "cc20380c741a78bc",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "README.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "README"
             }
           },
           {
@@ -240,8 +254,10 @@
   },
   "active": "7aede99855856667",
   "lastOpenFiles": [
-    "media/updated upload pattern.png",
+    "README.md",
+    "design/Reflection.md",
     "design/Design Document.md",
+    "media/updated upload pattern.png",
     "media/updated upload pattern.md",
     "design/concepts/Dictionary/implementation.md",
     "design/learning/library-impl.md",
@@ -268,7 +284,6 @@
     "context/design/concepts/Sessioning/testing.md/20251107_111845.1dbfff8c.md",
     "context/design/concepts/Sessioning/testing.md/steps/response.6d76b65d.md",
     "context/design/concepts/Sessioning/testing.md/steps/file.4c0cb49c.md",
-    "context/design/concepts/Sessioning/testing.md/steps/approach.3e0d5a8f.md",
     "context/design/concepts/Sessioning/testing.md/steps",
     "context/design/learning/library-impl.md/steps",
     "src/concepts/Library/LibraryConcept.ts",
