@@ -2,7 +2,6 @@ import { assertEquals, assertExists, assertNotEquals } from "jsr:@std/assert";
 import { testDb } from "@utils/database.ts";
 import { ID } from "@utils/types.ts";
 import PasswordAuthenticationConcept from "./PasswordAuthenticationConcept.ts";
-import { register } from "node:module";
 
 const USERNAME_A = "Alice";
 const PASSWORD_A = "password";

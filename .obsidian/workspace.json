@@ -55,12 +55,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "design/concepts/FileTracker/FileTracker.md",
+                "file": "design/testing_outputs.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "FileTracker"
+              "title": "testing_outputs"
             }
           },
           {
@@ -228,10 +228,26 @@
   },
   "active": "7aede99855856667",
   "lastOpenFiles": [
+    "design/concepts/Sessioning/testing.md",
+    "context/design/concepts/Sessioning/testing.md/20251107_111920.6c7eb8c9.md",
+    "context/design/concepts/Sessioning/testing.md/steps/file.d31ad6ca.md",
+    "context/design/concepts/Sessioning/testing.md/steps/response.84195e3e.md",
+    "src/concepts/Sessioning/SessioningConcept.test.ts",
+    "context/design/concepts/Sessioning/testing.md/20251107_111845.1dbfff8c.md",
+    "context/design/concepts/Sessioning/testing.md/steps/response.6d76b65d.md",
+    "context/design/concepts/Sessioning/testing.md/steps/file.4c0cb49c.md",
+    "context/design/concepts/Sessioning/testing.md/steps/approach.3e0d5a8f.md",
+    "context/design/concepts/Sessioning/testing.md/steps/_.eb4d1820.md",
+    "context/design/concepts/Sessioning/testing.md/steps/_.ae61325b.md",
+    "context/design/concepts/Sessioning/testing.md/steps/_.a02ecd6a.md",
+    "context/design/concepts/Sessioning/testing.md/steps/_.62ed2634.md",
+    "context/design/concepts/Sessioning/testing.md/steps",
+    "context/design/concepts/Sessioning/testing.md/20251107_111821.b1a1f179.md",
+    "context/design/concepts/Sessioning/testing.md",
+    "design/concepts/FileTracker/FileTracker.md",
     "design/concepts/Library/Library.md",
     "design/concepts/PasswordAuthentication/PasswordAuthentication.md",
     "design/concepts/Sessioning/Sessioning.md",
-    "design/concepts/Sessioning/testing.md",
     "design/concepts/Library/testing.md",
     "design/concepts/Library/implementation.md",
     "design/concepts/Dictionary/implementation.md",
@@ -240,20 +256,6 @@
     "context/design/learning/library-impl.md/steps/response.baa44e29.md",
     "context/design/learning/library-impl.md/20251012_191634.316baa58.md",
     "context/design/learning/library-impl.md/steps/prompt.b7f14ce3.md",
-    "context/design/learning/library-impl.md/20251012_191518.81b4e3fa.md",
-    "context/design/learning/library-impl.md/steps/response.c11eae82.md",
-    "context/design/learning/library-impl.md/20251012_191507.3429d53a.md",
-    "context/design/learning/library-impl.md/steps/prompt.c1376da3.md",
-    "context/design/learning/library-impl.md/20251012_191151.b07f54c8.md",
-    "context/design/learning/library-impl.md/steps/response.d1f00050.md",
-    "context/design/learning/library-impl.md/20251012_191146.5d1e4d76.md",
-    "context/design/learning/library-impl.md/steps/prompt.27a1ef49.md",
-    "context/design/learning/library-impl.md/steps/response.2544daa8.md",
-    "context/design/learning/library-impl.md/steps/implement.b705ff76.md",
-    "context/design/learning/library-impl.md/steps/_.3731a859.md",
-    "context/design/learning/library-impl.md/steps/_.3eb68380.md",
-    "context/design/learning/library-impl.md/steps/Concept.ee06a27e.md",
-    "context/design/learning/library-impl.md/steps/approach.5df2171f.md",
     "context/design/learning/library-impl.md/steps",
     "src/concepts/Library/LibraryConcept.ts",
     "context/design/concepts/Dictionary/implementation.md/steps",
@@ -261,8 +263,6 @@
     "context/src/concepts/Dictionary/DictionaryConcept.ts",
     "context/src/concepts/Dictionary",
     "src/concepts/Dictionary/DictionaryConcept.ts",
-    "src/concepts/Dictionary",
-    "src/concepts/FileTracker",
-    "src/concepts/Library"
+    "src/concepts/Dictionary"
   ]
 }

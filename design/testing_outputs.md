@@ -178,3 +178,31 @@ Action: startTrackingUsingLLM with different styles of patterns ... ok (2s)
 
 ok | 7 passed (26 steps) | 0 failed (7s)
 ```
+## Sessioning
+
+```
+running 1 test from ./src/concepts/Sessioning/SessioningConcept.test.ts
+Sessioning Concept Tests ...
+  
+  Action: create - Creates a new session and associates it with a user ... ok (50ms)
+  
+  Action: _getUser - Returns the user for an existing session (positive case) ... ok (36ms)
+  
+  Action: _getUser - Returns error for a non-existent session (requires not met) ... ok (16ms)
+  
+  Action: delete - Removes an existing session (positive case) ... ok (53ms)
+  
+  Action: delete - Returns error for a non-existent session (requires not met) ... ok (16ms)
+  
+  Principle: User Journey - Login, Access, Logout ...
+------- output -------
+Trace Step 1: User logs in using user ID 'testUser123'.
+Trace Step 2: User makes a subsequent request, relying on the session to identify them.
+Trace Step 3: User logs out, invalidating their session.
+Trace Step 4: Attempt to access resources using the invalidated session.
+----- output end -----
+  Principle: User Journey - Login, Access, Logout ... ok (70ms)
+Sessioning Concept Tests ... ok (773ms)
+
+ok | 1 passed (6 steps) | 0 failed (779ms)
+```
