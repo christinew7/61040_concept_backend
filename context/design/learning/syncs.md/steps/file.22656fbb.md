@@ -1,3 +1,12 @@
+---
+timestamp: 'Fri Nov 07 2025 13:14:43 GMT-0500 (Eastern Standard Time)'
+parent: '[[../20251107_131443.3341eb11.md]]'
+content_id: 22656fbb57d7d0b1c5bce8c7906ab3623bb26fe90c1edc91638303e70bf582ed
+---
+
+# file: src/concepts/FileTracker/FileTrackerConcept.ts
+
+```typescript
 /**
  * @concept FileTracker [User, File]
  * @purpose track current position and enable navigation within files
@@ -530,3 +539,5 @@ Return ONLY the JSON object, no additional text. Strictly enforce the integer ra
     return { isVisible: trackedFile.isVisible };
   }
 }
+
+```

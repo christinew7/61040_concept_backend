@@ -404,8 +404,6 @@ export const SetImageToFileRequest: Sync = (
   ]),
   where: async (frames) => {
     const originalFrame = frames[0];
-    console.log("found here");
-    // Get the actual user ID from the session
     const sessionFrames = await frames.query(Sessioning._getUser, { session }, {
       user,
     });
@@ -416,13 +414,11 @@ export const SetImageToFileRequest: Sync = (
       });
     }
     const userIdValue = sessionFrames[0][user];
-    console.log("user is", userIdValue);
 
     frames = await new Frames({
       ...originalFrame,
       [owner]: userIdValue,
     });
-    console.log("image frames is", frames);
 
     return frames;
   },

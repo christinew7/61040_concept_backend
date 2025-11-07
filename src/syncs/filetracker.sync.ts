@@ -1,5 +1,6 @@
 import { actions, Frames, Sync } from "@engine";
 import { FileTracker, Requesting, Sessioning } from "@concepts";
+import { resourceLimits } from "node:worker_threads";
 
 export const JumpToRequest: Sync = (
   { request, session, user, file, index },
@@ -15,7 +16,8 @@ export const JumpToRequest: Sync = (
       { session },
       { user },
     );
-    return framesWithUser.filter(($) => $[user] != null);
+    const result = framesWithUser.filter(($) => $[user] != null);
+    return result;
   },
   then: actions([
     FileTracker.jumpTo,
@@ -135,34 +137,33 @@ export const BackResponseError: Sync = ({ request, error }) => ({
 });
 
 export const SetVisibilityRequest: Sync = (
-  { request, session, user, file, isVisible },
+  { request, session, user, file, visible },
 ) => ({
   when: actions([
     Requesting.request,
-    { path: "/FileTracker/setVisibility", session, user, file, isVisible },
+    { path: "/FileTracker/setVisibility", session, file, visible },
     { request },
   ]),
   where: async (frames) => {
     const originalFrame = frames[0];
-
-    // Get the actual user ID from the session
-    const sessionFrames = await frames.query(Sessioning._getUser, { session }, {
+    const userFrames = await frames.query(Sessioning._getUser, { session }, {
       user,
     });
-    if (sessionFrames.length === 0) {
-      return new Frames({
-        ...originalFrame,
-        error: "Invalid session",
-      });
-    }
-    return sessionFrames;
+    if (userFrames.length === 0) return new Frames(); // invalid session
+
+    const result = new Frames({
+      ...originalFrame,
+      [user]: userFrames[0][user], // bind user
+    });
+    return result;
   },
+
   then: actions([
-    FileTracker.jumpTo,
+    FileTracker.setVisibility,
     {
       owner: user,
       file,
-      isVisible,
+      visible,
     },
   ]),
 });
@@ -208,10 +209,10 @@ export const GetVisibilityRequest: Sync = (
 
     const result = await FileTracker._getVisibility({
       owner: userIdValue,
-      file,
+      file: originalFrame[file],
     });
 
-    return new Frames({
+    return await new Frames({
       ...originalFrame,
       [isVisible]: result.isVisible,
     });
@@ -239,16 +240,11 @@ export const GetCurrentItemRequest: Sync = (
       return new Frames();
     }
     const userIdValue = sessionFrames[0][user];
-    // const fileValue = file;
-
-    console.log("cur item user", userIdValue);
-    console.log("cur item", file);
     const result = await FileTracker._getCurrentItem({
       owner: userIdValue,
       file: originalFrame[file],
     });
 
-    console.log("cur result", result);
     return new Frames({
       ...originalFrame,
       [index]: result.index,
