@@ -67,12 +67,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "design/learning/syncs.md",
+                "file": "README.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "syncs"
+              "title": "README"
             }
           },
           {
@@ -254,6 +254,8 @@
   },
   "active": "7aede99855856667",
   "lastOpenFiles": [
+    "design/Trace.md",
+    "design/learning/syncs.md",
     "context/design/learning/syncs.md/20251107_131817.2538e759.md",
     "context/design/learning/syncs.md/steps/response.9fadc61a.md",
     "context/design/learning/syncs.md/20251107_131804.03696a23.md",
@@ -279,8 +281,6 @@
     "design/concepts/Library/Library.md",
     "design/concepts/PasswordAuthentication/PasswordAuthentication.md",
     "design/concepts/PasswordAuthentication/implementation.md",
-    "design/concepts/FileTracker/FileTracker.md",
-    "design/concepts/Library/implementation.md",
     "Pasted image 20251107120248.png",
     "Pasted image 20251107120246.png",
     "src/concepts/Sessioning/SessioningConcept.test.ts",

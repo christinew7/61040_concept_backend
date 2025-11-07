@@ -2,9 +2,16 @@
 
 [Design Document](design/Design%20Document.md)
 
-# Reflection 
+# Reflection
 
 [Reflection](design/Reflection.md)
+
+# Video and Trace
+
+My video is a little over 4 minutes; parts of it is silence waiting for the server to respond (it was much faster when I did this locally).
+[Video](https://drive.google.com/file/d/1Oh_QAPBqA6Iqh6H_jsViwYMAV7U_pGPi/view?usp=sharing)
+
+[Trace](design/Trace.md)
 
 # Testing Output
 [See the testing output logs here](/design/testing_outputs.md)
