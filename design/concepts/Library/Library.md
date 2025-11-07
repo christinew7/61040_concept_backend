@@ -39,6 +39,10 @@
   * `deleteFile (owner: User, file: File)`
     * **requires** this `owner` has a `Library`, and this `file` is in this `owner`'s `Library`
     * **effects** deletes this `file` from this `owner`'s `Library`
-  * `getAllFiles (owner: User): (files: Set<File>)`
+- **queries**
+  * `_getAllFiles (owner: User): (files: Set<File>)`
     * **requires** this `owner` has a `Library`
     * **effects** returns all `Files` in this `owner`'s `Library`
+  * `_getFileString (owner: User, file: File): (fileString: String)`
+    * **requires** this `owner` has a `Library` and this `file` is in this `owner`'s library
+    * **effects** returns all the items in this `file` as a JSON string

@@ -13,3 +13,7 @@
 	- `delete (session: Session): ()`
 	    - **requires**: the given `session` exists.
 	    - **effects**: removes the session `s`.
+- **queries**:
+    - `_getUser (session: Session): (user: User)`
+        - **requires**: the given `session` exists.
+        - **effects**: returns the user associated with the session.

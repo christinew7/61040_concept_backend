@@ -14,3 +14,10 @@
 	- `authenticate (username: String, password: String): (user: User)`
 		- **requires** this `username` exists in the Users set, input `password` matches username's preexisting password
 		- **effects** User is successfully authenticated and returns the User
+- **queries**
+	- `_getUserByUsername(username: String): (user: User)`
+		- **requires** this `username` exists in the Users set
+		- **effects** returns the `user` associated with this `username`
+	- `_getUsername(user: User): (username: String)`
+		- **requires** this `user` exists in the Users set
+		- **effects** returns the `username` associated with this `user`

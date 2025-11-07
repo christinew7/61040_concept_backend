@@ -27,12 +27,16 @@
     *   `next (owner: User, file: File)`
         *   **requires** this `owner` and this `file` exists in the TrackedFiles, the `currentIndex` of this TrackedFile is less than the `maxIndex`
         *   **effects** increments the TrackedFile with this owner and this file by 1
-    *   back (owner: User, file: File)File)`
+    *  ` back (owner: User, file: File)File)``
         *   **requires** this owner and this file exists in the TrackedFiles, the currentIndex of this TrackedFile is greater than 0
         *   **effects** decrements the TrackedFile with this owner and this file by 1
-    *   getCurrentItem (owner: User, file: File): (index: Number)
-	    * **requires** this owner and this file exists in the TrackedFiles
-        *   **effects** in the TrackedFile with this owner and this file, return the currentIndex
     *   `setVisibility (owner: User, file: File, visible: Flag)`
         *   **requires** this owner and this file exists in the TrackedFiles
         *   **effects** in the TrackedFile with this owner and this file, set isVisible to this visible
+* **queries**
+	*  `_getCurrentItem (owner: User, file: File): (index: Number)`
+	    * **requires** this owner and this file exists in the TrackedFiles
+        *   **effects** in the TrackedFile with this owner and this file, return the currentIndex
+    * `_getVisibility (owner: User, file: File): (isVisible: boolean)`
+	    * **requires** this owner and this file exists in the TrackedFiles
+        *   **effects** in the TrackedFile with this owner and this file, return `isVisible`
