@@ -22,20 +22,6 @@
             }
           },
           {
-            "id": "17620d9dad9b2e55",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "design/learning/syncs.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "syncs"
-            }
-          },
-          {
             "id": "bb41ed0166b35559",
             "type": "leaf",
             "state": {
@@ -49,8 +35,7 @@
               "title": "implementing-synchronizations"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -198,43 +183,43 @@
       "bases:Create new base": false
     }
   },
-  "active": "17620d9dad9b2e55",
+  "active": "17315c8da06379c8",
   "lastOpenFiles": [
-    "context/design/learning/syncs.md/20251107_004055.b7c9e50f.md",
-    "context/design/learning/syncs.md/steps/file.ed220f21.md",
-    "context/design/learning/syncs.md/steps/response.8ec0205b.md",
-    "context/design/learning/syncs.md/20251107_004030.d4b16a1d.md",
-    "context/design/learning/syncs.md/steps/prompt.2ad289d6.md",
-    "context/design/learning/syncs.md/steps/response.097cad48.md",
-    "context/design/learning/syncs.md/steps/_.5eebda4f.md",
-    "src/concepts/concepts_with_llm.ts",
-    "context/design/learning/syncs.md/20251106_231157.12bd76b7.md",
-    "context/design/learning/syncs.md/steps/file.52cc9411.md",
-    "context/design/learning/syncs.md/steps/solution.5006148a.md",
-    "context/design/learning/syncs.md/steps/problem.cb3e4af5.md",
-    "context/design/learning/syncs.md/20251106_231117.dd46d57e.md",
-    "context/design/learning/syncs.md/steps/prompt.0bee28ae.md",
-    "context/design/learning/syncs.md/20251106_225916.2bf60377.md",
-    "context/design/learning/syncs.md/steps/response.7b8b4d74.md",
-    "context/design/learning/syncs.md/20251106_225813.9a326345.md",
-    "context/design/learning/syncs.md/steps/prompt.1a84ec34.md",
-    "context/design/learning/syncs.md/20251106_223417.44e9d1f4.md",
-    "context/design/learning/syncs.md/steps/file.87515676.md",
-    "context/design/learning/syncs.md/steps/solution.40176ff1.md",
-    "context/design/learning/syncs.md/steps/problem.569553b8.md",
-    "context/design/learning/syncs.md/20251106_223322.bbc1200e.md",
-    "context/design/learning/syncs.md/steps/prompt.9a62bd47.md",
-    "context/design/learning/syncs.md/20251106_221559.d2d19e0f.md",
-    "context/design/learning/syncs.md/steps/response.d392b6f2.md",
-    "context/design/learning/syncs.md/20251106_221514.df9467ed.md",
-    "src/syncs/dictionary.sync.ts",
+    "src/utils/gemini-llm.ts",
+    "src/syncs/library.sync.ts",
     "src/syncs/filetracker.sync.ts",
-    "context/src/syncs/auth.sync.ts",
-    "context/src/syncs",
-    "context/src/concepts/Sessioning/SessioningConcept.ts",
-    "context/src/concepts/Sessioning",
-    "context/design/concepts/Sessioning/api-extraction.md/steps",
-    "context/design/concepts/Sessioning",
-    "src/concepts/Sessioning/SessioningConcept.ts"
+    "src/syncs/auth.sync.ts",
+    "src/concepts/concepts_with_llm.ts",
+    "src/concepts/Sessioning/SessioningConcept.ts",
+    "src/concepts/Sessioning",
+    "src/concepts/PasswordAuthentication/PasswordAuthenticationConcept.ts",
+    "src/concepts/PasswordAuthentication/PasswordAuthenticationConcept.test.ts",
+    "src/concepts/PasswordAuthentication",
+    "src/concepts/Library/LibraryConcept.ts",
+    "design/testing_outputs.md",
+    "design/reflections snapshots.md",
+    "design/reflections and changes.md",
+    "design/learning/syncs.md",
+    "design/learning/recitation.md",
+    "design/learning/random.md",
+    "design/learning/library-impl.md",
+    "design/learning/filetracker.md",
+    "design/learning/dictionary-impl.md",
+    "design/learning/api extractions.md",
+    "design/concepts/Sessioning/api-extraction.md",
+    "design/concepts/Sessioning/Sessioning.md",
+    "design/concepts/PasswordAuthentication/testing.md",
+    "design/concepts/PasswordAuthentication/implementation.md",
+    "design/concepts/PasswordAuthentication/api-extraction.md",
+    "design/concepts/Library/testing.md",
+    "design/concepts/Library/implementation.md",
+    "design/concepts/Library/api-extraction.md",
+    "design/concepts/FileTracker/testing.md",
+    "design/concepts/FileTracker/implementation.md",
+    "design/concepts/FileTracker/api-extraction.md",
+    "design/concepts/Dictionary/testing.md",
+    "design/concepts/Dictionary/implementation.md",
+    "design/concepts/Dictionary/api-extraction.md",
+    "context/src/utils/gemini-llm.ts/20251015_213900.04fff91c.md"
   ]
 }
