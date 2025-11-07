@@ -80,6 +80,10 @@ function generateBarrelFileContent(
 // Do not edit it manually, unless you know your concept requires a custom instantiation procedure.
 
 import { SyncConcept } from "@engine";
+import { GeminiLLM } from "@utils/gemini-llm.ts";
+export const llm = new GeminiLLM({
+  apiKey: Deno.env.get("GEMINI_API_KEY") ?? "",
+});
 
 export const Engine = new SyncConcept();\n`;
 
@@ -103,9 +107,10 @@ export const [db, client] = await ${dbImportFunc}();
 `;
 
   const instantiations = concepts
-    .map((c) =>
-      `export const ${c.name} = Engine.instrumentConcept(new ${c.name}Concept(db));`
-    )
+    .map((c) => {
+      const extraArg = c.name === "FileTracker" ? ", llm" : "";
+      return `export const ${c.name} = Engine.instrumentConcept(new ${c.name}Concept(db${extraArg}));`;
+    })
     .join("\n");
 
   return [
