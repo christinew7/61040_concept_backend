@@ -139,16 +139,23 @@ export const SetVisibilityRequest: Sync = (
 ) => ({
   when: actions([
     Requesting.request,
-    { path: "/FileTracker/setVisibility", session, file, isVisible },
+    { path: "/FileTracker/setVisibility", session, user, file, isVisible },
     { request },
   ]),
   where: async (frames) => {
-    const framesWithUser = await frames.query(
-      Sessioning._getUser,
-      { session },
-      { user },
-    );
-    return framesWithUser.filter(($) => $[user] != null);
+    const originalFrame = frames[0];
+
+    // Get the actual user ID from the session
+    const sessionFrames = await frames.query(Sessioning._getUser, { session }, {
+      user,
+    });
+    if (sessionFrames.length === 0) {
+      return new Frames({
+        ...originalFrame,
+        error: "Invalid session",
+      });
+    }
+    return sessionFrames;
   },
   then: actions([
     FileTracker.jumpTo,
