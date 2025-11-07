@@ -27,6 +27,9 @@
 export const inclusions: Record<string, string> = {
   "/api/Dictionary/translateTermFromL1": "public dictionary lookup",
   "/api/Dictionary/translateTermFromL2": "public dictionary lookup",
+  "/api/llm/executeLLM": "add llm",
+  // "/api/Dictionary/addTerm": "don't need to be logged in to add to dictionary",
+  // "/api/Dictionary/deleteTerm": "don't need to be logged in to delete from dictionary",
 };
 
 /**
@@ -40,8 +43,6 @@ export const inclusions: Record<string, string> = {
  */
 
 export const exclusions: Array<string> = [
-  "/api/Dictionary/addTerm",
-  "/api/Dictionary/deleteTerm",
   "/api/FileTracker/startTracking",
   "/api/FileTracker/deleteTracking",
   "/api/FileTracker/jumpTo",
@@ -68,4 +69,9 @@ export const exclusions: Array<string> = [
   "/api/PasswordAuthentication/authenticate",
   "/api/PasswordAuthentication/_getUserByUsername",
   "/api/PasswordAuthentication/_getUsername",
+  "/api/Sessioning/create",
+  "/api/Sessioning/delete",
+  "/api/Sessioning/_getUser",
+  "/api/Dictionary/addTerm",
+  "/api/Dictionary/deleteTerm",
 ];

@@ -8,91 +8,49 @@
         "type": "tabs",
         "children": [
           {
-            "id": "1a37cc4f0ef88fa9",
+            "id": "17315c8da06379c8",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "design/learning/library-impl.md",
+                "file": "src/concepts/Requesting/README.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "library-impl"
+              "title": "README"
             }
           },
           {
-            "id": "4a4f5091aa27c190",
+            "id": "17620d9dad9b2e55",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "context/design/concepts/FileTracker/FileTracker.md/20251016_185737.579fe2d8.md",
+                "file": "design/learning/syncs.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "20251016_185737.579fe2d8"
+              "title": "syncs"
             }
           },
           {
-            "id": "a233f076c622bc5b",
+            "id": "bb41ed0166b35559",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "context/src/concepts/FileTracker/FileTrackerConcept.ts/20251016_184833.a3017ab3.md",
+                "file": "design/background/implementing-synchronizations.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "20251016_184833.a3017ab3"
-            }
-          },
-          {
-            "id": "6f4698dc9753318d",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "context/src/concepts/FileTracker/FileTrackerConcept.test.ts/20251016_155251.2041f5d9.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "20251016_155251.2041f5d9"
-            }
-          },
-          {
-            "id": "2c2f5acf2fc2dd0a",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "context/design/concepts/Dictionary/testing.md/steps/response.28de59cf.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "response.28de59cf"
-            }
-          },
-          {
-            "id": "72812d744852a457",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "design/concepts/Library/api-extraction.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "api-extraction"
+              "title": "implementing-synchronizations"
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -240,43 +198,43 @@
       "bases:Create new base": false
     }
   },
-  "active": "72812d744852a457",
+  "active": "17620d9dad9b2e55",
   "lastOpenFiles": [
-    "src/syncs/syncs.ts",
-    "src/concepts/test_concepts.ts",
-    "src/concepts/concepts.ts",
-    "src/utils/init.ts",
-    "src/utils/generate_imports.ts",
-    "src/syncs/sample.sync.ts",
-    "src/syncs",
-    "src/main.ts",
-    "src/engine/test/syncs.ts",
-    "src/engine/test/run.ts",
-    "src/engine/test/mocks.ts",
-    "src/concepts/Requesting/README.md",
-    "design/tools/sync-background.md",
-    "design/tools/concept-background.md",
-    "design/background/implementing-synchronizations.md",
-    "design/background/architecture.md",
-    "context/deno.json/20251028_005306.c2732493.md",
-    "context/design/concepts/Library/api-extraction.md/20251030_201234.50b9b542.md",
-    "context/design/concepts/Library/api-extraction.md/steps/API Specification.9eec5349.md",
-    "context/design/concepts/Library/api-extraction.md/steps/file.2007ea03.md",
-    "design/concepts/FileTracker/api-extraction.md",
-    "design/concepts/Library/testing.md",
-    "context/design/concepts/Library/testing.md/20251030_200025.70dd79cd.md",
-    "context/design/concepts/Library/testing.md/steps/response.0bb1ce8c.md",
-    "context/design/concepts/Library/testing.md/20251030_195929.8146d928.md",
-    "context/design/concepts/Library/testing.md/steps/prompt.982e3d0c.md",
-    "context/design/concepts/Library/testing.md/steps/_.1bf7fdfc.md",
-    "context/design/concepts/Library/testing.md/steps/file.88bd3e70.md",
-    "context/design/concepts/Library/testing.md/steps/_.5da05fda.md",
-    "context/design/concepts/Library/testing.md/steps/_.ee4d1e5e.md",
-    "context/design/concepts/Library/testing.md/steps/_.534e93ad.md",
-    "context/design/concepts/Library/testing.md/steps/_.3a59af90.md",
-    "context/design/concepts/Library/testing.md/steps/_.fa3ad648.md",
-    "context/design/concepts/Library/testing.md/steps/file.7cd15dd2.md",
-    "context/design/concepts/Library/testing.md/steps/file.2007ea03.md",
-    "context/design/concepts/Library/testing.md/steps/_.62ed2634.md"
+    "context/design/learning/syncs.md/20251107_004055.b7c9e50f.md",
+    "context/design/learning/syncs.md/steps/file.ed220f21.md",
+    "context/design/learning/syncs.md/steps/response.8ec0205b.md",
+    "context/design/learning/syncs.md/20251107_004030.d4b16a1d.md",
+    "context/design/learning/syncs.md/steps/prompt.2ad289d6.md",
+    "context/design/learning/syncs.md/steps/response.097cad48.md",
+    "context/design/learning/syncs.md/steps/_.5eebda4f.md",
+    "src/concepts/concepts_with_llm.ts",
+    "context/design/learning/syncs.md/20251106_231157.12bd76b7.md",
+    "context/design/learning/syncs.md/steps/file.52cc9411.md",
+    "context/design/learning/syncs.md/steps/solution.5006148a.md",
+    "context/design/learning/syncs.md/steps/problem.cb3e4af5.md",
+    "context/design/learning/syncs.md/20251106_231117.dd46d57e.md",
+    "context/design/learning/syncs.md/steps/prompt.0bee28ae.md",
+    "context/design/learning/syncs.md/20251106_225916.2bf60377.md",
+    "context/design/learning/syncs.md/steps/response.7b8b4d74.md",
+    "context/design/learning/syncs.md/20251106_225813.9a326345.md",
+    "context/design/learning/syncs.md/steps/prompt.1a84ec34.md",
+    "context/design/learning/syncs.md/20251106_223417.44e9d1f4.md",
+    "context/design/learning/syncs.md/steps/file.87515676.md",
+    "context/design/learning/syncs.md/steps/solution.40176ff1.md",
+    "context/design/learning/syncs.md/steps/problem.569553b8.md",
+    "context/design/learning/syncs.md/20251106_223322.bbc1200e.md",
+    "context/design/learning/syncs.md/steps/prompt.9a62bd47.md",
+    "context/design/learning/syncs.md/20251106_221559.d2d19e0f.md",
+    "context/design/learning/syncs.md/steps/response.d392b6f2.md",
+    "context/design/learning/syncs.md/20251106_221514.df9467ed.md",
+    "src/syncs/dictionary.sync.ts",
+    "src/syncs/filetracker.sync.ts",
+    "context/src/syncs/auth.sync.ts",
+    "context/src/syncs",
+    "context/src/concepts/Sessioning/SessioningConcept.ts",
+    "context/src/concepts/Sessioning",
+    "context/design/concepts/Sessioning/api-extraction.md/steps",
+    "context/design/concepts/Sessioning",
+    "src/concepts/Sessioning/SessioningConcept.ts"
   ]
 }

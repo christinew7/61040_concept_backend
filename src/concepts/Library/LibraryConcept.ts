@@ -318,10 +318,10 @@ export default class LibraryConcept {
    */
   async _getAllFiles(
     { owner }: { owner: User },
-  ): Promise<{ files: FileDoc[] } | { error: string }> {
+  ): Promise<{ files?: FileDoc[] }> {
     const ownerLibrary = await this.libraries.findOne({ owner });
     if (!ownerLibrary) {
-      return { error: `User ${owner} does not have a library.` };
+      return {};
     }
 
     const allFiles = await this.files.find({ library: ownerLibrary._id })
@@ -336,10 +336,10 @@ export default class LibraryConcept {
    */
   async _getFileString(
     { owner, file }: { owner: User; file: File },
-  ): Promise<{ fileString: string } | { error: string }> {
+  ): Promise<{ fileString?: string }> {
     const ownerLibrary = await this.libraries.findOne({ owner });
     if (!ownerLibrary) {
-      return { error: `User ${owner} does not have a library.` };
+      return {};
     }
 
     const fileInDoc = await this.files.findOne({
@@ -347,7 +347,7 @@ export default class LibraryConcept {
       _id: file,
     });
     if (!fileInDoc) {
-      return { error: `File ${file} not found in the user ${owner}'s library` };
+      return {};
     }
     const items = fileInDoc.items;
     return { fileString: JSON.stringify(items) };
